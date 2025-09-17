@@ -15,11 +15,17 @@ namespace wf
         public Form1()
         {
             InitializeComponent();
+            label2.Text = "Last Name";
+            label3.Text = "Full Name";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Hello {textBox1.Text} {textBox2.Text}");
+            //MessageBox.Show($"Hello {textBox1.Text} {textBox2.Text}");
+            //textBox3.Text = $"Hello {textBox1.Text} {textBox2.Text}";
+            //progressBar1.Value += 10;
+            Form2 frm = new Form2();
+            frm.Show();
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
@@ -36,5 +42,10 @@ namespace wf
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-}
+} 

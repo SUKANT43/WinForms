@@ -34,13 +34,14 @@ namespace FormApplication
 
         private void button1_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "";
-            textBox2.Text = "";
-            richTextBox1.Text = "";
+           
             MessageBox.Show($"Your feedback submitted successfully\n" +
                 $"Name: {textBox1.Text}\n"+
                 $"Designation: {textBox2.Text}\n"+
                 $"Feedback: {richTextBox1.Text}");
+            textBox1.Text = "";
+            textBox2.Text = "";
+            richTextBox1.Text = "";
         }
     }
 }
