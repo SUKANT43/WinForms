@@ -1,16 +1,11 @@
-﻿namespace FormApplication
+﻿using System.Drawing;
+
+namespace FormApplication
 {
     partial class Form1
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,125 +17,210 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.RootPanel = new System.Windows.Forms.Panel();
+            this.FormOrganizePanel = new System.Windows.Forms.Panel();
+            this.InputFiledPanel = new System.Windows.Forms.Panel();
+            this.NameInputPanel = new System.Windows.Forms.Panel();
+            this.NameLable = new System.Windows.Forms.Label();
+            this.NameInputBox = new System.Windows.Forms.TextBox();
+            this.DesignationInputPanel = new System.Windows.Forms.Panel();
+            this.DesignationLable = new System.Windows.Forms.Label();
+            this.DesignationTextInput = new System.Windows.Forms.TextBox();
+            this.FeedbackInputPanel = new System.Windows.Forms.Panel();
+            this.FeedbackLable = new System.Windows.Forms.Label();
+            this.FeedbackTextInput = new System.Windows.Forms.RichTextBox();
+            this.SubmitButtonPanel = new System.Windows.Forms.Panel();
+            this.SubmitButton = new System.Windows.Forms.Button();
+            this.FeedBackPanel = new System.Windows.Forms.Panel();
+            this.RootPanel.SuspendLayout();
+            this.FormOrganizePanel.SuspendLayout();
+            this.InputFiledPanel.SuspendLayout();
+            this.NameInputPanel.SuspendLayout();
+            this.DesignationInputPanel.SuspendLayout();
+            this.FeedbackInputPanel.SuspendLayout();
+            this.SubmitButtonPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // RootPanel
             // 
-            this.textBox1.Location = new System.Drawing.Point(98, 18);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.RootPanel.AutoSize = true;
+            this.RootPanel.BackColor = System.Drawing.Color.AliceBlue;
+            this.RootPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RootPanel.Controls.Add(this.FormOrganizePanel);
+            this.RootPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RootPanel.Location = new System.Drawing.Point(0, 0);
+            this.RootPanel.Name = "RootPanel";
+            this.RootPanel.Size = new System.Drawing.Size(760, 765);
+            this.RootPanel.TabIndex = 0;
             // 
-            // label1
+            // FormOrganizePanel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Name:";
+            this.FormOrganizePanel.BackColor = System.Drawing.Color.Black;
+            this.FormOrganizePanel.Controls.Add(this.InputFiledPanel);
+            this.FormOrganizePanel.Controls.Add(this.SubmitButtonPanel);
+            this.FormOrganizePanel.Location = new System.Drawing.Point(112, 35);
+            this.FormOrganizePanel.Name = "FormOrganizePanel";
+            this.FormOrganizePanel.Size = new System.Drawing.Size(477, 512);
+            this.FormOrganizePanel.TabIndex = 1;
             // 
-            // label2
+            // InputFiledPanel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Designation:";
+            this.InputFiledPanel.AutoSize = true;
+            this.InputFiledPanel.BackColor = System.Drawing.Color.White;
+            this.InputFiledPanel.Controls.Add(this.NameInputPanel);
+            this.InputFiledPanel.Controls.Add(this.DesignationInputPanel);
+            this.InputFiledPanel.Controls.Add(this.FeedbackInputPanel);
+            this.InputFiledPanel.Location = new System.Drawing.Point(150, 117);
+            this.InputFiledPanel.Name = "InputFiledPanel";
+            this.InputFiledPanel.Size = new System.Drawing.Size(224, 309);
+            this.InputFiledPanel.TabIndex = 0;
             // 
-            // textBox2
+            // NameInputPanel
             // 
-            this.textBox2.Location = new System.Drawing.Point(98, 58);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(132, 20);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.NameInputPanel.BackColor = System.Drawing.Color.Orange;
+            this.NameInputPanel.Controls.Add(this.NameLable);
+            this.NameInputPanel.Controls.Add(this.NameInputBox);
+            this.NameInputPanel.Location = new System.Drawing.Point(0, 51);
+            this.NameInputPanel.Name = "NameInputPanel";
+            this.NameInputPanel.Size = new System.Drawing.Size(218, 49);
+            this.NameInputPanel.TabIndex = 0;
             // 
-            // label3
+            // NameLable
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 106);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Feedback:";
+            this.NameLable.Location = new System.Drawing.Point(3, 14);
+            this.NameLable.Name = "NameLable";
+            this.NameLable.Size = new System.Drawing.Size(43, 20);
+            this.NameLable.TabIndex = 0;
+            this.NameLable.Text = "Name:";
             // 
-            // richTextBox1
+            // NameInputBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(98, 106);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(132, 96);
-            this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.NameInputBox.BackColor = System.Drawing.Color.White;
+            this.NameInputBox.Location = new System.Drawing.Point(115, 11);
+            this.NameInputBox.Name = "NameInputBox";
+            this.NameInputBox.Size = new System.Drawing.Size(100, 20);
+            this.NameInputBox.TabIndex = 0;
+            this.NameInputBox.TextChanged += new System.EventHandler(this.NameInputBox_TextChanged);
             // 
-            // button1
+            // DesignationInputPanel
             // 
-            this.button1.Location = new System.Drawing.Point(120, 231);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Submit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.DesignationInputPanel.BackColor = System.Drawing.Color.Green;
+            this.DesignationInputPanel.Controls.Add(this.DesignationLable);
+            this.DesignationInputPanel.Controls.Add(this.DesignationTextInput);
+            this.DesignationInputPanel.Location = new System.Drawing.Point(3, 106);
+            this.DesignationInputPanel.Name = "DesignationInputPanel";
+            this.DesignationInputPanel.Size = new System.Drawing.Size(218, 49);
+            this.DesignationInputPanel.TabIndex = 1;
             // 
-            // panel1
+            // DesignationLable
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.richTextBox1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(273, 80);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(309, 280);
-            this.panel1.TabIndex = 7;
+            this.DesignationLable.ForeColor = System.Drawing.Color.Black;
+            this.DesignationLable.Location = new System.Drawing.Point(0, 17);
+            this.DesignationLable.Name = "DesignationLable";
+            this.DesignationLable.Size = new System.Drawing.Size(97, 23);
+            this.DesignationLable.TabIndex = 0;
+            this.DesignationLable.Text = "DesignationLable:";
+            // 
+            // DesignationTextInput
+            // 
+            this.DesignationTextInput.Location = new System.Drawing.Point(112, 14);
+            this.DesignationTextInput.Name = "DesignationTextInput";
+            this.DesignationTextInput.Size = new System.Drawing.Size(100, 20);
+            this.DesignationTextInput.TabIndex = 0;
+            this.DesignationTextInput.TextChanged += new System.EventHandler(this.DesignationTextInput_TextChanged);
+            // 
+            // FeedbackInputPanel
+            // 
+            this.FeedbackInputPanel.BackColor = System.Drawing.Color.Red;
+            this.FeedbackInputPanel.Controls.Add(this.FeedbackLable);
+            this.FeedbackInputPanel.Controls.Add(this.FeedbackTextInput);
+            this.FeedbackInputPanel.Location = new System.Drawing.Point(3, 161);
+            this.FeedbackInputPanel.Name = "FeedbackInputPanel";
+            this.FeedbackInputPanel.Size = new System.Drawing.Size(218, 103);
+            this.FeedbackInputPanel.TabIndex = 2;
+            // 
+            // FeedbackLable
+            // 
+            this.FeedbackLable.Location = new System.Drawing.Point(-3, 37);
+            this.FeedbackLable.Name = "FeedbackLable";
+            this.FeedbackLable.Size = new System.Drawing.Size(100, 23);
+            this.FeedbackLable.TabIndex = 0;
+            this.FeedbackLable.Text = "Feedback:";
+            // 
+            // FeedbackTextInput
+            // 
+            this.FeedbackTextInput.Location = new System.Drawing.Point(112, 3);
+            this.FeedbackTextInput.Name = "FeedbackTextInput";
+            this.FeedbackTextInput.Size = new System.Drawing.Size(100, 96);
+            this.FeedbackTextInput.TabIndex = 1;
+            this.FeedbackTextInput.Text = "";
+            this.FeedbackTextInput.TextChanged += new System.EventHandler(this.FeedbackTextInput_TextChanged);
+            // 
+            // SubmitButtonPanel
+            // 
+            this.SubmitButtonPanel.Controls.Add(this.SubmitButton);
+            this.SubmitButtonPanel.Location = new System.Drawing.Point(236, 432);
+            this.SubmitButtonPanel.Name = "SubmitButtonPanel";
+            this.SubmitButtonPanel.Size = new System.Drawing.Size(80, 28);
+            this.SubmitButtonPanel.TabIndex = 1;
+            // 
+            // SubmitButton
+            // 
+            this.SubmitButton.BackColor = System.Drawing.Color.White;
+            this.SubmitButton.Location = new System.Drawing.Point(3, 3);
+            this.SubmitButton.Name = "SubmitButton";
+            this.SubmitButton.Size = new System.Drawing.Size(75, 23);
+            this.SubmitButton.TabIndex = 0;
+            this.SubmitButton.Text = "Submit";
+            this.SubmitButton.UseVisualStyleBackColor = false;
+            this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
+            // 
+            // FeedBackPanel
+            // 
+            this.FeedBackPanel.Location = new System.Drawing.Point(0, 0);
+            this.FeedBackPanel.Name = "FeedBackPanel";
+            this.FeedBackPanel.Size = new System.Drawing.Size(200, 100);
+            this.FeedBackPanel.TabIndex = 0;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(760, 765);
+            this.Controls.Add(this.RootPanel);
             this.Name = "Form1";
-            this.Text = "Form1";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.RootPanel.ResumeLayout(false);
+            this.FormOrganizePanel.ResumeLayout(false);
+            this.FormOrganizePanel.PerformLayout();
+            this.InputFiledPanel.ResumeLayout(false);
+            this.NameInputPanel.ResumeLayout(false);
+            this.NameInputPanel.PerformLayout();
+            this.DesignationInputPanel.ResumeLayout(false);
+            this.DesignationInputPanel.PerformLayout();
+            this.FeedbackInputPanel.ResumeLayout(false);
+            this.SubmitButtonPanel.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel FormOrganizePanel;
+        private System.Windows.Forms.Panel RootPanel;
+        private System.Windows.Forms.Panel FeedBackPanel;
+        private System.Windows.Forms.Panel InputFiledPanel;
+        private System.Windows.Forms.Panel NameInputPanel;
+        private System.Windows.Forms.Panel DesignationInputPanel;
+        private System.Windows.Forms.Panel FeedbackInputPanel;
+        private System.Windows.Forms.Label NameLable;
+        private System.Windows.Forms.TextBox NameInputBox;
+        private System.Windows.Forms.Label DesignationLable;
+        private System.Windows.Forms.TextBox DesignationTextInput;
+        private System.Windows.Forms.Label FeedbackLable;
+        private System.Windows.Forms.RichTextBox FeedbackTextInput;
+        private System.Windows.Forms.Panel SubmitButtonPanel;
+        private System.Windows.Forms.Button SubmitButton;
+       
     }
 }
-
