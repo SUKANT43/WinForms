@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace NetworkManagement
 {
-    public partial class Form1 : Form
+    public partial class NetworkForm : Form
     {
-        public Form1()
+        public NetworkForm()
         {
             InitializeComponent();
         }
