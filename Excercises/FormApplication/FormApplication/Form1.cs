@@ -39,10 +39,25 @@ namespace FormApplication
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
+            if (NameInputBox.Text == "" || DesignationTextInput.Text == "" || FeedbackTextInput.Text == "")
+            {
+                MessageBox.Show("Fill all the fields.");
+                return;
+            }
             MessageBox.Show($"Your feedback submited successfully:\n Name: {NameInputBox.Text} \n Designation: {DesignationTextInput.Text} \n Feedback: {FeedbackTextInput.Text}");
             NameInputBox.Text = "";
             DesignationTextInput.Text = "";
             FeedbackTextInput.Text = "";
+        }
+
+        private void TitleLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RootPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
