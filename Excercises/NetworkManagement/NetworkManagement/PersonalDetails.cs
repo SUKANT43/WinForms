@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace NetworkManagement
 {
-    public partial class NetworkForm: Form
+    public partial class PersonalDetails : UserControl
     {
-        public NetworkForm()
+        public PersonalDetails()
         {
             InitializeComponent();
         }
+
+     
     }
 }

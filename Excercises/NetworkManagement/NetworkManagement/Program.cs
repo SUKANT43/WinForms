@@ -16,7 +16,7 @@ namespace NetworkManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NetworkForm());
+            Application.Run(new PersonalDetails());
         }
     }
 }
