@@ -43,8 +43,6 @@
             this.PlanDurationLabel = new System.Windows.Forms.Label();
             this.OldAddressLabel = new System.Windows.Forms.Label();
             this.OldAddressRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.OldConnectionIdLabel = new System.Windows.Forms.Label();
-            this.OldConnectionIdTextBox = new System.Windows.Forms.TextBox();
             this.ServiceRequirementFormPanel.SuspendLayout();
             this.SimTypeGroupBox.SuspendLayout();
             this.ConnectionTypeGroupBox.SuspendLayout();
@@ -136,9 +134,7 @@
             this.IsNew.Controls.Add(this.NewAddressRichTextBox);
             this.IsNew.Controls.Add(this.PlanComboBox);
             this.IsNew.Controls.Add(this.PlanDurationLabel);
-            this.IsNew.Controls.Add(this.OldConnectionIdTextBox);
             this.IsNew.Controls.Add(this.OldAddressLabel);
-            this.IsNew.Controls.Add(this.OldConnectionIdLabel);
             this.IsNew.Controls.Add(this.OldAddressRichTextBox);
             this.IsNew.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.IsNew.Location = new System.Drawing.Point(23, 244);
@@ -197,21 +193,6 @@
             this.OldAddressRichTextBox.TabIndex = 5;
             this.OldAddressRichTextBox.Text = "";
             // 
-            // OldConnectionIdLabel
-            // 
-            this.OldConnectionIdLabel.Location = new System.Drawing.Point(3, 289);
-            this.OldConnectionIdLabel.Name = "OldConnectionIdLabel";
-            this.OldConnectionIdLabel.Size = new System.Drawing.Size(113, 23);
-            this.OldConnectionIdLabel.TabIndex = 2;
-            this.OldConnectionIdLabel.Text = "Old Connection Id:";
-            // 
-            // OldConnectionIdTextBox
-            // 
-            this.OldConnectionIdTextBox.Location = new System.Drawing.Point(115, 286);
-            this.OldConnectionIdTextBox.Name = "OldConnectionIdTextBox";
-            this.OldConnectionIdTextBox.Size = new System.Drawing.Size(121, 23);
-            this.OldConnectionIdTextBox.TabIndex = 3;
-            // 
             // ServiceRequirementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,10 +224,7 @@
         private System.Windows.Forms.RichTextBox NewAddressRichTextBox;
         private System.Windows.Forms.Label PlanDurationLabel;
         private System.Windows.Forms.ComboBox PlanComboBox;
-        private System.Windows.Forms.Label OldConnectionIdLabel;
-        private System.Windows.Forms.TextBox OldConnectionIdTextBox;
         private System.Windows.Forms.Label OldAddressLabel;
         private System.Windows.Forms.RichTextBox OldAddressRichTextBox;
-
     }
 }

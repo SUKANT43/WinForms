@@ -71,10 +71,11 @@
             this.PersonalDetailsPanel.Controls.Add(this.EmailTextBox);
             this.PersonalDetailsPanel.Controls.Add(this.ResidentGroupBox);
             this.PersonalDetailsPanel.Controls.Add(this.PersonalDetailsText);
-            this.PersonalDetailsPanel.Location = new System.Drawing.Point(34, 26);
-            this.PersonalDetailsPanel.Name = "PersonalDetailsPanel";
-            this.PersonalDetailsPanel.TabIndex = 1;
             this.PersonalDetailsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PersonalDetailsPanel.Location = new System.Drawing.Point(0, 0);
+            this.PersonalDetailsPanel.Name = "PersonalDetailsPanel";
+            this.PersonalDetailsPanel.Size = new System.Drawing.Size(800, 513);
+            this.PersonalDetailsPanel.TabIndex = 1;
             // 
             // NameLabel
             // 
@@ -89,7 +90,7 @@
             // 
             this.NameTextBox.Location = new System.Drawing.Point(179, 59);
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(160, 25);
+            this.NameTextBox.Size = new System.Drawing.Size(160, 20);
             this.NameTextBox.TabIndex = 1;
             // 
             // MobileNumberLabel
@@ -105,7 +106,7 @@
             // 
             this.MobileNumberTextBox.Location = new System.Drawing.Point(179, 95);
             this.MobileNumberTextBox.Name = "MobileNumberTextBox";
-            this.MobileNumberTextBox.Size = new System.Drawing.Size(160, 25);
+            this.MobileNumberTextBox.Size = new System.Drawing.Size(160, 20);
             this.MobileNumberTextBox.TabIndex = 3;
             // 
             // EmailLabel
@@ -121,7 +122,7 @@
             // 
             this.EmailTextBox.Location = new System.Drawing.Point(179, 129);
             this.EmailTextBox.Name = "EmailTextBox";
-            this.EmailTextBox.Size = new System.Drawing.Size(160, 25);
+            this.EmailTextBox.Size = new System.Drawing.Size(160, 20);
             this.EmailTextBox.TabIndex = 5;
             // 
             // ResidentGroupBox
@@ -166,13 +167,12 @@
             // 
             // PersonalDetailsText
             // 
+            this.PersonalDetailsText.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.PersonalDetailsText.Location = new System.Drawing.Point(193, 20);
             this.PersonalDetailsText.Name = "PersonalDetailsText";
             this.PersonalDetailsText.Size = new System.Drawing.Size(121, 23);
             this.PersonalDetailsText.TabIndex = 7;
             this.PersonalDetailsText.Text = "Personal Details";
-            this.PersonalDetailsText.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-
             // 
             // IsOtherPanel
             // 
@@ -198,7 +198,7 @@
             // 
             this.VisaNumberTextBox.Location = new System.Drawing.Point(140, 18);
             this.VisaNumberTextBox.Name = "VisaNumberTextBox";
-            this.VisaNumberTextBox.Size = new System.Drawing.Size(160, 25);
+            this.VisaNumberTextBox.Size = new System.Drawing.Size(160, 20);
             this.VisaNumberTextBox.TabIndex = 0;
             // 
             // NationalityLabel
@@ -212,20 +212,17 @@
             // 
             // NationalityComboBox
             // 
+            this.NationalityComboBox.Items.AddRange(new object[] {
+            "Indian",
+            "American",
+            "British",
+            "Canadian",
+            "Australian",
+            "Other"});
             this.NationalityComboBox.Location = new System.Drawing.Point(140, 60);
             this.NationalityComboBox.Name = "NationalityComboBox";
-            this.NationalityComboBox.Size = new System.Drawing.Size(160, 25);
+            this.NationalityComboBox.Size = new System.Drawing.Size(160, 21);
             this.NationalityComboBox.TabIndex = 0;
-            this.NationalityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            this.NationalityComboBox.Items.AddRange(new object[] {
-                    "Indian",
-                    "American",
-                    "British",
-                    "Canadian",
-                    "Australian",
-                    "Other"
-            });
-            this.NationalityComboBox.SelectedItem = "Indian";
             // 
             // IsNriPanel
             // 
@@ -304,6 +301,7 @@
             this.Controls.Add(this.PersonalDetailsPanel);
             this.Name = "PersonalDetails";
             this.Size = new System.Drawing.Size(800, 513);
+            this.Load += new System.EventHandler(this.PersonalDetails_Load);
             this.PersonalDetailsPanel.ResumeLayout(false);
             this.PersonalDetailsPanel.PerformLayout();
             this.ResidentGroupBox.ResumeLayout(false);

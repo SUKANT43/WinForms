@@ -55,5 +55,10 @@ namespace NetworkManagement
                 IsOtherPanel.Visible = false;
             }
         }
+
+        private void PersonalDetails_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

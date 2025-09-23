@@ -25,8 +25,6 @@ namespace NetworkManagement
                 IsNew.Visible = true;
                 OldAddressLabel.Visible = false;
                 OldAddressRichTextBox.Visible = false;
-                OldConnectionIdLabel.Visible = false;
-                OldConnectionIdTextBox.Visible = false;
             }
             else
             {
@@ -42,9 +40,6 @@ namespace NetworkManagement
                 IsNew.Visible = true;
                 OldAddressLabel.Visible = true;
                 OldAddressRichTextBox.Visible = true;
-                OldConnectionIdLabel.Visible = true;
-                OldConnectionIdTextBox.Visible = true;
-
             }
             else
             {

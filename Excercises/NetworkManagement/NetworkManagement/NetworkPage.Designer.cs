@@ -32,6 +32,7 @@
             this.NetworkPageTitleLabel = new System.Windows.Forms.Label();
             this.pd = new NetworkManagement.PersonalDetails();
             this.sr = new NetworkManagement.ServiceRequirementForm();
+            this.pf = new NetworkManagement.PaymentForm();
             this.NetworkPagePanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,10 +42,11 @@
             this.NetworkPagePanel.Controls.Add(this.NetworkPageTitleLabel);
             this.NetworkPagePanel.Controls.Add(this.pd);
             this.NetworkPagePanel.Controls.Add(this.sr);
+            this.NetworkPagePanel.Controls.Add(this.pf);
             this.NetworkPagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NetworkPagePanel.Location = new System.Drawing.Point(0, 0);
             this.NetworkPagePanel.Name = "NetworkPagePanel";
-            this.NetworkPagePanel.Size = new System.Drawing.Size(800, 450);
+            this.NetworkPagePanel.Size = new System.Drawing.Size(918, 828);
             this.NetworkPagePanel.TabIndex = 0;
             // 
             // NetworkPageTitleLabel
@@ -61,7 +63,7 @@
             // 
             this.pd.Location = new System.Drawing.Point(3, 50);
             this.pd.Name = "pd";
-            this.pd.Size = new System.Drawing.Size(470, 388);
+            this.pd.Size = new System.Drawing.Size(470, 387);
             this.pd.TabIndex = 2;
             // 
             // sr
@@ -71,9 +73,16 @@
             this.sr.Size = new System.Drawing.Size(531, 735);
             this.sr.TabIndex = 3;
             // 
+            // pf
+            // 
+            this.pf.Location = new System.Drawing.Point(31, 415);
+            this.pf.Name = "pf";
+            this.pf.Size = new System.Drawing.Size(800, 478);
+            this.pf.TabIndex = 4;
+            // 
             // NetworkPage
             // 
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(918, 828);
             this.Controls.Add(this.NetworkPagePanel);
             this.Name = "NetworkPage";
             this.Text = "NetworkPage";
@@ -87,5 +96,6 @@
         private System.Windows.Forms.Label NetworkPageTitleLabel;
         private PersonalDetails pd;
         private ServiceRequirementForm sr;
+        private PaymentForm pf;
     }
 }

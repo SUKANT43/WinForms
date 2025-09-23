@@ -57,6 +57,12 @@
     <Compile Include="NetworkPage.Designer.cs">
       <DependentUpon>NetworkPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="PaymentForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PaymentForm.Designer.cs">
+      <DependentUpon>PaymentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PersonalDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NetworkPage.resx">
       <DependentUpon>NetworkPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaymentForm.resx">
+      <DependentUpon>PaymentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PersonalDetails.resx">
       <DependentUpon>PersonalDetails.cs</DependentUpon>
