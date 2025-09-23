@@ -48,11 +48,11 @@ namespace NetworkManagement
             if (OtherRadioButton.Checked)
             {
                 PersonalDetailsPanel.Controls.Add(this.IsOtherPanel);
-                PersonalDetailsPanel.Visible = true;
+                IsOtherPanel.Visible = true;
             }
             else
             {
-                PersonalDetailsPanel.Visible = false;
+                IsOtherPanel.Visible = false;
             }
         }
     }

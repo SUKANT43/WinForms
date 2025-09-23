@@ -25,7 +25,7 @@ namespace NetworkManagement
                 return;
             }
             MessageBox.Show("Login Successfull!");
-            PersonalDetails nf = new PersonalDetails();
+            NetworkPage nf = new NetworkPage();
             this.Hide();
             nf.Show();
         }

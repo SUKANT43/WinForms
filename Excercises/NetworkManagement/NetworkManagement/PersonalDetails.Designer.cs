@@ -44,7 +44,7 @@
             this.VisaNumberLabel = new System.Windows.Forms.Label();
             this.VisaNumberTextBox = new System.Windows.Forms.TextBox();
             this.NationalityLabel = new System.Windows.Forms.Label();
-            this.NationalityTextBox = new System.Windows.Forms.TextBox();
+            this.NationalityComboBox = new System.Windows.Forms.ComboBox();
             this.IsNriPanel = new System.Windows.Forms.Panel();
             this.PassPortNumberLabel = new System.Windows.Forms.Label();
             this.LocalStayAddressRichTextBox = new System.Windows.Forms.RichTextBox();
@@ -71,12 +71,10 @@
             this.PersonalDetailsPanel.Controls.Add(this.EmailTextBox);
             this.PersonalDetailsPanel.Controls.Add(this.ResidentGroupBox);
             this.PersonalDetailsPanel.Controls.Add(this.PersonalDetailsText);
-            this.PersonalDetailsPanel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.PersonalDetailsPanel.Location = new System.Drawing.Point(34, 26);
             this.PersonalDetailsPanel.Name = "PersonalDetailsPanel";
-            this.PersonalDetailsPanel.Size = new System.Drawing.Size(441, 407);
             this.PersonalDetailsPanel.TabIndex = 1;
-            this.PersonalDetailsPanel.Text = "Personal Details";
+            this.PersonalDetailsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // NameLabel
             // 
@@ -173,13 +171,15 @@
             this.PersonalDetailsText.Size = new System.Drawing.Size(121, 23);
             this.PersonalDetailsText.TabIndex = 7;
             this.PersonalDetailsText.Text = "Personal Details";
+            this.PersonalDetailsText.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+
             // 
             // IsOtherPanel
             // 
             this.IsOtherPanel.Controls.Add(this.VisaNumberLabel);
             this.IsOtherPanel.Controls.Add(this.VisaNumberTextBox);
             this.IsOtherPanel.Controls.Add(this.NationalityLabel);
-            this.IsOtherPanel.Controls.Add(this.NationalityTextBox);
+            this.IsOtherPanel.Controls.Add(this.NationalityComboBox);
             this.IsOtherPanel.Location = new System.Drawing.Point(39, 242);
             this.IsOtherPanel.Name = "IsOtherPanel";
             this.IsOtherPanel.Size = new System.Drawing.Size(311, 110);
@@ -210,12 +210,22 @@
             this.NationalityLabel.TabIndex = 0;
             this.NationalityLabel.Text = "Nationality:";
             // 
-            // NationalityTextBox
+            // NationalityComboBox
             // 
-            this.NationalityTextBox.Location = new System.Drawing.Point(140, 60);
-            this.NationalityTextBox.Name = "NationalityTextBox";
-            this.NationalityTextBox.Size = new System.Drawing.Size(160, 25);
-            this.NationalityTextBox.TabIndex = 0;
+            this.NationalityComboBox.Location = new System.Drawing.Point(140, 60);
+            this.NationalityComboBox.Name = "NationalityComboBox";
+            this.NationalityComboBox.Size = new System.Drawing.Size(160, 25);
+            this.NationalityComboBox.TabIndex = 0;
+            this.NationalityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.NationalityComboBox.Items.AddRange(new object[] {
+                    "Indian",
+                    "American",
+                    "British",
+                    "Canadian",
+                    "Australian",
+                    "Other"
+            });
+            this.NationalityComboBox.SelectedItem = "Indian";
             // 
             // IsNriPanel
             // 
@@ -328,11 +338,10 @@
         private System.Windows.Forms.TextBox PassportNumberTextBox;
         private System.Windows.Forms.Label LocalStayAddressLabel;
         private System.Windows.Forms.RichTextBox LocalStayAddressRichTextBox;
-
         private System.Windows.Forms.Panel IsOtherPanel;
         private System.Windows.Forms.Label VisaNumberLabel;
         private System.Windows.Forms.TextBox VisaNumberTextBox;
         private System.Windows.Forms.Label NationalityLabel;
-        private System.Windows.Forms.TextBox NationalityTextBox;
+        private System.Windows.Forms.ComboBox NationalityComboBox;
     }
 }

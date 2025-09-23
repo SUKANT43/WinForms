@@ -58,13 +58,19 @@
       <DependentUpon>NetworkPage.cs</DependentUpon>
     </Compile>
     <Compile Include="PersonalDetails.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PersonalDetails.Designer.cs">
       <DependentUpon>PersonalDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceRequirementForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ServiceRequirementForm.Designer.cs">
+      <DependentUpon>ServiceRequirementForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LoginPage.resx">
       <DependentUpon>LoginPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -83,6 +89,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ServiceRequirementForm.resx">
+      <DependentUpon>ServiceRequirementForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

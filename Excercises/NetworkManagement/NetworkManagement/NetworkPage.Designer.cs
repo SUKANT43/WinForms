@@ -31,6 +31,7 @@
             this.NetworkPagePanel = new System.Windows.Forms.Panel();
             this.NetworkPageTitleLabel = new System.Windows.Forms.Label();
             this.pd = new NetworkManagement.PersonalDetails();
+            this.sr = new NetworkManagement.ServiceRequirementForm();
             this.NetworkPagePanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,6 +40,7 @@
             this.NetworkPagePanel.BackColor = System.Drawing.Color.AliceBlue;
             this.NetworkPagePanel.Controls.Add(this.NetworkPageTitleLabel);
             this.NetworkPagePanel.Controls.Add(this.pd);
+            this.NetworkPagePanel.Controls.Add(this.sr);
             this.NetworkPagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NetworkPagePanel.Location = new System.Drawing.Point(0, 0);
             this.NetworkPagePanel.Name = "NetworkPagePanel";
@@ -57,10 +59,17 @@
             // 
             // pd
             // 
-            this.pd.Location = new System.Drawing.Point(0, 0);
+            this.pd.Location = new System.Drawing.Point(3, 50);
             this.pd.Name = "pd";
-            this.pd.Size = new System.Drawing.Size(800, 450);
+            this.pd.Size = new System.Drawing.Size(470, 388);
             this.pd.TabIndex = 2;
+            // 
+            // sr
+            // 
+            this.sr.Location = new System.Drawing.Point(463, 50);
+            this.sr.Name = "sr";
+            this.sr.Size = new System.Drawing.Size(531, 735);
+            this.sr.TabIndex = 3;
             // 
             // NetworkPage
             // 
@@ -77,5 +86,6 @@
         private System.Windows.Forms.Panel NetworkPagePanel;
         private System.Windows.Forms.Label NetworkPageTitleLabel;
         private PersonalDetails pd;
+        private ServiceRequirementForm sr;
     }
 }
