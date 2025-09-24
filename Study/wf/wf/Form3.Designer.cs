@@ -30,15 +30,36 @@
         {
             this.FormPanel = new System.Windows.Forms.Panel();
             this.BigButton = new System.Windows.Forms.Button();
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form3";
-
-            this.Controls.Add(this.FormPanel);
-            this.FormPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FormPanel.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // FormPanel
+            // 
             this.FormPanel.AutoScroll = true;
             this.FormPanel.Controls.Add(this.BigButton);
+            this.FormPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FormPanel.Location = new System.Drawing.Point(0, 0);
+            this.FormPanel.Name = "FormPanel";
+            this.FormPanel.Size = new System.Drawing.Size(800, 450);
+            this.FormPanel.TabIndex = 0;
+            // 
+            // BigButton
+            // 
+            this.BigButton.Location = new System.Drawing.Point(0, 0);
+            this.BigButton.Name = "BigButton";
+            this.BigButton.Size = new System.Drawing.Size(800, 546);
+            this.BigButton.TabIndex = 0;
+            // 
+            // Form3
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.FormPanel);
+            this.Name = "Form3";
+            this.Text = "Form3";
+            this.FormPanel.ResumeLayout(false);
+            this.ResumeLayout(false);
 
         }
 

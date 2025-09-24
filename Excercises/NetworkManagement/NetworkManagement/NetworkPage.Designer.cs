@@ -68,7 +68,7 @@
             // 
             // sr
             // 
-            this.sr.Location = new System.Drawing.Point(463, 50);
+            this.sr.Location = new System.Drawing.Point(387, 37);
             this.sr.Name = "sr";
             this.sr.Size = new System.Drawing.Size(531, 735);
             this.sr.TabIndex = 3;
@@ -86,6 +86,9 @@
             this.Controls.Add(this.NetworkPagePanel);
             this.Name = "NetworkPage";
             this.Text = "NetworkPage";
+            this.Load += new System.EventHandler(this.NetworkPage_Load);
+            this.VisibleChanged += new System.EventHandler(this.NetworkPage_VisibleChanged);
+            this.Resize += new System.EventHandler(this.NetworkPage_Resize);
             this.NetworkPagePanel.ResumeLayout(false);
             this.NetworkPagePanel.PerformLayout();
             this.ResumeLayout(false);
