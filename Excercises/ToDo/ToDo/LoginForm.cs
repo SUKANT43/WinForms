@@ -8,32 +8,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace InventoryManagement.Login
+namespace ToDo
 {
-    public partial class LoginPage : Form
+    public partial class LoginForm : Form
     {
         private Panel loginPnl;
         private TableLayoutPanel loginFormTblLayoutPnl;
         private Label emailLbl, passwordLbl;
         private TextBox emailTxt, passTxt;
         private Button loginBtn;
-        public LoginPage()
+
+        public LoginForm()
         {
             WindowState = FormWindowState.Maximized;
-            MinimumSize = new Size(400,300);
+            MinimumSize = new Size(400, 300);
+
             loginPnl = new Panel
             {
                 Dock = DockStyle.Fill,
+                BackColor = Color.White
             };
+
             loginFormTblLayoutPnl = new TableLayoutPanel
             {
                 BackColor = Color.AliceBlue,
-                AutoSize = true
+                ColumnCount = 2,
+                RowCount = 3,
+                AutoSize=true,
+                Padding=new Padding(20),
             };
             loginFormTblLayoutPnl.Anchor = AnchorStyles.None;
 
-
-            loginFormTblLayoutPnl.Resize += (s, e) =>
+            loginPnl.Resize += (s, e) =>
             {
                 loginFormTblLayoutPnl.Location = new Point(
                     (loginPnl.Width - loginFormTblLayoutPnl.Width) / 2,
@@ -41,18 +47,18 @@ namespace InventoryManagement.Login
                 );
             };
 
-            loginFormTblLayoutPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,40f));
+            loginFormTblLayoutPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40f));
             loginFormTblLayoutPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60f));
-            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
-            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
-            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
+            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 33f));
+            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 33f));
+            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 34f));
 
             emailLbl = new Label
             {
                 Text = "Email:",
                 Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI",12,FontStyle.Bold),
-                TextAlign=ContentAlignment.MiddleLeft
+                Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                TextAlign = ContentAlignment.MiddleRight
             };
 
             passwordLbl = new Label
@@ -60,21 +66,22 @@ namespace InventoryManagement.Login
                 Text = "Password:",
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                TextAlign = ContentAlignment.MiddleLeft
+                TextAlign = ContentAlignment.MiddleRight
             };
 
             emailTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12) };
             passTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12), UseSystemPasswordChar = true };
-            loginBtn = new Button { Text = "Login", Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12, FontStyle.Bold) };
+            loginBtn = new Button { Text = "Login", Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12, FontStyle.Bold),Cursor=Cursors.Hand };
 
-            Controls.Add(loginPnl);
-            loginPnl.Controls.Add(loginFormTblLayoutPnl);
             loginFormTblLayoutPnl.Controls.Add(emailLbl, 0, 0);
-            loginFormTblLayoutPnl.Controls.Add(passwordLbl, 0, 1);
             loginFormTblLayoutPnl.Controls.Add(emailTxt, 1, 0);
+            loginFormTblLayoutPnl.Controls.Add(passwordLbl, 0, 1);
             loginFormTblLayoutPnl.Controls.Add(passTxt, 1, 1);
             loginFormTblLayoutPnl.Controls.Add(loginBtn, 1, 2);
 
+            loginPnl.Controls.Add(loginFormTblLayoutPnl);
+            Controls.Add(loginPnl);
         }
     }
 }
+

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace InventoryManagement
+namespace ToDo
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace InventoryManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login.LoginPage());
+            Application.Run(new LoginForm());
         }
     }
 }

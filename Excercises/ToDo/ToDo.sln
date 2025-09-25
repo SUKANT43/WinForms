@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 15 for Windows Desktop
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo", "InventoryManagement\ToDo.csproj", "{183F667D-6F46-4BEB-ABB5-01E6B94D1112}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo", "ToDo\ToDo.csproj", "{07ED3D3D-6391-4FAA-BD37-B62458554BD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{183F667D-6F46-4BEB-ABB5-01E6B94D1112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{183F667D-6F46-4BEB-ABB5-01E6B94D1112}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{183F667D-6F46-4BEB-ABB5-01E6B94D1112}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{183F667D-6F46-4BEB-ABB5-01E6B94D1112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07ED3D3D-6391-4FAA-BD37-B62458554BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07ED3D3D-6391-4FAA-BD37-B62458554BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07ED3D3D-6391-4FAA-BD37-B62458554BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07ED3D3D-6391-4FAA-BD37-B62458554BD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {193624E5-D786-4489-9AA1-3F69D37AFFDF}
+		SolutionGuid = {DB048885-2F4B-4BDE-88E9-3843C78250F4}
 	EndGlobalSection
 EndGlobal

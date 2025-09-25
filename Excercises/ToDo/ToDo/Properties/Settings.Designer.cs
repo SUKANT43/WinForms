@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InventoryManagement.Properties
+namespace ToDo.Properties
 {
 
 
