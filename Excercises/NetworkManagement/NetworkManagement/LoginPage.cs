@@ -58,8 +58,8 @@ namespace NetworkManagement
         private void OnCloseBtnClicked(object sender, EventArgs e)
         {
             nf.Visible = !nf.Visible;
-            panel1.Controls.Clear();
-            //nf.Hide();
+            //panel1.Controls.Clear();
+           nf.Close();
         }
     }
 }

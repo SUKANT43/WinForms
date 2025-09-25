@@ -75,7 +75,6 @@ namespace SizeManagement
                     int x = (index % buttonsPerRow) * (buttonWidth + spacing);
                     int y = (index / buttonsPerRow) * (buttonHeight + spacing);
                     buttonList[index].Location = new Point(x, y);
-                    buttonList[index].Text = (index + 1).ToString();
                 }
                 else
                 {
