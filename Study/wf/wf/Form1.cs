@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace wf
 {
     public partial class Form1 : Form
     {
+        private Label lblCPU;
+        private Label lblRAM;
+        private Timer timer;
+        private PerformanceCounter cpuCounter;
+        private PerformanceCounter ramCounter;
+
         public Form1()
         {
-            //InitializeComponent();
+            InitializeComponent();
             //SplitContainer split = new SplitContainer();
             //split.Dock = DockStyle.Fill;
             //split.Orientation = Orientation.Vertical; // left & right panels
@@ -162,17 +162,47 @@ namespace wf
             //};
 
             //this.Controls.Add(webBrowser);
-            NotifyIcon nf = new NotifyIcon();
-            nf.Icon = SystemIcons.Warning;
-            nf.Visible = true;
-            nf.BalloonTipTitle = "hi";
-            nf.BalloonTipText = "This is a simple notification.";
-            nf.ShowBalloonTip(100000000);
-        }
+            //NotifyIcon nf = new NotifyIcon();
+            //nf.Icon = SystemIcons.Warning;
+            //nf.Visible = true;
+            //nf.BalloonTipTitle = "hi";
+            //nf.BalloonTipText = "This is a simple notification.";
+            //nf.ShowBalloonTip(3000);
+            //    this.Text = "PC Performance Monitor";
+            //    this.Size = new System.Drawing.Size(300, 150);
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            linkLabel1.Text = "hi";
+            //    lblCPU = new Label() { Text = "CPU: 0%", Location = new System.Drawing.Point(20, 20), AutoSize = true };
+            //    lblRAM = new Label() { Text = "RAM: 0%", Location = new System.Drawing.Point(20, 50), AutoSize = true };
+
+            //    this.Controls.Add(lblCPU);
+            //    this.Controls.Add(lblRAM);
+
+            //    // Setup Performance Counters
+            //    cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            //    ramCounter = new PerformanceCounter("Memory", "% Committed Bytes In Use");
+
+            //    // Timer for updating performance
+            //    timer = new Timer();
+            //    timer.Interval = 1000; // update every second
+            //    timer.Tick += Timer_Tick;
+            //    timer.Start();
+
+            //}
+            //private void Timer_Tick(object sender, EventArgs e)
+            //{
+            //    float cpuUsage = cpuCounter.NextValue();
+            //    float ramUsage = ramCounter.NextValue();
+
+            //    lblCPU.Text = $"CPU Usage: {cpuUsage:F1}%";
+            //    lblRAM.Text = $"RAM Usage: {ramUsage:F1}%";
+            //}
+
+
+            //private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+            //{
+            //    linkLabel1.Text = "hi";
+            //}
+
         }
     }
 }

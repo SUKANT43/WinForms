@@ -17,18 +17,20 @@ namespace ToDo.View
         private Label nameLbl, emailLbl, passwordLbl, confirmPasswordLbl;
         private TextBox nameTxt, emailTxt, passwordTxt, confirmPasswordTxt;
         private Button signupButton;
+        private LinkLabel loginLbl;
         public SignupForm()
         {
-            FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
             signupPnl = new Panel
             {
                 Dock = DockStyle.Fill,
+
             };
             signupFormTblPnl = new TableLayoutPanel
             {
                 BackColor = Color.AliceBlue,
                 ColumnCount = 2,
-                RowCount = 5,
+                RowCount = 6,
                 Padding = new Padding(40),
                 AutoSize = true,
                 Font = new Font("Segoe UI",12, FontStyle.Bold),
@@ -47,11 +49,12 @@ namespace ToDo.View
             };
             signupFormTblPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,40f));
             signupFormTblPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60f));
-            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
+            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 17f));
+            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 17f));
+            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 17f));
+            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 17f));
+            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 17f));
+            signupFormTblPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 17f));
             nameLbl = new Label
             {
                 Text = "Name:"
@@ -69,11 +72,16 @@ namespace ToDo.View
                 Text = "Confirm Password:",
                 AutoSize = true,
             };
+            loginLbl = new LinkLabel
+            {
+                Text = "Login",
+                LinkBehavior = LinkBehavior.NeverUnderline,
+            };
             nameTxt = new TextBox{ Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12) };
             emailTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12) }; 
             passwordTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12), UseSystemPasswordChar=true }; 
             confirmPasswordTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12), UseSystemPasswordChar=true };
-            signupButton = new Button {Text="Sign Up", AutoSize=true,  };
+            signupButton = new Button {Text="Sign Up", AutoSize=true };
             signupFormTblPnl.Controls.Add(nameLbl,0,0);
             signupFormTblPnl.Controls.Add(emailLbl, 0, 1);
             signupFormTblPnl.Controls.Add(passwordLbl, 0, 2);
@@ -83,10 +91,21 @@ namespace ToDo.View
             signupFormTblPnl.Controls.Add(passwordTxt, 1, 2);
             signupFormTblPnl.Controls.Add(confirmPasswordTxt, 1, 3);
             signupFormTblPnl.Controls.Add(signupButton, 1, 4);
+            signupFormTblPnl.Controls.Add(loginLbl, 0, 5);
+            signupFormTblPnl.Controls.Add(loginLbl, 1, 5);
+
             signupPnl.Controls.Add(signupFormTblPnl);
             Controls.Add(signupPnl);
             MinimumSize = signupFormTblPnl.PreferredSize;
             MaximumSize = signupFormTblPnl.PreferredSize;
+
+            loginLbl.Click += (s, e) =>
+            {
+                LoginForm lf = new LoginForm();
+                lf.Show();
+                Hide();
+                
+            };
         }
     }
 }
