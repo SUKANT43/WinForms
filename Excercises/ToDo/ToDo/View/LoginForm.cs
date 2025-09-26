@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ToDo
+namespace ToDo.View
 {
     public partial class LoginForm : Form
     {
@@ -71,7 +71,7 @@ namespace ToDo
 
             emailTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12) };
             passTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12), UseSystemPasswordChar = true };
-            loginBtn = new Button { Text = "Login", Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12, FontStyle.Bold),Cursor=Cursors.Hand };
+            loginBtn = new Button { Text = "Login", AutoSize=true, Font = new Font("Segoe UI", 12, FontStyle.Bold),Cursor=Cursors.Hand };
 
             loginFormTblLayoutPnl.Controls.Add(emailLbl, 0, 0);
             loginFormTblLayoutPnl.Controls.Add(emailTxt, 1, 0);
@@ -81,6 +81,8 @@ namespace ToDo
 
             loginPnl.Controls.Add(loginFormTblLayoutPnl);
             Controls.Add(loginPnl);
+            MinimumSize = loginFormTblLayoutPnl.PreferredSize;
+            MaximumSize = loginFormTblLayoutPnl.PreferredSize;
         }
     }
 }

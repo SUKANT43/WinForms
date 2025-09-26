@@ -1,6 +1,6 @@
-﻿namespace ToDo
+﻿namespace ToDo.View
 {
-    partial class LoginForm
+    partial class SignupForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // LoginForm
+            // SignupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "LoginForm";
-            this.Text = "LoginForm";
+            this.Name = "SignupForm";
+            this.Text = "SignupForm";
             this.ResumeLayout(false);
 
         }
