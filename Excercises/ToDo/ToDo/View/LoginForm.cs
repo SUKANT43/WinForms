@@ -22,6 +22,10 @@ namespace ToDo.View
         public LoginForm()
         {
             MaximizeBox = false;
+            FormClosing += (s, e) =>
+            {
+                Application.Exit();
+            };
             StartPosition = FormStartPosition.CenterScreen;
             loginPnl = new Panel
             {

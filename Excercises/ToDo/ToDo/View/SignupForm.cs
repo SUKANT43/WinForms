@@ -18,9 +18,14 @@ namespace ToDo.View
         private TextBox nameTxt, emailTxt, passwordTxt, confirmPasswordTxt;
         private Button signupButton;
         private LinkLabel loginLbl;
+        private List<Controller.SignUp>list;
         public SignupForm()
         {
             MaximizeBox = false;
+            FormClosing += (s, e) =>
+            {
+                Application.Exit();
+            };
             StartPosition = FormStartPosition.CenterScreen;
             signupPnl = new Panel
             {
@@ -98,6 +103,32 @@ namespace ToDo.View
             Controls.Add(signupPnl);
             MinimumSize = signupFormTblPnl.PreferredSize;
             MaximumSize = signupFormTblPnl.PreferredSize;
+
+            signupButton.Click += (s, e) =>
+            {
+                string Name = nameTxt.Text;
+                string Email = emailTxt.Text;
+                string Password = passwordTxt.Text;
+                string confirmPassword = confirmPasswordTxt.Text;
+                if (list == null)
+                {
+                    list = new List<Controller.SignUp>();
+                }
+                if (Password != confirmPassword)
+                {
+                    MessageBox.Show("Password and confirm password do not match.");
+                    return;
+                }
+                if (list.Any(n => n.email == Email))
+                {
+                    MessageBox.Show("User already exists. Try with a different email.");
+                    return;
+                }
+
+                    list.Add(new Controller.SignUp(Name, Email, Password));
+                
+                MessageBox.Show("Signup successful!");
+            };
 
             loginLbl.Click += (s, e) =>
             {
