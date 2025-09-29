@@ -14,28 +14,30 @@ namespace ToDo.View
     {
         private Panel loginPnl;
         private TableLayoutPanel loginFormTblLayoutPnl;
-        private Label emailLbl, passwordLbl;
+        private Label emailLbl, passwordLbl,CloseLbl;
         private TextBox emailTxt, passTxt;
         private Button loginBtn;
         private LinkLabel createAccountLbl;
-
+        
         public LoginForm()
         {
-            WindowState = FormWindowState.Maximized;
             MaximizeBox = false;
+            StartPosition = FormStartPosition.CenterScreen;
             loginPnl = new Panel
             {
                 Dock = DockStyle.Fill,
-                BackColor = Color.White
+                BackColor = Color.White,
+
             };
 
             loginFormTblLayoutPnl = new TableLayoutPanel
             {
                 BackColor = Color.AliceBlue,
-                ColumnCount = 2,
-                RowCount = 4,
+                ColumnCount = 3,
+                RowCount = 5,
                 AutoSize=true,
-                Padding=new Padding(100),
+                Padding = new Padding(50),
+
             };
             loginFormTblLayoutPnl.Anchor = AnchorStyles.None;
 
@@ -47,19 +49,22 @@ namespace ToDo.View
                 );
             };
 
-            loginFormTblLayoutPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40f));
-            loginFormTblLayoutPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60f));
-            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
-            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
-            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
-            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
+            loginFormTblLayoutPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35f));
+            loginFormTblLayoutPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75f));
+            loginFormTblLayoutPnl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0f));
+
+            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
+            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
+            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
+            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
+            loginFormTblLayoutPnl.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
 
             emailLbl = new Label
             {
                 Text = "Email:",
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                TextAlign = ContentAlignment.MiddleRight
+                TextAlign = ContentAlignment.MiddleLeft
             };
 
             passwordLbl = new Label
@@ -67,7 +72,7 @@ namespace ToDo.View
                 Text = "Password:",
                 Dock = DockStyle.Fill,
                 Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                TextAlign = ContentAlignment.MiddleRight
+                TextAlign = ContentAlignment.MiddleLeft
             };
 
             createAccountLbl = new LinkLabel
@@ -78,29 +83,40 @@ namespace ToDo.View
                 TextAlign = ContentAlignment.MiddleCenter,
                 LinkBehavior=LinkBehavior.NeverUnderline,
             };
+            //CloseLbl = new Label
+            //{
+            //    Text = "X",
+            //    ForeColor = Color.Red,
+            //    Font = new Font("Segoe UI", 12, FontStyle.Bold),
+            //    AutoSize = true,
+            //    Cursor = Cursors.Hand,
+            //    Location = new Point(this.Width - 25, 5),
+            //    Anchor = AnchorStyles.None,
+            //    //TextAlign= ContentAlignment.TopRight
+            //};
 
-            emailTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12) };
+            emailTxt = new TextBox { Dock=DockStyle.Fill, Font = new Font("Segoe UI", 12) };
             passTxt = new TextBox { Dock = DockStyle.Fill, Font = new Font("Segoe UI", 12), UseSystemPasswordChar = true };
-            loginBtn = new Button { Text = "Login", AutoSize=true, Font = new Font("Segoe UI", 12, FontStyle.Bold),Cursor=Cursors.Hand };
+            loginBtn = new Button { Text = "Login", AutoSize=true, Font = new Font("Segoe UI", 12, FontStyle.Bold),Cursor=Cursors.Hand,TextAlign= ContentAlignment.MiddleCenter };
 
-            loginFormTblLayoutPnl.Controls.Add(emailLbl, 0, 0);
-            loginFormTblLayoutPnl.Controls.Add(emailTxt, 1, 0);
-            loginFormTblLayoutPnl.Controls.Add(passwordLbl, 0, 1);
-            loginFormTblLayoutPnl.Controls.Add(passTxt, 1, 1);
-            loginFormTblLayoutPnl.Controls.Add(loginBtn, 1, 2);
-            loginFormTblLayoutPnl.Controls.Add(createAccountLbl, 0, 3);
-            loginFormTblLayoutPnl.Controls.Add(createAccountLbl, 1, 3);
+            loginFormTblLayoutPnl.Controls.Add(emailLbl, 0, 1);
+            loginFormTblLayoutPnl.Controls.Add(emailTxt, 1, 1);
+            loginFormTblLayoutPnl.Controls.Add(passwordLbl, 0, 2);
+            loginFormTblLayoutPnl.Controls.Add(passTxt, 1, 2);
+            loginFormTblLayoutPnl.Controls.Add(loginBtn, 1, 3);
+            loginFormTblLayoutPnl.Controls.Add(createAccountLbl, 1, 4);
+            //loginFormTblLayoutPnl.Controls.Add(CloseLbl, 2, 0);
 
-
+            //loginPnl.Controls.Add(CloseLbl);
             loginPnl.Controls.Add(loginFormTblLayoutPnl);
             Controls.Add(loginPnl);
             MinimumSize = loginFormTblLayoutPnl.PreferredSize;
             MaximumSize = loginFormTblLayoutPnl.PreferredSize;
             createAccountLbl.Click += (s, e) =>
             {
+                Hide();
                 SignupForm sf = new SignupForm();
                 sf.Show();
-                Hide();
             };
         }
     }

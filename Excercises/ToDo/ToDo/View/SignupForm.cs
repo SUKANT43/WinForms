@@ -21,6 +21,7 @@ namespace ToDo.View
         public SignupForm()
         {
             MaximizeBox = false;
+            StartPosition = FormStartPosition.CenterScreen;
             signupPnl = new Panel
             {
                 Dock = DockStyle.Fill,
@@ -91,7 +92,6 @@ namespace ToDo.View
             signupFormTblPnl.Controls.Add(passwordTxt, 1, 2);
             signupFormTblPnl.Controls.Add(confirmPasswordTxt, 1, 3);
             signupFormTblPnl.Controls.Add(signupButton, 1, 4);
-            signupFormTblPnl.Controls.Add(loginLbl, 0, 5);
             signupFormTblPnl.Controls.Add(loginLbl, 1, 5);
 
             signupPnl.Controls.Add(signupFormTblPnl);
@@ -102,9 +102,8 @@ namespace ToDo.View
             loginLbl.Click += (s, e) =>
             {
                 LoginForm lf = new LoginForm();
-                lf.Show();
                 Hide();
-                
+                lf.Show();
             };
         }
     }
