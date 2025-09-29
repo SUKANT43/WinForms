@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Login.cs" />
     <Compile Include="Controller\SignUp.cs" />
     <Compile Include="View\LoginForm.cs">
       <SubType>Form</SubType>

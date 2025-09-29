@@ -13,42 +13,41 @@ namespace wf
 {
     public partial class SizeForm : Form
     {
-        TextBox txt;
-        ContextMenuStrip contextMenu;
-
+        private Button btn;
+        private Label label1;
+       
         public SizeForm()
         {
-            DataSet ds = new DataSet("MyDataSet");
-
-            // Create first table
-            DataTable table1 = new DataTable("Employees");
-            table1.Columns.Add("ID", typeof(int));
-            table1.Columns.Add("Name", typeof(string));
-            table1.Rows.Add(1, "Alice");
-            table1.Rows.Add(2, "Bob");
-
-            // Create second table
-            DataTable table2 = new DataTable("Departments");
-            table2.Columns.Add("DeptID", typeof(int));
-            table2.Columns.Add("DeptName", typeof(string));
-            table2.Rows.Add(101, "HR");
-            table2.Rows.Add(102, "IT");
-
-            // Add tables to DataSet
-            ds.Tables.Add(table1);
-            ds.Tables.Add(table2);
-
-            // Display table1 in DataGridView
-            DataGridView grid = new DataGridView
+            btn = new Button
             {
-                DataSource = ds.Tables["Employees"],
-                Dock = DockStyle.Fill
+                Text = "Select Font",
+                Dock = DockStyle.Top
+            };
+            btn.Click += Btn_Click;
+
+            // TextBox to show path
+            label1 = new Label
+            {
+                Text="hi hello",
+                Dock = DockStyle.Fill,
             };
 
-            Controls.Add(grid);
+            Controls.Add(label1);
+            Controls.Add(btn);
 
-            this.Text = "DataSet Example";
-            this.Size = new System.Drawing.Size(400, 250);
+            this.Text = "FolderBrowserDialog Example";
+            this.Size = new System.Drawing.Size(400, 150);
+        }
+        private void Btn_Click(object sender, EventArgs e)
+        {
+            using (FontDialog fontDialog = new FontDialog())
+            {
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Apply the chosen font to a label
+                    label1.Font = fontDialog.Font;
+                }
+            }
         }
     }
-        }
+    }

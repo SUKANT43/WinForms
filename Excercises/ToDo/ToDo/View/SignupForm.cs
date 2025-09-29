@@ -124,7 +124,6 @@ namespace ToDo.View
                     MessageBox.Show("User already exists. Try with a different email.");
                     return;
                 }
-
                     list.Add(new Controller.SignUp(Name, Email, Password));
                 
                 MessageBox.Show("Signup successful!");
