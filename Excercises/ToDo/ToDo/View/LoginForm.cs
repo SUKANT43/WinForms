@@ -21,11 +21,13 @@ namespace ToDo.View
         
         public LoginForm()
         {
-            MaximizeBox = false;
-            FormClosing += (s, e) =>
+            MaximizeBox = false;            
+
+            FormClosingEventHandler handler = (s, e) =>
             {
                 Application.Exit();
             };
+            FormClosing += handler;
             StartPosition = FormStartPosition.CenterScreen;
             loginPnl = new Panel
             {
