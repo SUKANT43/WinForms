@@ -33,7 +33,6 @@ namespace ToDo.View
             {
                 Dock = DockStyle.Fill,
                 BackColor = Color.White,
-
             };
 
             loginFormTblLayoutPnl = new TableLayoutPanel
