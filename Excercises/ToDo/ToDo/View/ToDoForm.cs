@@ -67,7 +67,6 @@ namespace ToDo.View
 
             taskLbl = new Label { Text = "Title:", AutoSize = true };
             taskTxt = new TextBox { Font = new Font("Segoe UI", 10) };
-
             descriptionLbl = new Label { Text = "Description:", AutoSize = true };
             descriptionTxt = new RichTextBox { Font = new Font("Segoe UI", 10), Height = 100 };
 
@@ -89,13 +88,11 @@ namespace ToDo.View
             };
             dataGrid.Columns.Add("Title", "Title");
             dataGrid.Columns.Add("Description", "Description");
-
             detailsPnl.Controls.Add(taskLbl);
             detailsPnl.Controls.Add(taskTxt);
             detailsPnl.Controls.Add(descriptionLbl);
             detailsPnl.Controls.Add(descriptionTxt);
             detailsPnl.Controls.Add(submitBtn);
-
             mainPnl.Controls.Add(dataGrid);       
             mainPnl.Controls.Add(detailsPnl);     
             Controls.Add(mainPnl);

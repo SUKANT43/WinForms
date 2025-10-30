@@ -38,9 +38,7 @@
             this.Name = "ToDoForm";
             this.Text = "ToDoForm";
             this.ResumeLayout(false);
-
         }
-
         #endregion
     }
 }
