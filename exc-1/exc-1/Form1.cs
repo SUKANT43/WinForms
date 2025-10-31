@@ -76,7 +76,7 @@ namespace exc_1
                 {
                     double percentage = ((double)(mainPanel.Width - x) / w) * 100;
                     //MessageBox.Show($"{percentage}");
-                    if (percentage > 70)
+                    if (percentage > 90)
                     {
                         duplicateW = mainPanel.Width - x;
                         duplicateH = h;
