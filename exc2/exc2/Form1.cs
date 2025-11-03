@@ -15,7 +15,7 @@ namespace exc2
         public Form1()
         {
             InitializeComponent();
-            Load += (s, e) => LoadAndResize(s, e);
+            Load += LoadAndResize;
             Resize += (s, e) => LoadAndResize(s, e);
 
         }
@@ -52,7 +52,7 @@ namespace exc2
         private void generateBtn(object sender, EventArgs e)
         {
             int width = Convert.ToInt32(widthTextBox.Text);
-            int height = Convert.ToInt32(heightTextBox.Text);
+             int height = Convert.ToInt32(heightTextBox.Text);
 
             if (x + width > mainPanel.Width)
             {
@@ -64,7 +64,6 @@ namespace exc2
             Label label = new Label()
             {
                 Text = $"num: {count++}, Width: {width}, Height: {height}",
-
                 Size = new Size(width, height),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Location = new Point(x, y),
@@ -89,6 +88,11 @@ namespace exc2
             {
                 mainPanel.Controls.Remove(labelToRemove);
                 list.Remove(labelToRemove);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Label l = list[i];
+                    l.Text = $"num: {i}, Width: {Width}, Height: {Height}";
+                }
                 LoadAndResize(null, null); 
             }
             else

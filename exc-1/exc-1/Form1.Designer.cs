@@ -71,7 +71,7 @@
             this.generateButton.TabIndex = 8;
             this.generateButton.Text = "Generate";
             this.generateButton.UseVisualStyleBackColor = true;
-            this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
+            this.generateButton.Click += new System.EventHandler(this.generateBtn);
             // 
             // colNum
             // 
@@ -164,7 +164,7 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(957, 627);
             this.mainPanel.TabIndex = 1;
-            this.mainPanel.AutoScroll = true;
+            this.mainPanel.AutoScroll = false;
             // 
             // Form1
             // 
