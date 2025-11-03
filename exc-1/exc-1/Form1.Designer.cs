@@ -164,6 +164,7 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(957, 627);
             this.mainPanel.TabIndex = 1;
+            this.mainPanel.AutoScroll = true;
             // 
             // Form1
             // 

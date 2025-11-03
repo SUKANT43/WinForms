@@ -59,6 +59,7 @@
             this.leftPanel.Name = "leftPanel";
             this.leftPanel.Size = new System.Drawing.Size(198, 450);
             this.leftPanel.TabIndex = 0;
+            
             // 
             // deleteButton
             // 
@@ -126,6 +127,7 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(602, 450);
             this.mainPanel.TabIndex = 1;
+            mainPanel.AutoScroll = true;
             // 
             // contextMenuStrip1
             // 

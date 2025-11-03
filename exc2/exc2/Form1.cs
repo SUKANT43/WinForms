@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace exc2
@@ -27,7 +23,6 @@ namespace exc2
         private void LoadAndResize(object s, EventArgs e)
         {
             mainPanel.Controls.Clear(); 
-
             x = 0;
             y = 0;
             max = 0;
@@ -68,12 +63,13 @@ namespace exc2
 
             Label label = new Label()
             {
-                Text = $"{count++}",
+                Text = $"num: {count++}, Width: {width}, Height: {height}",
+
                 Size = new Size(width, height),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Location = new Point(x, y),
                 BorderStyle = BorderStyle.FixedSingle,
-                BackColor = Color.LightBlue
+                BackColor = Color.LightBlue,
             };
 
             x += width;
@@ -86,15 +82,19 @@ namespace exc2
 
         private void deleteBtn(object sender, EventArgs e)
         {
-            string name = removeBox.Value.ToString();
-            Label labelToRemove = list.FirstOrDefault(l => l.Text == name);
 
+            int num = (int)removeBox.Value;
+            var labelToRemove = list.FirstOrDefault(l => l.Text.StartsWith($"num: {num},"));
             if (labelToRemove != null)
             {
                 mainPanel.Controls.Remove(labelToRemove);
                 list.Remove(labelToRemove);
+                LoadAndResize(null, null); 
+            }
+            else
+            {
+                MessageBox.Show("Label not found!");
             }
         }
-
     }
 }
