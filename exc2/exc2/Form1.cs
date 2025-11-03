@@ -26,39 +26,75 @@ namespace exc2
 
         private void LoadAndResize(object s, EventArgs e)
         {
-            for(int i = 0; i < list.Count; i++)
+            mainPanel.Controls.Clear(); 
+
+            x = 0;
+            y = 0;
+            max = 0;
+
+            foreach (Label label in list)
             {
-                mainPanel.Controls.Add(list[i]);
+                int width = label.Width;
+                int height = label.Height;
+
+                if (x + width > mainPanel.Width)
+                {
+                    x = 0;
+                    y += max;
+                    max = 0;
+                }
+
+                label.Location = new Point(x, y);
+
+                x += width;
+                max = Math.Max(max, height);
+
+                mainPanel.Controls.Add(label);
             }
         }
 
+
         private void generateBtn(object sender, EventArgs e)
         {
-            int width = Convert.ToInt32(widthBox.Value);
-            int height = Convert.ToInt32(heightBox.Value);
-            height = Math.Max(height, heightBox.Height);
-            if (x+width>mainPanel.Width)
+            int width = Convert.ToInt32(widthTextBox.Text);
+            int height = Convert.ToInt32(heightTextBox.Text);
+
+            if (x + width > mainPanel.Width)
             {
-                y = max;
-                max = 0;
                 x = 0;
+                y += max;
+                max = 0;
             }
+
             Label label = new Label()
             {
                 Text = $"{count++}",
                 Size = new Size(width, height),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Location = new Point(x, y),
-                BorderStyle=BorderStyle.FixedSingle
+                BorderStyle = BorderStyle.FixedSingle,
+                BackColor = Color.LightBlue
             };
+
             x += width;
+            max = Math.Max(max, height); 
+
             list.Add(label);
             mainPanel.Controls.Add(label);
         }
 
+
         private void deleteBtn(object sender, EventArgs e)
         {
+            string name = removeBox.Value.ToString();
+            Label labelToRemove = list.FirstOrDefault(l => l.Text == name);
 
+            if (labelToRemove != null)
+            {
+                mainPanel.Controls.Remove(labelToRemove);
+                list.Remove(labelToRemove);
+            }
         }
+
     }
 }

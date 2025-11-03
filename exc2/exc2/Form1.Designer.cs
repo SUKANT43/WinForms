@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.leftPanel = new System.Windows.Forms.Panel();
             this.deleteButton = new System.Windows.Forms.Button();
             this.removeBox = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.generateButton = new System.Windows.Forms.Button();
-            this.heightBox = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.widthBox = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.widthTextBox = new System.Windows.Forms.TextBox();
+            this.heightTextBox = new System.Windows.Forms.TextBox();
             this.leftPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.removeBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.heightBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.widthBox)).BeginInit();
             this.SuspendLayout();
             // 
             // leftPanel
             // 
+            this.leftPanel.Controls.Add(this.heightTextBox);
+            this.leftPanel.Controls.Add(this.widthTextBox);
             this.leftPanel.Controls.Add(this.deleteButton);
             this.leftPanel.Controls.Add(this.removeBox);
             this.leftPanel.Controls.Add(this.label3);
             this.leftPanel.Controls.Add(this.generateButton);
-            this.leftPanel.Controls.Add(this.heightBox);
             this.leftPanel.Controls.Add(this.label2);
-            this.leftPanel.Controls.Add(this.widthBox);
             this.leftPanel.Controls.Add(this.label1);
             this.leftPanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.leftPanel.Location = new System.Drawing.Point(602, 0);
@@ -101,18 +101,6 @@
             this.generateButton.UseVisualStyleBackColor = true;
             this.generateButton.Click += new System.EventHandler(this.generateBtn);
             // 
-            // heightBox
-            // 
-            this.heightBox.Location = new System.Drawing.Point(66, 50);
-            this.heightBox.Name = "heightBox";
-            this.heightBox.Size = new System.Drawing.Size(120, 20);
-            this.heightBox.TabIndex = 3;
-            this.heightBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -121,18 +109,6 @@
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Height:";
-            // 
-            // widthBox
-            // 
-            this.widthBox.Location = new System.Drawing.Point(66, 24);
-            this.widthBox.Name = "widthBox";
-            this.widthBox.Size = new System.Drawing.Size(120, 20);
-            this.widthBox.TabIndex = 1;
-            this.widthBox.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // label1
             // 
@@ -151,6 +127,25 @@
             this.mainPanel.Size = new System.Drawing.Size(602, 450);
             this.mainPanel.TabIndex = 1;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // widthTextBox
+            // 
+            this.widthTextBox.Location = new System.Drawing.Point(66, 23);
+            this.widthTextBox.Name = "widthTextBox";
+            this.widthTextBox.Size = new System.Drawing.Size(100, 20);
+            this.widthTextBox.TabIndex = 0;
+            // 
+            // heightTextBox
+            // 
+            this.heightTextBox.Location = new System.Drawing.Point(65, 49);
+            this.heightTextBox.Name = "heightTextBox";
+            this.heightTextBox.Size = new System.Drawing.Size(100, 20);
+            this.heightTextBox.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,8 +158,6 @@
             this.leftPanel.ResumeLayout(false);
             this.leftPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.removeBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.heightBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.widthBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -177,10 +170,11 @@
         private System.Windows.Forms.NumericUpDown removeBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button generateButton;
-        private System.Windows.Forms.NumericUpDown heightBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown widthBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.TextBox heightTextBox;
+        private System.Windows.Forms.TextBox widthTextBox;
     }
 }
 
