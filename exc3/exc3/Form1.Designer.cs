@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.Drawing;
 namespace exc3
 {
     partial class Form1
@@ -29,12 +30,28 @@ namespace exc3
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.dragPanel = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // dragPanel
+            // 
+            this.dragPanel.Location = new System.Drawing.Point(0, 0);
+            this.dragPanel.Name = "dragPanel";
+            this.dragPanel.Size = new System.Drawing.Size(100, 100);
+            this.dragPanel.TabIndex = 0;
+            this.dragPanel.BackColor = Color.SkyBlue;
+            this.dragPanel.BorderStyle = BorderStyle.FixedSingle;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.dragPanel = new Panel();
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dragPanel);
+            this.Name = "Form1";
             this.Text = "Form1";
-            Controls.Add(dragPanel);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
