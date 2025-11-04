@@ -83,11 +83,11 @@ namespace exc2
         {
 
             int num = (int)removeBox.Value;
-            var labelToRemove = list.FirstOrDefault(l => l.Text.StartsWith($"num: {num},"));
-            if (labelToRemove != null)
+            var labelRemove = list.FirstOrDefault(l => l.Text.StartsWith($"num: {num},"));
+            if (labelRemove != null)
             {
-                mainPanel.Controls.Remove(labelToRemove);
-                list.Remove(labelToRemove);
+                mainPanel.Controls.Remove(labelRemove);
+                list.Remove(labelRemove);
                 for (int i = 0; i < list.Count; i++)
                 {
                     Label l = list[i];

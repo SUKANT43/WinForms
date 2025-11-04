@@ -8,11 +8,10 @@ namespace exc_1
     public partial class Form1 : Form
     {
         private List<Label> labelList = new List<Label>();
-        int rowCount = 0;
         public Form1()
         {
             InitializeComponent();
-
+            
         }
 
         private void generateBtn(object sender, EventArgs e)
@@ -20,21 +19,16 @@ namespace exc_1
             int row = Convert.ToInt32(rowNum.Value);
             int col = Convert.ToInt32(colNum.Value);
             int total = row * col;
-
-            // ✅ Adjust label count without clearing every time
             if (labelList.Count > total)
             {
-                // Remove extra labels
                 for (int i = labelList.Count - 1; i >= total; i--)
                 {
                     mainPanel.Controls.Remove(labelList[i]);
-                    labelList[i].Dispose();
                     labelList.RemoveAt(i);
                 }
             }
             else if (labelList.Count < total)
             {
-                // Add missing labels only
                 for (int i = labelList.Count; i < total; i++)
                 {
                     Label label = new Label
@@ -46,8 +40,6 @@ namespace exc_1
                     mainPanel.Controls.Add(label);
                 }
             }
-
-            // Refresh layout
             OnResize();
         }
 
