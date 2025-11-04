@@ -7,6 +7,7 @@ namespace exc3
     public partial class Form1 : Form
     {
         private Point dragStartPoint;
+        private bool isResizing = false;
 
         public Form1()
         {
@@ -16,18 +17,16 @@ namespace exc3
 
             dragPanel.MouseDown += MouseDownDrag;
             dragPanel.MouseUp += MouseUpDrag;
-            dragPanel.MouseMove +=MouseMoveDrag;
+            dragPanel.MouseMove += MouseMoveDrag;
         }
         private void ButtonClick(object s, MouseEventArgs e)
         {
-
             if (e.Button == MouseButtons.Left)
             {
                 int x = e.X - (dragPanel.Width / 2);
                 int y = e.Y - (dragPanel.Height / 2);
                 x = Math.Max(0, Math.Min(x, ClientSize.Width - dragPanel.Width));
                 y = Math.Max(0, Math.Min(y, ClientSize.Height - dragPanel.Height));
-
                 dragPanel.Location = new Point(x, y);
             }
 
@@ -41,13 +40,12 @@ namespace exc3
         private void DragButtonClick(object s, MouseEventArgs e)
         {
             Point np = dragPanel.Location;
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && !ModifierKeys.HasFlag(Keys.Control))
             {
-                int x = (np.X+e.X) - (dragPanel.Width / 2);
-                int y = (np.Y+e.Y) - (dragPanel.Height / 2);
+                int x = (np.X + e.X) - (dragPanel.Width / 2);
+                int y = (np.Y + e.Y) - (dragPanel.Height / 2);
                 x = Math.Max(0, Math.Min(x, ClientSize.Width - dragPanel.Width));
                 y = Math.Max(0, Math.Min(y, ClientSize.Height - dragPanel.Height));
-
                 dragPanel.Location = new Point(x, y);
             }
 
@@ -58,12 +56,19 @@ namespace exc3
             }
         }
 
-        private void MouseDownDrag(object s,MouseEventArgs e)
+        private void MouseDownDrag(object s, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle)
             {
                 dragStartPoint = e.Location;
                 dragPanel.Cursor = Cursors.SizeAll;
+            }
+
+            if (e.Button == MouseButtons.Left && ModifierKeys.HasFlag(Keys.Control))
+            {
+                dragStartPoint = e.Location;
+                isResizing = true;
+                dragPanel.Cursor = Cursors.SizeNWSE;
             }
         }
 
@@ -73,24 +78,34 @@ namespace exc3
             {
                 int dx = e.X - dragStartPoint.X;
                 int dy = e.Y - dragStartPoint.Y;
-
                 int newX = dragPanel.Left + dx;
                 int newY = dragPanel.Top + dy;
-
                 newX = Math.Max(0, Math.Min(newX, ClientSize.Width - dragPanel.Width));
                 newY = Math.Max(0, Math.Min(newY, ClientSize.Height - dragPanel.Height));
-
                 dragPanel.Location = new Point(newX, newY);
+            }
+
+            if (isResizing && e.Button == MouseButtons.Left && ModifierKeys.HasFlag(Keys.Control))
+            {
+                int newWidth =Math.Max(20,dragPanel.Width + (e.X - dragStartPoint.X));
+                int newHeight = Math.Max(20,dragPanel.Height + (e.Y - dragStartPoint.Y));
+                dragPanel.Size = new Size(newWidth, newHeight);
+                dragStartPoint = e.Location;
             }
         }
 
         private void MouseUpDrag(object sender, MouseEventArgs e)
-          {
-              if (e.Button == MouseButtons.Middle)
-              {
-                  dragPanel.Cursor = Cursors.Default;
-              }
-        }
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                dragPanel.Cursor = Cursors.Default;
+            }
 
+            if (isResizing)
+            {
+                isResizing = false;
+                dragPanel.Cursor = Cursors.Default;
+            }
+        }
     }
 }
