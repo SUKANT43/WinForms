@@ -1,4 +1,4 @@
-﻿namespace OutputController
+﻿namespace Game1
 {
     partial class Form1
     {
