@@ -9,21 +9,32 @@ namespace exc3
         private Point dragStartPoint;
         private bool isResizing = false;
         private string resizeDir = "";
+        private bool singleClickReady = false;
+
 
         public Form1()
         {
             InitializeComponent();
-
-            MouseDoubleClick += ButtonClick;
-            dragPanel.MouseDoubleClick += DragButtonClick;
+            MouseClick += (s, e) => singleClickReady = true;
+            MouseDown += (s, e) =>
+            {
+                if (singleClickReady)
+                {
+                    singleClickReady = false;
+                    ButtonClick(s,e);
+                }
+            };
+        
+        dragPanel.MouseDoubleClick += DragButtonClick;
             dragPanel.MouseDown += MouseDownDrag;
             dragPanel.MouseUp += MouseUpDrag;
             dragPanel.MouseMove += MouseMoveDrag;
         }
 
+
         private void ButtonClick(object s, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left )
             {
                 int x = e.X - (dragPanel.Width / 2);
                 int y = e.Y - (dragPanel.Height / 2);
