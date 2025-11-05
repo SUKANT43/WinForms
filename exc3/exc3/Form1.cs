@@ -25,16 +25,29 @@ namespace exc3
                 }
             };
         
-        dragPanel.MouseDoubleClick += DragButtonClick;
+            dragPanel.MouseDoubleClick += DragButtonClick;
             dragPanel.MouseDown += MouseDownDrag;
             dragPanel.MouseUp += MouseUpDrag;
             dragPanel.MouseMove += MouseMoveDrag;
+            //dragPanel.Resize += PageResize;
         }
 
+        private void PageResize(object s, EventArgs e)
+        {
+            if (dragPanel.Width+dragPanel.Location.X > Right)
+            {
+                dragPanel.Width = Right-dragPanel.Width;
+            }
+
+            if (dragPanel.Height > Height)
+            {
+                dragPanel.Height = Bottom;
+            }
+        }
 
         private void ButtonClick(object s, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left )
+            if (e.Button == MouseButtons.Left)
             {
                 int x = e.X - (dragPanel.Width / 2);
                 int y = e.Y - (dragPanel.Height / 2);
