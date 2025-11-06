@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace Graph
 {
@@ -22,11 +23,12 @@ namespace Graph
         {
             InitializeComponent();
 
-            //typeof(Panel).InvokeMember("DoubleBuffered",
-            //System.Reflection.BindingFlags.SetProperty |
-            //System.Reflection.BindingFlags.Instance |
-            //System.Reflection.BindingFlags.NonPublic,
-            //null, leftPanel, new object[] { true });
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                BindingFlags.SetProperty |
+                BindingFlags.Instance |
+                BindingFlags.NonPublic,
+                null, leftPanel, new object[] { true });
+
 
 
             leftPanel.Paint += paintTriangle;
@@ -89,7 +91,10 @@ namespace Graph
                 }
             }
         }
-        private void LeftPanelMouseMove(object s, MouseEventArgs e) {
+        private void LeftPanelMouseMove(object s, MouseEventArgs e)
+        {
+            Point p = e.Location;
+
 
             if (e.Button == MouseButtons.Middle)
             {
@@ -98,13 +103,29 @@ namespace Graph
 
                 int dx = e.X - dragStart.X;
                 int dy = e.Y - dragStart.Y;
-                for (int i = 0; i < selectedShape.Length; i++)
+
+                bool withinBounds = true;
+                foreach (var pt in selectedShape)
                 {
-                    selectedShape[i].Offset(dx, dy);
+                    int newX = pt.X + dx;
+                    int newY = pt.Y + dy;
+                    if (newX < 0 || newY < 0 || newX > leftPanel.Width || newY > leftPanel.Height)
+                    {
+                        withinBounds = false;
+                        break;
+                    }
                 }
-                dragStart = e.Location;
-                leftPanel.Invalidate();
+
+                if (withinBounds)
+                {
+                    for (int i = 0; i < selectedShape.Length; i++)
+                        selectedShape[i].Offset(dx, dy);
+
+                    dragStart = e.Location;
+                    leftPanel.Invalidate();
+                }
             }
+
             if (e.Button == MouseButtons.Left)
             {
                 if (selectedShape == null)
@@ -112,11 +133,29 @@ namespace Graph
 
                 int dx = e.X - dragStart.X;
                 int dy = e.Y - dragStart.Y;
-                selectedShape[1].Offset(0, dy);   
-                selectedShape[2].Offset(dx, dy);  
-                selectedShape[0].Offset(dx / 2, -dy / 2); 
-                dragStart = e.Location;
-                leftPanel.Invalidate();
+
+                Point[] newPoints = new Point[selectedShape.Length];
+                for (int i = 0; i < selectedShape.Length; i++)
+                    newPoints[i] = selectedShape[i];
+
+                newPoints[1].Offset(0, dy);
+                newPoints[2].Offset(dx, dy);
+                newPoints[0].Offset(dx / 2, -dy / 2);
+
+                bool withinBounds = newPoints.All(pt =>
+                    pt.X >= 0 && pt.Y >= 0 &&
+                    pt.X <= leftPanel.Width && pt.Y <= leftPanel.Height
+                );
+
+                if (withinBounds)
+                {
+                    selectedShape[1].Offset(0, dy);
+                    selectedShape[2].Offset(dx, dy);
+                    selectedShape[0].Offset(dx / 2, -dy / 2);
+
+                    dragStart = e.Location;
+                    leftPanel.Invalidate();
+                }
             }
         }
 
