@@ -37,6 +37,5 @@ namespace Graph
             g.FillRectangle(b, 300, 400, 500, 500);
             g.DrawString("Hello Graphics!", new Font("Arial", 14, FontStyle.Bold), Brushes.DarkBlue, 100, 150);
         }
-
     }
 }

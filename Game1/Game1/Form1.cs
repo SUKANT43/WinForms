@@ -26,7 +26,7 @@ namespace Game1
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Paint += PanelDrawing;
             //Controls.Add(mainPanel);
-            mainPanel.SendToBack();
+            //mainPanel.SendToBack();
             //mainPanel.SendToBack();
         }
 
@@ -35,7 +35,6 @@ namespace Game1
             w = w / 2;
             mainPanel.Invalidate();
         }
-
         private void PanelDrawing(object s, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
