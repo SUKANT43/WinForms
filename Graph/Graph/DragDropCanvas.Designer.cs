@@ -29,19 +29,31 @@
         private void InitializeComponent()
         {
             this.rightPanel = new System.Windows.Forms.Panel();
-            this.leftPanel = new System.Windows.Forms.Panel();
             this.triangleGenerator = new System.Windows.Forms.Button();
+            this.leftPanel = new System.Windows.Forms.Panel();
+            this.generateEllipseButton = new System.Windows.Forms.Button();
             this.rightPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // rightPanel
             // 
+            this.rightPanel.Controls.Add(this.generateEllipseButton);
             this.rightPanel.Controls.Add(this.triangleGenerator);
             this.rightPanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.rightPanel.Location = new System.Drawing.Point(619, 0);
             this.rightPanel.Name = "rightPanel";
             this.rightPanel.Size = new System.Drawing.Size(181, 450);
             this.rightPanel.TabIndex = 0;
+            // 
+            // triangleGenerator
+            // 
+            this.triangleGenerator.Location = new System.Drawing.Point(47, 82);
+            this.triangleGenerator.Name = "triangleGenerator";
+            this.triangleGenerator.Size = new System.Drawing.Size(92, 30);
+            this.triangleGenerator.TabIndex = 0;
+            this.triangleGenerator.Text = "Triangle";
+            this.triangleGenerator.UseVisualStyleBackColor = true;
+            this.triangleGenerator.Click += new System.EventHandler(this.triangleGeneratorButton);
             // 
             // leftPanel
             // 
@@ -52,15 +64,14 @@
             this.leftPanel.Size = new System.Drawing.Size(619, 450);
             this.leftPanel.TabIndex = 1;
             // 
-            // triangleGenerator
+            // generateEllipseButton
             // 
-            this.triangleGenerator.Location = new System.Drawing.Point(47, 68);
-            this.triangleGenerator.Name = "triangleGenerator";
-            this.triangleGenerator.Size = new System.Drawing.Size(92, 30);
-            this.triangleGenerator.TabIndex = 0;
-            this.triangleGenerator.Text = "Triangle";
-            this.triangleGenerator.UseVisualStyleBackColor = true;
-            this.triangleGenerator.Click += new System.EventHandler(this.triangleGeneratorButton);
+            this.generateEllipseButton.Location = new System.Drawing.Point(47, 151);
+            this.generateEllipseButton.Name = "generateEllipseButton";
+            this.generateEllipseButton.Size = new System.Drawing.Size(92, 30);
+            this.generateEllipseButton.TabIndex = 1;
+            this.generateEllipseButton.Text = "Ellipse";
+            this.generateEllipseButton.UseVisualStyleBackColor = true;
             // 
             // DragDropCanvas
             // 
@@ -73,7 +84,6 @@
             this.Text = "DragDropCanvas";
             this.rightPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -81,5 +91,6 @@
         private System.Windows.Forms.Panel rightPanel;
         private System.Windows.Forms.Panel leftPanel;
         private System.Windows.Forms.Button triangleGenerator;
+        private System.Windows.Forms.Button generateEllipseButton;
     }
 }
