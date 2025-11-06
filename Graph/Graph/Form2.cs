@@ -12,12 +12,13 @@ namespace Graph
 {
     public partial class Form2 : Form
     {
+        Panel p;
         public Form2()
         {
-            //Panel p = new Panel();
-            //p.Dock = DockStyle.Fill;
-            Paint += DrawHome;
-            //Controls.Add(p);
+             p = new Panel();
+            p.Dock = DockStyle.Fill;
+            p.Paint += DrawHome;
+            Controls.Add(p);
         }
         public void DrawHome(object s,PaintEventArgs e)
         {
