@@ -30,7 +30,7 @@ namespace Graph
         {
             x = e.X;
             y = e.Y;
-            DrawImage(null,null);
+            mainPanel.Invalidate();
         }
 
     }
