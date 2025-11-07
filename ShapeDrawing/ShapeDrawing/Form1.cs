@@ -36,6 +36,35 @@ namespace ShapeDrawing
             leftPanel.Invalidate();
         }
 
+        private void rectangleButtonClick(object sender, EventArgs e)
+        {
+            int[] s = { 200, 100 }; 
+            List<Point> p = new List<Point> { new Point(300, 250) }; 
+            shapeList.Add(new Shape("Rectangle", s, p));
+            leftPanel.Invalidate();
+        }
+
+        private void triangleButtonClick(object sender, EventArgs e)
+        {
+            List<Point> ls = new List<Point>
+            {
+                new Point(100, 0), new Point(0, 300), new Point(200, 300)
+            };
+            shapeList.Add(new Shape("Triangle", ls));
+            leftPanel.Invalidate();
+        }
+        private void lineButtonClick(object sender, EventArgs e)
+        {
+            List<Point> l = new List<Point>
+            {
+                new Point(200,100),
+                new Point(400,100)
+            };
+            shapeList.Add(new Shape("Line", l));
+            leftPanel.Invalidate();
+        }
+
+
         private void drawShape(object s, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -47,9 +76,27 @@ namespace ShapeDrawing
                 {
                     foreach (var loc in sh.location)
                     {
-                        g.FillEllipse(Brushes.Black, loc.X, loc.Y, sh.size[0], sh.size[1]);
+                        g.FillEllipse(Brushes.LightCoral, loc.X, loc.Y, sh.size[0], sh.size[1]);
                     }
                 }
+                if (sh.shapeName == "Rectangle")
+                {
+                    Point loc = sh.location[0];
+                    g.FillRectangle(Brushes.LightBlue, loc.X, loc.Y, sh.size[0], sh.size[1]);
+                }
+                if (sh.shapeName == "Triangle")
+                {
+                    List<Point> ls = sh.location;
+                    g.FillPolygon(Brushes.Bisque,ls.ToArray());
+                }
+                if (sh.shapeName == "Line")
+                {
+                    using (Pen pen = new Pen(Color.Black, 3))
+                    {
+                        g.DrawLine(pen, sh.location[0], sh.location[1]);
+                    }
+                }
+
             }
         }
 
@@ -57,7 +104,6 @@ namespace ShapeDrawing
         {
             if (e.Button == MouseButtons.Middle)
             {
-                Cursor = Cursors.SizeAll;
                 foreach (var sh in shapeList)
                 {
                     if (sh.shapeName == "Ellipse")
@@ -78,6 +124,63 @@ namespace ShapeDrawing
                             }
                         }
                     }
+
+                    if (sh.shapeName == "Rectangle")
+                    {
+                        foreach(var loc in sh.location)
+                        {
+                            Rectangle rect = new Rectangle(loc.X, loc.Y, sh.size[0], sh.size[1]);
+                            using (GraphicsPath g = new GraphicsPath())
+                            {
+                                g.AddRectangle(rect);
+                                if (g.IsVisible(e.Location))
+                                {
+                                    selectedShape = sh;
+                                    lastMousePos = e.Location;
+                                    isDragging = true;
+                                    Cursor = Cursors.SizeAll;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
+                    if (sh.shapeName == "Triangle")
+                    {
+                        using(GraphicsPath g=new GraphicsPath())
+                        {
+                            Point[] p = sh.location.ToArray();
+
+                            g.AddPolygon(p);
+                            if (g.IsVisible(e.Location))
+                            {
+                                selectedShape = sh;
+                                lastMousePos = e.Location;
+                                isDragging = true;
+                                Cursor = Cursors.SizeAll;
+                                return;
+                            }
+                        }
+                    }
+                    if (sh.shapeName == "Line")
+                    {
+                        using(GraphicsPath g=new GraphicsPath())
+                        {
+                            using (Pen p = new Pen(Color.Black, 3))
+                            {
+                                g.AddLine(sh.location[0], sh.location[1]);
+                                if (g.IsOutlineVisible(e.Location,p))
+                                {
+                                    selectedShape = sh;
+                                    lastMousePos = e.Location;
+                                    isDragging = true;
+                                    Cursor = Cursors.SizeAll;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
         }
@@ -108,6 +211,7 @@ namespace ShapeDrawing
             selectedShape = null;
             Cursor = Cursors.Default;
         }
+
     }
 
     public class Shape
@@ -120,6 +224,11 @@ namespace ShapeDrawing
         {
             this.shapeName = shapeName;
             this.size = size;
+            this.location = location;
+        }
+        public Shape(string shapeName, List<Point> location)
+        {
+            this.shapeName = shapeName;
             this.location = location;
         }
     }

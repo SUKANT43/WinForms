@@ -40,6 +40,7 @@
             // 
             // rightPanel
             // 
+            this.rightPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.rightPanel.Controls.Add(this.adjustableRectangleButton);
             this.rightPanel.Controls.Add(this.lineButton);
             this.rightPanel.Controls.Add(this.triangleButton);
@@ -68,6 +69,7 @@
             this.lineButton.TabIndex = 3;
             this.lineButton.Text = "Line";
             this.lineButton.UseVisualStyleBackColor = true;
+            this.lineButton.Click += new System.EventHandler(this.lineButtonClick);
             // 
             // triangleButton
             // 
@@ -77,6 +79,7 @@
             this.triangleButton.TabIndex = 2;
             this.triangleButton.Text = "Triangle";
             this.triangleButton.UseVisualStyleBackColor = true;
+            this.triangleButton.Click += new System.EventHandler(this.triangleButtonClick);
             // 
             // rectangleButton
             // 
@@ -86,6 +89,7 @@
             this.rectangleButton.TabIndex = 1;
             this.rectangleButton.Text = "Rectangle";
             this.rectangleButton.UseVisualStyleBackColor = true;
+            this.rectangleButton.Click += new System.EventHandler(this.rectangleButtonClick);
             // 
             // ellipseButton
             // 
@@ -99,7 +103,7 @@
             // 
             // leftPanel
             // 
-            this.leftPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.leftPanel.BackColor = System.Drawing.SystemColors.Window;
             this.leftPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftPanel.Location = new System.Drawing.Point(0, 0);
             this.leftPanel.Name = "leftPanel";
