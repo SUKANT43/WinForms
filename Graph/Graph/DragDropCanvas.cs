@@ -19,7 +19,7 @@ namespace Graph
         private Point dragStart;
         private Point[] selectedShape = null;
         private bool isResizing = false;
-        public DragDropCanvas()
+          public DragDropCanvas()
         {
             InitializeComponent();
 
@@ -30,21 +30,21 @@ namespace Graph
                 null, leftPanel, new object[] { true });
 
 
-
-            leftPanel.Paint += paintTriangle;
+            leftPanel.Paint += PaintTriangle;
             leftPanel.MouseDown += LeftPanelMouseDown;
             leftPanel.MouseMove += LeftPanelMouseMove;
             leftPanel.MouseUp += LeftPanelMouseUp;
         }
 
-        private void triangleGeneratorButton(object sender, EventArgs e)
+        private void TriangleGeneratorButton
+            (object sender, EventArgs e)
         {
             Point[] p = { new Point(100, 0), new Point(0, 300), new Point(200, 300) };
             listOfShapes.Add(p);
             leftPanel.Invalidate();
         }
 
-        private void paintTriangle(object s,PaintEventArgs e)
+        private void PaintTriangle(object s,PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             foreach(var p in listOfShapes)

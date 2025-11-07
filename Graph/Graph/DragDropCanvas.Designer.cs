@@ -53,7 +53,7 @@
             this.triangleGenerator.TabIndex = 0;
             this.triangleGenerator.Text = "Triangle";
             this.triangleGenerator.UseVisualStyleBackColor = true;
-            this.triangleGenerator.Click += new System.EventHandler(this.triangleGeneratorButton);
+            this.triangleGenerator.Click += new System.EventHandler(this.TriangleGeneratorButton);
             // 
             // leftPanel
             // 
