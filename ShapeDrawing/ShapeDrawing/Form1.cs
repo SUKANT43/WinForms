@@ -63,6 +63,19 @@ namespace ShapeDrawing
             shapeList.Add(new Shape("Line", l));
             leftPanel.Invalidate();
         }
+        private void adjustableRectangleButtonClick(object sender, EventArgs e)
+        {
+            List<Point> l = new List<Point>()
+            {
+                new Point(200,200),
+                new Point(500,200),
+                new Point(500,400),
+                new Point(250,400)
+            };
+            shapeList.Add(new Shape("Adjustable Rectangle",l));
+            leftPanel.Invalidate();
+        }
+
 
 
         private void drawShape(object s, PaintEventArgs e)
@@ -95,6 +108,10 @@ namespace ShapeDrawing
                     {
                         g.DrawLine(pen, sh.location[0], sh.location[1]);
                     }
+                }
+                if(sh.shapeName== "Adjustable Rectangle")
+                {
+                    g.FillPolygon(Brushes.BlueViolet, sh.location.ToArray());
                 }
 
             }
@@ -180,7 +197,21 @@ namespace ShapeDrawing
                             }
                         }
                     }
-
+                    if (sh.shapeName == "Adjustable Rectangle")
+                    {
+                        using(GraphicsPath g=new GraphicsPath())
+                        {
+                            g.AddPolygon(sh.location.ToArray());
+                            if (g.IsVisible(e.Location))
+                            {
+                                selectedShape = sh;
+                                lastMousePos = e.Location;
+                                isDragging = true;
+                                Cursor = Cursors.SizeAll;
+                                return;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -212,6 +243,7 @@ namespace ShapeDrawing
             Cursor = Cursors.Default;
         }
 
+        
     }
 
     public class Shape

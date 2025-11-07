@@ -60,6 +60,7 @@
             this.adjustableRectangleButton.TabIndex = 4;
             this.adjustableRectangleButton.Text = "Adjustable Rectangle";
             this.adjustableRectangleButton.UseVisualStyleBackColor = true;
+            this.adjustableRectangleButton.Click += new System.EventHandler(this.adjustableRectangleButtonClick);
             // 
             // lineButton
             // 
