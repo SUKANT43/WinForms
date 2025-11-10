@@ -49,7 +49,7 @@
             this.rightPanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.rightPanel.Location = new System.Drawing.Point(628, 0);
             this.rightPanel.Name = "rightPanel";
-            this.rightPanel.Size = new System.Drawing.Size(172, 450);
+            this.rightPanel.Size = new System.Drawing.Size(172, 422);
             this.rightPanel.TabIndex = 0;
             // 
             // adjustableRectangleButton
@@ -60,7 +60,7 @@
             this.adjustableRectangleButton.TabIndex = 4;
             this.adjustableRectangleButton.Text = "Adjustable Rectangle";
             this.adjustableRectangleButton.UseVisualStyleBackColor = true;
-            this.adjustableRectangleButton.Click += new System.EventHandler(this.adjustableRectangleButtonClick);
+            this.adjustableRectangleButton.Click += new System.EventHandler(this.AdjustableRectangleButtonClick);
             // 
             // lineButton
             // 
@@ -70,7 +70,7 @@
             this.lineButton.TabIndex = 3;
             this.lineButton.Text = "Line";
             this.lineButton.UseVisualStyleBackColor = true;
-            this.lineButton.Click += new System.EventHandler(this.lineButtonClick);
+            this.lineButton.Click += new System.EventHandler(this.LineButtonClick);
             // 
             // triangleButton
             // 
@@ -80,7 +80,7 @@
             this.triangleButton.TabIndex = 2;
             this.triangleButton.Text = "Triangle";
             this.triangleButton.UseVisualStyleBackColor = true;
-            this.triangleButton.Click += new System.EventHandler(this.triangleButtonClick);
+            this.triangleButton.Click += new System.EventHandler(this.TriangleButtonClick);
             // 
             // rectangleButton
             // 
@@ -90,7 +90,7 @@
             this.rectangleButton.TabIndex = 1;
             this.rectangleButton.Text = "Rectangle";
             this.rectangleButton.UseVisualStyleBackColor = true;
-            this.rectangleButton.Click += new System.EventHandler(this.rectangleButtonClick);
+            this.rectangleButton.Click += new System.EventHandler(this.RectangleButtonClick);
             // 
             // ellipseButton
             // 
@@ -100,7 +100,7 @@
             this.ellipseButton.TabIndex = 0;
             this.ellipseButton.Text = "Ellipse";
             this.ellipseButton.UseVisualStyleBackColor = true;
-            this.ellipseButton.Click += new System.EventHandler(this.ellipseButtonClick);
+            this.ellipseButton.Click += new System.EventHandler(this.EllipseButtonClick);
             // 
             // leftPanel
             // 
@@ -108,14 +108,14 @@
             this.leftPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftPanel.Location = new System.Drawing.Point(0, 0);
             this.leftPanel.Name = "leftPanel";
-            this.leftPanel.Size = new System.Drawing.Size(628, 450);
+            this.leftPanel.Size = new System.Drawing.Size(628, 422);
             this.leftPanel.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 422);
             this.Controls.Add(this.leftPanel);
             this.Controls.Add(this.rightPanel);
             this.Name = "Form1";

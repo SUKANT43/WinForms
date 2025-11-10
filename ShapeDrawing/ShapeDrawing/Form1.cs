@@ -21,13 +21,13 @@ namespace ShapeDrawing
                 System.Reflection.BindingFlags.Instance|
                 System.Reflection.BindingFlags.NonPublic,
                 null,leftPanel, new object[] { true });
-            leftPanel.Paint += drawShape;
+            leftPanel.Paint += DrawShape;
             leftPanel.MouseDown += MouseDownClick;
             leftPanel.MouseMove += MouseMovement;
             leftPanel.MouseUp += MouseUpClick;
         }
 
-        private void ellipseButtonClick(object sender, EventArgs e)
+        private void EllipseButtonClick(object sender, EventArgs e)
         {
             int[] s = { 150, 200 };
             List<Point> p = new List<Point> { new Point(200, 200) };
@@ -36,7 +36,7 @@ namespace ShapeDrawing
             leftPanel.Invalidate();
         }
 
-        private void rectangleButtonClick(object sender, EventArgs e)
+        private void RectangleButtonClick(object sender, EventArgs e)
         {
             int[] s = { 200, 100 }; 
             List<Point> p = new List<Point> { new Point(300, 250) }; 
@@ -44,7 +44,7 @@ namespace ShapeDrawing
             leftPanel.Invalidate();
         }
 
-        private void triangleButtonClick(object sender, EventArgs e)
+        private void TriangleButtonClick(object sender, EventArgs e)
         {
             List<Point> ls = new List<Point>
             {
@@ -53,7 +53,7 @@ namespace ShapeDrawing
             shapeList.Add(new Shape("Triangle", ls));
             leftPanel.Invalidate();
         }
-        private void lineButtonClick(object sender, EventArgs e)
+        private void LineButtonClick(object sender, EventArgs e)
         {
             List<Point> l = new List<Point>
             {
@@ -63,7 +63,7 @@ namespace ShapeDrawing
             shapeList.Add(new Shape("Line", l));
             leftPanel.Invalidate();
         }
-        private void adjustableRectangleButtonClick(object sender, EventArgs e)
+        private void AdjustableRectangleButtonClick(object sender, EventArgs e)
         {
             List<Point> l = new List<Point>()
             {
@@ -76,9 +76,7 @@ namespace ShapeDrawing
             leftPanel.Invalidate();
         }
 
-
-
-        private void drawShape(object s, PaintEventArgs e)
+        private void DrawShape(object s, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -98,7 +96,9 @@ namespace ShapeDrawing
                     g.FillRectangle(Brushes.LightBlue, loc.X, loc.Y, sh.size[0], sh.size[1]);
                 }
                 if (sh.shapeName == "Triangle")
-                {
+                {  
+
+ 
                     List<Point> ls = sh.location;
                     g.FillPolygon(Brushes.Bisque,ls.ToArray());
                 }
@@ -242,8 +242,6 @@ namespace ShapeDrawing
             selectedShape = null;
             Cursor = Cursors.Default;
         }
-
-        
     }
 
     public class Shape

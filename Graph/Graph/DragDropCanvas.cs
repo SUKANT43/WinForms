@@ -85,7 +85,6 @@ namespace Graph
                             dragStart = e.Location;
                             Cursor = Cursors.SizeNWSE;
                             break;
-
                         }
                     }
                 }
