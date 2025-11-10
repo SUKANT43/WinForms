@@ -88,7 +88,7 @@ namespace GraphicsControllers
         private void LeftPanelPaint(object s,PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            for (int i= ls.Count-1;i>= 0;i--)
+            for (int i= ls.Count-1; i>=0 ; i--)
             {
                 Point[] p = ls[i];
                 if (p.Length == 2)
@@ -110,7 +110,7 @@ namespace GraphicsControllers
                 }
             }
         }
-
+        
         private void LineButtonClick(object sender, EventArgs e)
         {
             isLine = true;
@@ -148,7 +148,7 @@ namespace GraphicsControllers
                 {
                     x2 = e.X;
                     y2 = e.Y;
-                    ls.Add(new Point[]{new Point ( x1, y1),
+                    ls.Insert(0,new Point[]{new Point ( x1, y1),
                         new Point(x2,y2),
                 });
                     checkPoint = 0;
@@ -174,7 +174,7 @@ namespace GraphicsControllers
                 {
                     x3 = e.X;
                     y3 = e.Y;
-                    ls.Add(new Point[]{new Point ( x1, y1),
+                    ls.Insert(0,new Point[]{new Point ( x1, y1),
                         new Point(x2,y2),
                         new Point(x3,y3)
                 });
@@ -212,7 +212,7 @@ namespace GraphicsControllers
                         new Point(x3,y3),
                         new Point(x4,y4)
                 });
-                    ls.Add(ordered);
+                    ls.Insert(0,ordered);
                     checkPoint = 0;
                     isRectangle = false;
                     leftPanel.Invalidate();
@@ -269,10 +269,10 @@ namespace GraphicsControllers
 
         private void LeftPanelMouseMove(object s,MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Middle && isMoving)
+            if (e.Button == MouseButtons.Middle && isMoving && selectedShape != null)
             {
-                if (selectedShape == null)
-                    return;
+
+                ls.Remove(selectedShape);
 
                 int dx = e.X - mousePoint.X;
                 int dy = e.Y - mousePoint.Y;
@@ -295,6 +295,7 @@ namespace GraphicsControllers
                         selectedShape[i].Offset(dx, dy);
                     }
                 }
+                 ls.Insert(0,selectedShape);
 
                 mousePoint = e.Location;
                 leftPanel.Invalidate();
