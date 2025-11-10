@@ -88,27 +88,47 @@ namespace GraphicsControllers
         private void LeftPanelPaint(object s,PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            for (int i= ls.Count-1; i>=0 ; i--)
+
+            if (isLine || isRectangle || isTriangle)
             {
-                Point[] p = ls[i];
-                if (p.Length == 2)
+                if (x2 != 0 && y2 != 0)
                 {
-                    Pen pen = new Pen(Color.Black, 3);
-                    g.DrawLine(pen,p[0],p[1]);
+                    g.DrawLine(new Pen(Color.Black,3), new Point(x1, y1), new Point(x2, y2));
                 }
-                if (p.Length == 3)
+                if (x2 != 0 && y2 != 0 && x3 != 0 && y3 != 0)
                 {
-                    Pen pen = new Pen(Color.Black, 3);
-                    g.DrawPolygon(pen, p);
-                    g.FillPolygon(Brushes.LightGreen, p);
+                    g.DrawLine(new Pen(Color.Black, 3), new Point(x1, y1), new Point(x2, y2));
+                    g.DrawLine(new Pen(Color.Black, 3), new Point(x2, y2), new Point(x3, y3));
+
                 }
-                if (p.Length == 4)
-                {
-                    Pen pen = new Pen(Color.Black, 3);
-                    g.DrawPolygon(pen, p);
-                    g.FillPolygon(Brushes.Violet, p);
-                }
+
             }
+            else
+            {
+                for (int i = ls.Count - 1; i >= 0; i--)
+                {
+                    Point[] p = ls[i];
+                    if (p.Length == 2)
+                    {
+                        Pen pen = new Pen(Color.Black, 3);
+                        g.DrawLine(pen, p[0], p[1]);
+                    }
+                    if (p.Length == 3)
+                    {
+                        Pen pen = new Pen(Color.Black, 3);
+                        g.DrawPolygon(pen, p);
+                        g.FillPolygon(Brushes.LightGreen, p);
+                    }
+                    if (p.Length == 4)
+                    {
+                        Pen pen = new Pen(Color.Black, 3);
+                        g.DrawPolygon(pen, p);
+                        g.FillPolygon(Brushes.Violet, p);
+                    }
+                }
+
+            }
+
         }
         
         private void LineButtonClick(object sender, EventArgs e)
@@ -169,6 +189,8 @@ namespace GraphicsControllers
                 {
                     x2 = e.X;
                     y2 = e.Y;
+                    leftPanel.Invalidate();
+
                 }
                 if (checkPoint == 3)
                 {
@@ -197,11 +219,15 @@ namespace GraphicsControllers
                 {
                     x2 = e.X;
                     y2 = e.Y;
+                    leftPanel.Invalidate();
+
                 }
                 if (checkPoint == 3)
                 {
                     x3 = e.X;
                     y3 = e.Y;
+                    leftPanel.Invalidate();
+
                 }
                 if (checkPoint == 4)
                 {
@@ -252,7 +278,6 @@ namespace GraphicsControllers
                                 }
                             }
                         }
-
                     }
                 }
             }
@@ -266,6 +291,7 @@ namespace GraphicsControllers
             Array.Sort(bottom, (a, b) => a.X.CompareTo(b.X));
             return new Point[] { top[0], top[1], bottom[1], bottom[0] };
         }
+       
 
         private void LeftPanelMouseMove(object s,MouseEventArgs e)
         {
