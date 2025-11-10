@@ -83,6 +83,7 @@ namespace GraphicsControllers
             leftPanel.MouseMove += LeftPanelMouseMove;
             leftPanel.MouseUp += LeftPanelMouseUp;
             leftPanel.Paint += LeftPanelPaint;
+            leftPanel.MouseDoubleClick += LeftPanelDoubleClick;
         }
 
         private void LeftPanelPaint(object s,PaintEventArgs e)
@@ -161,8 +162,6 @@ namespace GraphicsControllers
             checkPoint = 0;
             x1 = y1 = x2 = y2 = x3 = y3 = 0;
             leftPanel.Invalidate();
-
-
         }
         private void LeftPanelMouseDown(object s, MouseEventArgs e)
         {
@@ -294,7 +293,7 @@ namespace GraphicsControllers
                     }
                 }
             }
-            }
+        }
         private Point[] OrderRectanglePoints(Point[] pts)
         {
             Array.Sort(pts, (a, b) => a.Y.CompareTo(b.Y));
@@ -349,7 +348,43 @@ namespace GraphicsControllers
                 selectedShape = null;
                 isMoving = false;
             }
+        }
 
+        private void LeftPanelDoubleClick(object s, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                MessageBox.Show("hi");
+                if (ls == null)
+                {
+                    return;
+                }
+                foreach(var l in ls)
+                {
+                    GraphicsPath gp = new GraphicsPath();
+                    if (l.Length > 2)
+                    {
+                        gp.AddPolygon(l);
+                        if (gp.IsVisible(e.Location))
+                        {
+                            ls.Remove(l);
+                            leftPanel.Invalidate();
+                            return;
+                        }
+                    }
+                    else if (l.Length == 2)
+                    {
+                        Pen p = new Pen(Color.Black,3);
+                        gp.AddLine(l[0], l[1]);
+                        if (gp.IsOutlineVisible(e.Location, p))
+                        {
+                            ls.Remove(l);
+                            leftPanel.Invalidate();
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
 }
