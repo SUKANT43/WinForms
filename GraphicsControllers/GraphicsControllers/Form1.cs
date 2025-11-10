@@ -103,8 +103,7 @@ namespace GraphicsControllers
                 }
 
             }
-            else
-            {
+            
                 for (int i = ls.Count - 1; i >= 0; i--)
                 {
                     Point[] p = ls[i];
@@ -127,7 +126,7 @@ namespace GraphicsControllers
                     }
                 }
 
-            }
+            
 
         }
         
@@ -137,6 +136,9 @@ namespace GraphicsControllers
             isRectangle = false;
             isTriangle = false;
             checkPoint = 0;
+            x1 = y1 = x2 = y2 = x3 = y3 = 0;
+            leftPanel.Invalidate();
+
         }
 
         private void TriangleButtonClick(object sender, EventArgs e)
@@ -145,6 +147,10 @@ namespace GraphicsControllers
             isRectangle = false;
             isTriangle = true;
             checkPoint = 0;
+            x1 = y1 = x2 = y2 = x3 = y3 = 0;
+            leftPanel.Invalidate();
+
+
         }
 
         private void RectangleButtonClick(object sender, EventArgs e)
@@ -153,6 +159,10 @@ namespace GraphicsControllers
             isRectangle = true;
             isTriangle = false;
             checkPoint = 0;
+            x1 = y1 = x2 = y2 = x3 = y3 = 0;
+            leftPanel.Invalidate();
+
+
         }
         private void LeftPanelMouseDown(object s, MouseEventArgs e)
         {
@@ -173,6 +183,7 @@ namespace GraphicsControllers
                 });
                     checkPoint = 0;
                     isLine = false;
+                    x1 = y1 = x2 = y2 = x3 = y3 = 0;
                     leftPanel.Invalidate();
                 }
             }
@@ -202,6 +213,7 @@ namespace GraphicsControllers
                 });
                     checkPoint = 0;
                     isTriangle = false;
+                    x1 = y1 = x2 = y2 = x3 = y3 = 0;
                     leftPanel.Invalidate();
                 }
             }
@@ -241,6 +253,7 @@ namespace GraphicsControllers
                     ls.Insert(0,ordered);
                     checkPoint = 0;
                     isRectangle = false;
+                    x1 = y1 = x2 = y2 = x3 = y3 = 0;
                     leftPanel.Invalidate();
                 }
                 }
