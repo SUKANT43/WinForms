@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-using System.Drawing;
 namespace PieChart
 {
     public partial class Form1 : Form
@@ -23,19 +18,19 @@ namespace PieChart
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            Rectangle rect = new Rectangle(100, 100, 300, 200);
+            Rectangle rect = new Rectangle(100, 100, 300, 300);
             float aAngle = 360f * a / 100f;
             float bAngle = 360f * b / 100f;
             float cAngle = 360f * c / 100f;
             float dAngle = 360f * d / 100f;
             float start = 0;
-            g.FillPie(Brushes.Red, rect, start, aAngle);
+            g.FillPie(Brushes.LightBlue, rect, start, aAngle);
             start += aAngle;
-            g.FillPie(Brushes.Blue, rect, start, bAngle);
+            g.FillPie(Brushes.LightGreen, rect, start, bAngle);
             start += bAngle;
-            g.FillPie(Brushes.Yellow, rect, start, cAngle);
+            g.FillPie(Brushes.LightPink, rect, start, cAngle);
             start += cAngle;
-            g.FillPie(Brushes.Green, rect, start, dAngle);
+            g.FillPie(Brushes.LightGoldenrodYellow, rect, start, dAngle);
         }
     }
 }
