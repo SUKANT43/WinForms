@@ -28,7 +28,7 @@ namespace PieChart
             start += aAngle;
             g.FillPie(Brushes.LightGreen, rect, start, bAngle);
             start += bAngle;
-            g.FillPie(Brushes.LightPink, rect, start, cAngle);
+            g.FillPie(Brushes.LightPink, rect, start, cAngle); 
             start += cAngle;
             g.FillPie(Brushes.LightGoldenrodYellow, rect, start, dAngle);
         }

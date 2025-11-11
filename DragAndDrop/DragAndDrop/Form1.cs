@@ -12,21 +12,22 @@ namespace DragAndDrop
         List<ShapeData> ls = new List<ShapeData>();
         string currentShape = null;
         bool isDrawing = false;
-        Point startPoint, endPoint;
-
         bool isMoving = false;
+        bool isResizing = false; 
+
+        Point startPoint, endPoint;
         ShapeData selectedShape = null;
         Point mousePoint;
 
         public Form1()
         {
             InitializeComponent();
-            typeof(Panel).InvokeMember("DoubleBuffered",
-            System.Reflection.BindingFlags.SetProperty |
-            System.Reflection.BindingFlags.Instance |
-            System.Reflection.BindingFlags.NonPublic,
-            null, leftPanel, new object[] { true });
 
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                System.Reflection.BindingFlags.SetProperty |
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.NonPublic,
+                null, leftPanel, new object[] { true });
 
             leftPanel.Paint += LeftPanelPaint;
             leftPanel.MouseDown += LeftPanelMouseDown;
@@ -41,15 +42,12 @@ namespace DragAndDrop
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
             foreach (var sh in ls.AsEnumerable().Reverse())
-            {
                 sh.Draw(g);
-            }
 
             if (isDrawing)
             {
-                Pen previewPen = new Pen(Color.Gray, 2) { DashStyle = DashStyle.Dash };
-                DrawShape(g, previewPen, currentShape, startPoint, endPoint);
-                previewPen.Dispose();
+                using (Pen previewPen = new Pen(Color.Gray, 2) { DashStyle = DashStyle.Dash })
+                    DrawShape(g, previewPen, currentShape, startPoint, endPoint);
             }
         }
 
@@ -58,12 +56,8 @@ namespace DragAndDrop
             Rectangle rect = GetRectangle(start, end);
             switch (shape)
             {
-                case "Rectangle":
-                    g.DrawRectangle(p, rect);
-                    break;
-                case "Ellipse":
-                    g.DrawEllipse(p, rect);
-                    break;
+                case "Rectangle": g.DrawRectangle(p, rect); break;
+                case "Ellipse": g.DrawEllipse(p, rect); break;
                 case "Triangle":
                     Point p1 = new Point(rect.Left + rect.Width / 2, rect.Top);
                     Point p2 = new Point(rect.Left, rect.Bottom);
@@ -89,7 +83,25 @@ namespace DragAndDrop
 
         private void LeftPanelMouseDown(object s, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (Control.ModifierKeys == Keys.Control && e.Button == MouseButtons.Left)
+            {
+                foreach (var sh in ls)
+                {
+                    if (sh.Contains(e.Location))
+                    {
+                        selectedShape = sh;
+                        isResizing = true;
+                        mousePoint = e.Location;
+                        Cursor = Cursors.SizeNWSE;
+                        ls.Remove(selectedShape);
+                        ls.Insert(0, selectedShape);
+                        break;
+                    }
+                }
+                return;
+            }
+
+            if (e.Button == MouseButtons.Left && !Control.ModifierKeys.HasFlag(Keys.Control))
             {
                 if (string.IsNullOrEmpty(currentShape)) return;
                 isDrawing = true;
@@ -105,6 +117,8 @@ namespace DragAndDrop
                         isMoving = true;
                         mousePoint = e.Location;
                         Cursor = Cursors.SizeAll;
+                        ls.Remove(selectedShape);
+                        ls.Insert(0, selectedShape);
                         break;
                     }
                 }
@@ -123,10 +137,17 @@ namespace DragAndDrop
             {
                 int dx = e.X - mousePoint.X;
                 int dy = e.Y - mousePoint.Y;
-                selectedShape.Move(dx, dy,leftPanel.Width,leftPanel.Height,e.X,e.Y);
+                selectedShape.Move(dx, dy, leftPanel.Width, leftPanel.Height, e.X, e.Y);
                 mousePoint = e.Location;
-                ls.Remove(selectedShape);
-                ls.Insert(0, selectedShape);
+                leftPanel.Invalidate();
+            }
+
+            if (isResizing && selectedShape != null && e.Button == MouseButtons.Left)
+            {
+                int dx = e.X - mousePoint.X;
+                int dy = e.Y - mousePoint.Y;
+                selectedShape.Resize(dx, dy, leftPanel.Width, leftPanel.Height);
+                mousePoint = e.Location;
                 leftPanel.Invalidate();
             }
         }
@@ -146,26 +167,31 @@ namespace DragAndDrop
                 isMoving = false;
                 selectedShape = null;
                 Cursor = Cursors.Default;
-                leftPanel.Invalidate();
+            }
+            else if (isResizing && e.Button == MouseButtons.Left)
+            {
+                isResizing = false;
+                selectedShape = null;
+                Cursor = Cursors.Default;
             }
         }
+
         private void LeftPanelMouseDoubleClick(object s, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 foreach (var sh in ls.AsEnumerable().Reverse())
                 {
-                    if (sh.Contains(e.Location)) {
+                    if (sh.Contains(e.Location))
+                    {
                         ls.Remove(sh);
                         leftPanel.Invalidate();
+                        break;
                     }
                 }
-
             }
         }
-
     }
-
 
     public class ShapeData
     {
@@ -189,29 +215,27 @@ namespace DragAndDrop
                 Math.Abs(End.Y - Start.Y)
             );
 
-            Pen borderPen =  new Pen(Color.Black, 2);
-
-            switch (ShapeName)
+            using (Pen borderPen = new Pen(Color.Black, 2))
             {
-                case "Rectangle":
-                    g.FillRectangle(Brushes.LightGreen, rect);
-                    g.DrawRectangle(borderPen, rect);
-                    break;
-
-                case "Ellipse":
-                    g.FillEllipse(Brushes.LightSteelBlue, rect);
-                    g.DrawEllipse(borderPen, rect);
-                    break;
-
-                case "Triangle":
-                    Point p1 = new Point(rect.Left + rect.Width / 2, rect.Top);
-                    Point p2 = new Point(rect.Left, rect.Bottom);
-                    Point p3 = new Point(rect.Right, rect.Bottom);
-                    g.FillPolygon(Brushes.MediumPurple, new Point[] { p1, p2, p3 });
-                    g.DrawPolygon(borderPen, new Point[] { p1, p2, p3 });
-                    break;
+                switch (ShapeName)
+                {
+                    case "Rectangle":
+                        g.FillRectangle(Brushes.LightGreen, rect);
+                        g.DrawRectangle(borderPen, rect);
+                        break;
+                    case "Ellipse":
+                        g.FillEllipse(Brushes.LightSteelBlue, rect);
+                        g.DrawEllipse(borderPen, rect);
+                        break;
+                    case "Triangle":
+                        Point p1 = new Point(rect.Left + rect.Width / 2, rect.Top);
+                        Point p2 = new Point(rect.Left, rect.Bottom);
+                        Point p3 = new Point(rect.Right, rect.Bottom);
+                        g.FillPolygon(Brushes.MediumPurple, new[] { p1, p2, p3 });
+                        g.DrawPolygon(borderPen, new[] { p1, p2, p3 });
+                        break;
+                }
             }
-
         }
 
         public bool Contains(Point p)
@@ -225,28 +249,23 @@ namespace DragAndDrop
 
             switch (ShapeName)
             {
-                case "Rectangle":
-                    return rect.Contains(p);
-
+                case "Rectangle": return rect.Contains(p);
                 case "Ellipse":
                     double rx = rect.Width / 2.0;
                     double ry = rect.Height / 2.0;
                     double cx = rect.Left + rx;
                     double cy = rect.Top + ry;
-                    return Math.Pow((p.X - cx) / rx, 2) + Math.Pow((p.Y - cy) / ry, 2) <= 1.0;
-
+                    return ((p.X - cx) * (p.X - cx)) / (rx * rx) + ((p.Y - cy) * (p.Y - cy)) / (ry * ry) <= 1;
                 case "Triangle":
                     Point p1 = new Point(rect.Left + rect.Width / 2, rect.Top);
                     Point p2 = new Point(rect.Left, rect.Bottom);
                     Point p3 = new Point(rect.Right, rect.Bottom);
                     using (GraphicsPath gp = new GraphicsPath())
                     {
-                        gp.AddPolygon(new Point[] { p1, p2, p3 });
+                        gp.AddPolygon(new[] { p1, p2, p3 });
                         return gp.IsVisible(p);
                     }
-
-                default:
-                    return false;
+                default: return false;
             }
         }
 
@@ -259,11 +278,28 @@ namespace DragAndDrop
                 Math.Abs(End.Y - Start.Y)
             );
 
-            if (rect.Left < 0 || rect.Top < 0 ||  rect.Right > panelWidth || rect.Bottom > panelHeight)
+            if (rect.Left < 0 || rect.Top < 0 || rect.Right > panelWidth - 150 || rect.Bottom > panelHeight)
                 return;
 
             Start = new Point(Start.X + dx, Start.Y + dy);
             End = new Point(End.X + dx, End.Y + dy);
+        }
+
+        public void Resize(int dx, int dy, int panelWidth, int panelHeight)
+        {
+            End = new Point(End.X + dx, End.Y + dy);
+
+            Rectangle rect = new Rectangle(
+                Math.Min(Start.X, End.X),
+                Math.Min(Start.Y, End.Y),
+                Math.Abs(End.X - Start.X),
+                Math.Abs(End.Y - Start.Y)
+            );
+
+            if (rect.Right > panelWidth)
+                End = new Point(panelWidth - 1, End.Y);
+            if (rect.Bottom > panelHeight)
+                End = new Point(End.X, panelHeight - 1);
         }
     }
 }
