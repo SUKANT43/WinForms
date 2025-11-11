@@ -75,10 +75,10 @@ namespace GraphicsControllers
         {
             InitializeComponent();
             typeof(Panel).InvokeMember("DoubleBuffered",
-                System.Reflection.BindingFlags.SetProperty|
-                System.Reflection.BindingFlags.Instance|
+                System.Reflection.BindingFlags.SetProperty |
+                System.Reflection.BindingFlags.Instance |
                 System.Reflection.BindingFlags.NonPublic,
-                null,leftPanel,new object[] { true});
+                null, leftPanel, new object[] { true });
             leftPanel.MouseDown += LeftPanelMouseDown;
             leftPanel.MouseMove += LeftPanelMouseMove;
             leftPanel.MouseUp += LeftPanelMouseUp;
@@ -89,7 +89,7 @@ namespace GraphicsControllers
         private void LeftPanelPaint(object s,PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-
+            g.SmoothingMode = SmoothingMode.AntiAlias;
             if (isLine || isRectangle || isTriangle)
             {
                 if (x2 != 0 && y2 != 0)
@@ -127,8 +127,6 @@ namespace GraphicsControllers
                     }
                 }
 
-            
-
         }
         
         private void LineButtonClick(object sender, EventArgs e)
@@ -139,7 +137,6 @@ namespace GraphicsControllers
             checkPoint = 0;
             x1 = y1 = x2 = y2 = x3 = y3 = 0;
             leftPanel.Invalidate();
-
         }
 
         private void TriangleButtonClick(object sender, EventArgs e)
@@ -150,8 +147,6 @@ namespace GraphicsControllers
             checkPoint = 0;
             x1 = y1 = x2 = y2 = x3 = y3 = 0;
             leftPanel.Invalidate();
-
-
         }
 
         private void RectangleButtonClick(object sender, EventArgs e)
@@ -354,7 +349,7 @@ namespace GraphicsControllers
         {
             if (e.Button == MouseButtons.Right)
             {
-                MessageBox.Show("hi");
+                //MessageBox.Show("hi");
                 if (ls == null)
                 {
                     return;
@@ -374,7 +369,7 @@ namespace GraphicsControllers
                     }
                     else if (l.Length == 2)
                     {
-                        Pen p = new Pen(Color.Black,3);
+                        Pen p = new Pen(Color.Black,10);
                         gp.AddLine(l[0], l[1]);
                         if (gp.IsOutlineVisible(e.Location, p))
                         {
