@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
 namespace LineDrawing
 {
     public partial class Form1 : Form
@@ -15,56 +11,88 @@ namespace LineDrawing
         List<Point> ls = new List<Point>();
         bool makePoint = false;
         bool drawLine = false;
-        Point currentPoint;
-        Timer tm=new Timer();
-        int timerCondition;
+        Timer tm = new Timer();
+        int timerCondition = 0;
+
         public Form1()
         {
             InitializeComponent();
             Paint += FormPaint;
             MouseDoubleClick += FormDoubleClick;
             MouseDown += FormClick;
-            tm.Interval = 1;
+            tm.Interval = 1000;
             tm.Tick += OnTimerEvent;
-            //MouseUp += FormMouseUp;
         }
-        public void FormPaint(object s,PaintEventArgs e)
+
+        private void FormPaint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
             if (makePoint)
             {
-                for(int i = 0;i<ls.Count; i++)
-                {
-                    g.FillEllipse(Brushes.Black, ls[i].X-2, ls[i].Y-2, 5, 5);
-                }
+                foreach (var p in ls)
+                    g.FillEllipse(Brushes.Black, p.X - 2, p.Y - 2, 5, 5);
             }
-            Pen p1 = new Pen(Color.Black,2);
-            Pen p2 = new Pen(Color.Orange, 2);
-            Pen p3 = new Pen(Color.Black, 200);
+
+            Pen normalPen = new Pen(Color.Black, 2);
+            Pen overlapPen = new Pen(Color.Orange, 2);
+            Pen detectPen = new Pen(Color.Black, 2);
 
             GraphicsPath gp = new GraphicsPath();
-            if (drawLine)
+
+            if (drawLine && ls.Count > 1)
             {
                 for (int i = 1; i <= timerCondition && i < ls.Count; i++)
                 {
+                    bool overlapped = IsOverlaped(gp, detectPen, ls[i - 1], ls[i]);
+
+                    if (overlapped)
+                        g.DrawLine(overlapPen, ls[i - 1], ls[i]);
+                    else
+                        g.DrawLine(normalPen, ls[i - 1], ls[i]);
+
                     gp.AddLine(ls[i - 1], ls[i]);
-                    if (gp.IsOutlineVisible(ls[i],p3))
-                    {
-                        g.DrawLine(p2, ls[i - 1], ls[i]);
-                    }
-                    else {
-                        g.DrawLine(p1, ls[i - 1], ls[i]);
-                    }
+                }
+
+                if (timerCondition >= ls.Count && ls.Count > 2)
+                {
+                    bool overlapped = IsOverlaped(gp, detectPen, ls[ls.Count - 1], ls[0]);
+                    if (overlapped)
+                        g.DrawLine(overlapPen, ls[ls.Count - 1], ls[0]);
+                    else
+                        g.DrawLine(normalPen, ls[ls.Count - 1], ls[0]);
                 }
             }
         }
 
+        private bool IsOverlaped(GraphicsPath gp, Pen p, Point p1, Point p2)
+        {
+            int dx = Math.Abs(p2.X - p1.X);
+            int dy = Math.Abs(p2.Y - p1.Y);
+            int steps = Math.Max(dx, dy);
+
+            float xInc = (p2.X - p1.X) / (float)steps;
+            float yInc = (p2.Y - p1.Y) / (float)steps;
+
+            float x = p1.X;
+            float y = p1.Y;
+
+            for (int i = 0; i <= steps; i++)
+            {
+                if (gp.IsOutlineVisible(new PointF(x-8, y-8), p))
+                    return true;
+
+                x += xInc;
+                y += yInc;
+            }
+
+            return false;
+        }
+
         private void OnTimerEvent(object sender, EventArgs e)
         {
-            //MessageBox.Show("hi");
-            if ( timerCondition < ls.Count-1)
+            if (timerCondition <= ls.Count)
             {
                 timerCondition++;
                 Invalidate();
@@ -75,38 +103,32 @@ namespace LineDrawing
             }
         }
 
-
-        public void FormDoubleClick(object s,MouseEventArgs e)
+        private void FormDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 makePoint = true;
                 drawLine = true;
                 Invalidate();
+
                 if (ls.Count > 1)
                 {
+                    timerCondition = 1;
                     tm.Start();
                 }
             }
         }
 
-        public void FormClick(object s,MouseEventArgs e)
+        private void FormClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 timerCondition = 0;
                 makePoint = true;
                 drawLine = false;
-                currentPoint = e.Location;
                 ls.Add(e.Location);
-                this.Invalidate();
+                Invalidate();
             }
-        }
-
-        public void FormMouseUp(object s,MouseEventArgs e)
-        {
-            makePoint = false;
-            drawLine = false;
         }
     }
 }
