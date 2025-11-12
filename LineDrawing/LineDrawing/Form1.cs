@@ -20,7 +20,7 @@ namespace LineDrawing
             Paint += FormPaint;
             MouseDoubleClick += FormDoubleClick;
             MouseDown += FormClick;
-            tm.Interval = 1000;
+            tm.Interval = 1;
             tm.Tick += OnTimerEvent;
         }
 
@@ -43,6 +43,7 @@ namespace LineDrawing
 
             if (drawLine && ls.Count > 1)
             {
+
                 for (int i = 1; i <= timerCondition && i < ls.Count; i++)
                 {
                     bool overlapped = IsOverlaped(gp, detectPen, ls[i - 1], ls[i]);
@@ -80,7 +81,7 @@ namespace LineDrawing
 
             for (int i = 0; i <= steps; i++)
             {
-                if (gp.IsOutlineVisible(new PointF(x-8, y-8), p))
+                if (gp.IsOutlineVisible(new PointF(x - 8, y - 8), p))
                     return true;
 
                 x += xInc;
@@ -107,6 +108,7 @@ namespace LineDrawing
         {
             if (e.Button == MouseButtons.Right)
             {
+                //MessageBox.Show($"{ls.Count}");
                 makePoint = true;
                 drawLine = true;
                 Invalidate();
