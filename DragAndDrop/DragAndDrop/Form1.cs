@@ -53,6 +53,7 @@ namespace DragAndDrop
 
         private void DrawShape(Graphics g, Pen p, string shape, Point start, Point end)
         {
+            
             Rectangle rect = GetRectangle(start, end);
             switch (shape)
             {
@@ -180,7 +181,7 @@ namespace DragAndDrop
         {
             if (e.Button == MouseButtons.Right)
             {
-                foreach (var sh in ls.AsEnumerable().Reverse())
+                foreach (var sh in ls)
                 {
                     if (sh.Contains(e.Location))
                     {
@@ -288,18 +289,16 @@ namespace DragAndDrop
         public void Resize(int dx, int dy, int panelWidth, int panelHeight)
         {
             End = new Point(End.X + dx, End.Y + dy);
-
             Rectangle rect = new Rectangle(
                 Math.Min(Start.X, End.X),
                 Math.Min(Start.Y, End.Y),
                 Math.Abs(End.X - Start.X),
                 Math.Abs(End.Y - Start.Y)
             );
+            if (panelWidth < rect.Right)
+            {
 
-            if (rect.Right > panelWidth)
-                End = new Point(panelWidth - 1, End.Y);
-            if (rect.Bottom > panelHeight)
-                End = new Point(End.X, panelHeight - 1);
+            }
         }
     }
 }
