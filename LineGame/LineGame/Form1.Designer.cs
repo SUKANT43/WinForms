@@ -104,7 +104,7 @@
             this.level5Butoon.TabIndex = 1;
             this.level5Butoon.Text = "Level 5";
             this.level5Butoon.UseVisualStyleBackColor = false;
-            this.level5Butoon.Click += new System.EventHandler(this.Level5ButoonClick);
+            this.level5Butoon.Click += new System.EventHandler(this.Level5ButtonClick);
             // 
             // level1Button
             // 

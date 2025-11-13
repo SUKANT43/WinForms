@@ -23,6 +23,12 @@ namespace LineGame
         public Form1()
         {
             InitializeComponent();
+            typeof(Panel).InvokeMember("DoubleBuffered",
+            System.Reflection.BindingFlags.SetProperty |
+            System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.NonPublic,
+            null, leftPanel, new object[] { true });
+
             MinimumSize = new Size(900, 600);
             MaximumSize = new Size(900, 600);
 
@@ -30,8 +36,10 @@ namespace LineGame
             leftPanel.MouseDown += LeftPanelMouseDown;
             leftPanel.MouseMove += LeftPanelMouseMove;
             leftPanel.MouseUp += LeftPanelMouseUp;
-        }
 
+            lev1 = true;
+            SetupLevel1();
+        }
         private void LeftPanelPaint(object s, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -52,9 +60,7 @@ namespace LineGame
                 {
                     var pts = kv.Value;
                     for (int i = 0; i < pts.Count - 1; i++)
-                    {
                         g.DrawLine(p, ToPixel(pts[i]), ToPixel(pts[i + 1]));
-                    }
                 }
             }
 
@@ -75,6 +81,13 @@ namespace LineGame
                     for (int i = 0; i < currentPath.Count - 1; i++)
                         g.DrawLine(p, ToPixel(currentPath[i]), ToPixel(currentPath[i + 1]));
                 }
+            }
+
+            using (Font f = new Font("Segoe UI", 16, FontStyle.Bold))
+            using (SolidBrush b = new SolidBrush(Color.Black))
+            {
+                string levelName = GetCurrentLevelName();
+                g.DrawString(levelName, f, b, new PointF(10, gridCount * cellSize + 10));
             }
         }
 
@@ -169,6 +182,15 @@ namespace LineGame
             return new Point(grid.X * cellSize + cellSize / 2, grid.Y * cellSize + cellSize / 2);
         }
 
+        private string GetCurrentLevelName()
+        {
+            if (lev1) return "Level 1";
+            if (lev2) return "Level 2";
+            if (lev3) return "Level 3";
+            if (lev4) return "Level 4";
+            if (lev5) return "Level 5";
+            return "";
+        }
 
         private void Level1ButtonClick(object sender, EventArgs e)
         {
@@ -194,12 +216,11 @@ namespace LineGame
             SetupLevel4();
         }
 
-        private void Level5ButoonClick(object sender, EventArgs e)
+        private void Level5ButtonClick(object sender, EventArgs e)
         {
             lev5 = true; lev1 = lev2 = lev3 = lev4 = false;
             SetupLevel5();
         }
-
 
         private void SetupLevel1()
         {
@@ -214,7 +235,6 @@ namespace LineGame
             drawnPaths.Clear();
             leftPanel.Invalidate();
         }
-
 
         private void SetupLevel2()
         {
@@ -294,4 +314,5 @@ namespace LineGame
             End = e;
         }
     }
+    
 }

@@ -12,7 +12,7 @@ namespace LineDrawing
         bool makePoint = false;
         bool drawLine = false;
         Timer tm = new Timer();
-        int timerCondition = 0;
+        int timerCondition = 100;
 
         public Form1()
         {
