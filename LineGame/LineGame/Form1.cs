@@ -240,26 +240,28 @@ namespace LineGame
         {
             dict = new Dictionary<Color, List<EndPoint>>
             {
-                { Color.Red,   new List<EndPoint>{ new EndPoint(new Point(0,0), new Point(3,0)) } },
-                { Color.Blue,  new List<EndPoint>{ new EndPoint(new Point(1,1), new Point(3,2)) } },
-                { Color.Green, new List<EndPoint>{ new EndPoint(new Point(0,3), new Point(2,2)) } },
-                { Color.Gold,  new List<EndPoint>{ new EndPoint(new Point(2,0), new Point(1,3)) } },
+                { Color.Red, new List<EndPoint> { new EndPoint(new Point(0,0), new Point(1,3)) } },
+                { Color.Lime, new List<EndPoint> { new EndPoint(new Point(1,0), new Point(4,1)) } },
+                { Color.Gold, new List<EndPoint> { new EndPoint(new Point(3,1), new Point(4,3)) } },
+                { Color.Orange, new List<EndPoint> { new EndPoint(new Point(0,2), new Point(2,1)) } },
+                { Color.Cyan, new List<EndPoint> { new EndPoint(new Point(3,3), new Point(4,4)) } }
             };
 
-            gridCount = 4;
+            gridCount = 5;
             drawnPaths.Clear();
             leftPanel.Invalidate();
         }
+
 
         private void SetupLevel3()
         {
             dict = new Dictionary<Color, List<EndPoint>>
             {
-                { Color.Red, new List<EndPoint>{ new EndPoint(new Point(0,0), new Point(4,4)) } },
-                { Color.Blue, new List<EndPoint>{ new EndPoint(new Point(0,4), new Point(4,0)) } },
-                { Color.Green, new List<EndPoint>{ new EndPoint(new Point(1,1), new Point(3,3)) } },
-                { Color.Gold, new List<EndPoint>{ new EndPoint(new Point(2,0), new Point(2,4)) } },
-                { Color.Orange, new List<EndPoint>{ new EndPoint(new Point(0,2), new Point(4,2)) } },
+                { Color.Red, new List<EndPoint>{ new EndPoint(new Point(4,0), new Point(0,1)) } },
+                { Color.Blue, new List<EndPoint>{ new EndPoint(new Point(1,1), new Point(0,4)) } },
+                { Color.Green, new List<EndPoint>{ new EndPoint(new Point(3,2), new Point(4,4)) } },
+                { Color.Gold, new List<EndPoint>{ new EndPoint(new Point(4,1), new Point(1,4)) } },
+                { Color.Orange, new List<EndPoint>{ new EndPoint(new Point(2,4), new Point(3,3)) } },
             };
 
             gridCount = 5;
@@ -271,12 +273,12 @@ namespace LineGame
         {
             dict = new Dictionary<Color, List<EndPoint>>
             {
-                { Color.Red, new List<EndPoint>{ new EndPoint(new Point(0,0), new Point(5,5)) } },
-                { Color.Blue, new List<EndPoint>{ new EndPoint(new Point(1,5), new Point(5,1)) } },
-                { Color.Green, new List<EndPoint>{ new EndPoint(new Point(0,5), new Point(5,0)) } },
-                { Color.Purple, new List<EndPoint>{ new EndPoint(new Point(2,2), new Point(4,4)) } },
-                { Color.Orange, new List<EndPoint>{ new EndPoint(new Point(3,0), new Point(3,5)) } },
-                { Color.Gold, new List<EndPoint>{ new EndPoint(new Point(0,3), new Point(5,2)) } },
+                { Color.Red, new List<EndPoint>{ new EndPoint(new Point(2,0), new Point(1,4)) } },
+                { Color.Yellow, new List<EndPoint>{ new EndPoint(new Point(1,1), new Point(3,4)) } },
+                { Color.Violet, new List<EndPoint>{ new EndPoint(new Point(2,1), new Point(3,3)) } },
+                { Color.Green, new List<EndPoint>{ new EndPoint(new Point(2,5), new Point(5,5)) } },
+                { Color.Pink, new List<EndPoint>{ new EndPoint(new Point(5,2), new Point(4,3)) } },
+                { Color.Blue, new List<EndPoint>{ new EndPoint(new Point(5,1), new Point(4,2)) } },
             };
 
             gridCount = 6;
@@ -288,13 +290,13 @@ namespace LineGame
         {
             dict = new Dictionary<Color, List<EndPoint>>
             {
-                { Color.Red, new List<EndPoint>{ new EndPoint(new Point(0,0), new Point(6,6)) } },
-                { Color.Blue, new List<EndPoint>{ new EndPoint(new Point(0,6), new Point(6,0)) } },
-                { Color.Green, new List<EndPoint>{ new EndPoint(new Point(3,0), new Point(3,6)) } },
-                { Color.Purple, new List<EndPoint>{ new EndPoint(new Point(1,1), new Point(5,5)) } },
-                { Color.Orange, new List<EndPoint>{ new EndPoint(new Point(0,3), new Point(6,3)) } },
-                { Color.Cyan, new List<EndPoint>{ new EndPoint(new Point(2,5), new Point(5,2)) } },
-                { Color.Gold, new List<EndPoint>{ new EndPoint(new Point(1,5), new Point(5,1)) } },
+                { Color.Red, new List<EndPoint>{ new EndPoint(new Point(0,0), new Point(3,1)) } },
+                { Color.Blue, new List<EndPoint>{ new EndPoint(new Point(0,1), new Point(2,1)) } },
+                { Color.Green, new List<EndPoint>{ new EndPoint(new Point(6,0), new Point(4,1)) } },
+                { Color.Purple, new List<EndPoint>{ new EndPoint(new Point(6,1), new Point(5,5)) } },
+                { Color.Orange, new List<EndPoint>{ new EndPoint(new Point(6,2), new Point(1,4)) } },
+                { Color.Gold, new List<EndPoint>{ new EndPoint(new Point(1,5), new Point(4,6)) } },
+
             };
 
             gridCount = 7;
@@ -314,5 +316,5 @@ namespace LineGame
             End = e;
         }
     }
-    
+
 }
