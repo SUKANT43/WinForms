@@ -20,7 +20,6 @@ namespace LineDrawing
             Paint += FormPaint;
             MouseDoubleClick += FormDoubleClick;
             MouseDown += FormClick;
-            tm.Interval = 1;
             tm.Tick += OnTimerEvent;
         }
 
