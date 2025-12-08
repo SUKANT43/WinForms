@@ -11,6 +11,17 @@ using System.Drawing.Drawing2D;
 
 namespace LineGameWithTimer
 {
+    public class Preview
+    {
+        public Color Color { get; set; }
+        public Point Point { get; set; }
+        public Preview(Color c, Point p)
+        {
+            Color = c;
+            Point = p;
+        }
+    }
+
     public partial class Form1 : Form
     {
         bool level1, level2, level3, level4, level5;
@@ -19,9 +30,14 @@ namespace LineGameWithTimer
 
         Dictionary<Color, List<EndPoint>> dict = new Dictionary<Color, List<EndPoint>>();
         Dictionary<Color, List<Point>> paths = new Dictionary<Color, List<Point>>();
+        List<Preview> previewList = new List<Preview>();
 
         bool isDrawing = false;
+        bool isPreviewMode = false;
         Color activeColor = Color.Empty;
+
+        Timer previewTimer;
+        int previewIndex = 0;
 
         public Form1()
         {
@@ -41,6 +57,10 @@ namespace LineGameWithTimer
 
             MaximumSize = new Size(900, 800);
             MinimumSize = new Size(900, 800);
+
+            previewTimer = new Timer();
+            previewTimer.Interval = 500;
+            previewTimer.Tick += PreviewTimer_Tick;
 
             setupLevel1();
         }
@@ -69,23 +89,30 @@ namespace LineGameWithTimer
                 }
             }
 
-            foreach (var kv in paths)
+            if (isPreviewMode)
             {
-                Color c = kv.Key;
-                var pts = kv.Value;
-                if (pts == null || pts.Count < 2) continue;
-
-                using (Pen pen = new Pen(c, 12))
+                drawPreviewLine(g);
+            }
+            else
+            {
+                foreach (var kv in paths)
                 {
-                    pen.StartCap = LineCap.Round;
-                    pen.EndCap = LineCap.Round;
-                    pen.LineJoin = LineJoin.Round;
+                    Color c = kv.Key;
+                    var pts = kv.Value;
+                    if (pts == null || pts.Count < 2) continue;
 
-                    for (int i = 0; i < pts.Count - 1; i++)
+                    using (Pen pen = new Pen(c, 12))
                     {
-                        Point p1 = GridToPixelCenter(pts[i]);
-                        Point p2 = GridToPixelCenter(pts[i + 1]);
-                        g.DrawLine(pen, p1, p2);
+                        pen.StartCap = LineCap.Round;
+                        pen.EndCap = LineCap.Round;
+                        pen.LineJoin = LineJoin.Round;
+
+                        for (int i = 0; i < pts.Count - 1; i++)
+                        {
+                            Point p1 = GridToPixelCenter(pts[i]);
+                            Point p2 = GridToPixelCenter(pts[i + 1]);
+                            g.DrawLine(pen, p1, p2);
+                        }
                     }
                 }
             }
@@ -121,6 +148,7 @@ namespace LineGameWithTimer
 
         private void level1ButtonClick(object sender, EventArgs e)
         {
+            StopPreview();
             dict.Clear();
             paths.Clear();
             level1 = true;
@@ -132,6 +160,7 @@ namespace LineGameWithTimer
 
         private void level2ButtonClick(object sender, EventArgs e)
         {
+            StopPreview();
             dict.Clear();
             paths.Clear();
             level2 = true;
@@ -143,6 +172,7 @@ namespace LineGameWithTimer
 
         private void level3ButtonClick(object sender, EventArgs e)
         {
+            StopPreview();
             dict.Clear();
             paths.Clear();
             level3 = true;
@@ -154,6 +184,7 @@ namespace LineGameWithTimer
 
         private void level4ButtonClick(object sender, EventArgs e)
         {
+            StopPreview();
             dict.Clear();
             paths.Clear();
             level4 = true;
@@ -165,6 +196,7 @@ namespace LineGameWithTimer
 
         private void level5ButtonClick(object sender, EventArgs e)
         {
+            StopPreview();
             dict.Clear();
             paths.Clear();
             level5 = true;
@@ -176,6 +208,7 @@ namespace LineGameWithTimer
 
         private void MainPanel_MouseDown(object sender, MouseEventArgs e)
         {
+            if (isPreviewMode) return;
             if (e.Button != MouseButtons.Left) return;
 
             if (TryGetEndpointAt(e.Location, out Color color, out Point gridPos))
@@ -195,6 +228,7 @@ namespace LineGameWithTimer
 
         private void MainPanel_MouseMove(object sender, MouseEventArgs e)
         {
+            if (isPreviewMode) return;
             if (!isDrawing || activeColor == Color.Empty) return;
 
             Point gridPos = PixelToGrid(e.Location);
@@ -240,6 +274,7 @@ namespace LineGameWithTimer
         private void MainPanel_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
+            if (isPreviewMode) return;
             isDrawing = false;
             activeColor = Color.Empty;
         }
@@ -341,14 +376,78 @@ namespace LineGameWithTimer
                 if (!ok) return;
             }
 
-            if (level5)
+            previewList.Clear();
+            foreach (var path in paths)
             {
-                MessageBox.Show("You completed Level 5.\nYou won all the levels! 🎉", "You Won");
+                Color c = path.Key;
+                foreach (var po in path.Value)
+                {
+                    previewList.Add(new Preview(c, po));
+                }
+            }
+
+            if (previewList.Count < 2) return;
+
+            isPreviewMode = true;
+            previewIndex = 1;
+            previewTimer.Start();
+            mainPanel.Invalidate();
+        }
+
+        private void drawPreviewLine(Graphics g)
+        {
+            if (previewList.Count < 2) return;
+            int max = Math.Min(previewIndex, previewList.Count - 1);
+
+            for (int i = 1; i <= max; i++)
+            {
+                Preview prev = previewList[i - 1];
+                Preview curr = previewList[i];
+
+                if (prev.Color != curr.Color) continue;
+
+                using (Pen pen = new Pen(curr.Color, 12))
+                {
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+                    pen.LineJoin = LineJoin.Round;
+
+                    Point p1 = GridToPixelCenter(prev.Point);
+                    Point p2 = GridToPixelCenter(curr.Point);
+                    g.DrawLine(pen, p1, p2);
+                }
+            }
+        }
+
+        private void PreviewTimer_Tick(object sender, EventArgs e)
+        {
+            if (!isPreviewMode) return;
+
+            if (previewIndex < previewList.Count - 1)
+            {
+                previewIndex++;
+                mainPanel.Invalidate();
             }
             else
             {
-                MessageBox.Show("Level completed!", "Nice!");
+                previewTimer.Stop();
+                isPreviewMode = false;
+                mainPanel.Invalidate();
+
+                if (level5)
+                    MessageBox.Show("You completed Level 5.\nYou won all the levels! 🎉", "You Won");
+                else
+                    MessageBox.Show("Level completed!", "Nice!");
             }
+        }
+
+        private void StopPreview()
+        {
+            if (previewTimer != null && previewTimer.Enabled)
+                previewTimer.Stop();
+            isPreviewMode = false;
+            previewIndex = 0;
+            previewList.Clear();
         }
 
         private void setupLevel1()
