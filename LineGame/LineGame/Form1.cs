@@ -316,5 +316,4 @@ namespace LineGame
             End = e;
         }
     }
-
 }
