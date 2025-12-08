@@ -22,11 +22,17 @@ namespace ToDoList
         public void ResizeAndLoad(object s,EventArgs e)
         {
             TitlePosition();
+            AddTaskLabelPosition();
         }
          
         public void TitlePosition()
         {
             titleLabel.Location = new Point((Width / 2)- titleLabel.Width+80,20);
+        }
+
+        public void AddTaskLabelPosition()
+        {
+            addTaskLabel.Location = new Point(20,80);
         }
 
 

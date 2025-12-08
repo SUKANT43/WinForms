@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.titleLabel = new System.Windows.Forms.Label();
             this.addTaskLabel = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,6 +44,18 @@
             this.mainPanel.Size = new System.Drawing.Size(883, 450);
             this.mainPanel.TabIndex = 0;
             // 
+            // addTaskLabel
+            // 
+            this.addTaskLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.addTaskLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
+            this.addTaskLabel.ForeColor = System.Drawing.Color.OrangeRed;
+            this.addTaskLabel.Location = new System.Drawing.Point(3, 72);
+            this.addTaskLabel.Name = "addTaskLabel";
+            this.addTaskLabel.Size = new System.Drawing.Size(119, 36);
+            this.addTaskLabel.TabIndex = 1;
+            this.addTaskLabel.Text = "Add Task";
+            this.addTaskLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // titleLabel
             // 
             this.titleLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
@@ -52,16 +64,6 @@
             this.titleLabel.Size = new System.Drawing.Size(161, 35);
             this.titleLabel.TabIndex = 0;
             this.titleLabel.Text = "ToDo List";
-            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.addTaskLabel.AutoSize = true;
-            this.addTaskLabel.Location = new System.Drawing.Point(318, 31);
-            this.addTaskLabel.Name = "label1";
-            this.addTaskLabel.Size = new System.Drawing.Size(35, 13);
-            this.addTaskLabel.TabIndex = 1;
-            this.addTaskLabel.Text = "label1";
             // 
             // Form1
             // 
@@ -72,7 +74,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.mainPanel.ResumeLayout(false);
-            this.mainPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -80,8 +81,8 @@
         #endregion
 
         private System.Windows.Forms.Panel mainPanel;
-        private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Label addTaskLabel;
+        private System.Windows.Forms.Label titleLabel;
     }
 }
 
