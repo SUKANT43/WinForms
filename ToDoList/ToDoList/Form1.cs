@@ -15,6 +15,20 @@ namespace ToDoList
         public Form1()
         {
             InitializeComponent();
+            Load += ResizeAndLoad;
+            Resize += ResizeAndLoad;
         }
+
+        public void ResizeAndLoad(object s,EventArgs e)
+        {
+            TitlePosition();
+        }
+         
+        public void TitlePosition()
+        {
+            titleLabel.Location = new Point((Width / 2)- titleLabel.Width+80,20);
+        }
+
+
     }
 }

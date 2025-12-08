@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace LineGameWithTimer
 {
@@ -12,10 +16,6 @@ namespace LineGameWithTimer
         bool level1, level2, level3, level4, level5;
         int cellSize = 80;
         int gridCount = 3;
-        Timer animationTimer;
-        int animationStep = 0;
-        Color currentAnimatingColor = Color.Empty;
-        List<Point> currentAnimatingPath = new List<Point>();
 
         Dictionary<Color, List<EndPoint>> dict = new Dictionary<Color, List<EndPoint>>();
         Dictionary<Color, List<Point>> paths = new Dictionary<Color, List<Point>>();
@@ -32,12 +32,7 @@ namespace LineGameWithTimer
             System.Reflection.BindingFlags.NonPublic,
             null, mainPanel, new object[] { true });
 
-            // Initialize animation timer
-            animationTimer = new Timer();
-            animationTimer.Interval = 500; // 0.5 seconds
-            animationTimer.Tick += AnimationTimer_Tick;
-
-            level1 = false;
+            level1 = true;
             mainPanel.Paint += PanelPaint;
 
             mainPanel.MouseDown += MainPanel_MouseDown;
@@ -74,71 +69,24 @@ namespace LineGameWithTimer
                 }
             }
 
-            // Draw completed paths (non-animating ones)
             foreach (var kv in paths)
             {
                 Color c = kv.Key;
                 var pts = kv.Value;
                 if (pts == null || pts.Count < 2) continue;
 
-                // If this color is currently animating, only draw up to animationStep
-                if (c == currentAnimatingColor && currentAnimatingPath != null && animationStep > 0)
+                using (Pen pen = new Pen(c, 12))
                 {
-                    DrawPartialPath(g, c, currentAnimatingPath, animationStep);
-                }
-                else
-                {
-                    DrawFullPath(g, c, pts);
-                }
-            }
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+                    pen.LineJoin = LineJoin.Round;
 
-            // Draw the currently drawing path (if any)
-            if (isDrawing && activeColor != Color.Empty && paths.ContainsKey(activeColor))
-            {
-                var currentPath = paths[activeColor];
-                if (currentPath != null && currentPath.Count > 1)
-                {
-                    DrawFullPath(g, activeColor, currentPath);
-                }
-            }
-        }
-
-        private void DrawFullPath(Graphics g, Color color, List<Point> points)
-        {
-            if (points == null || points.Count < 2) return;
-
-            using (Pen pen = new Pen(color, 12))
-            {
-                pen.StartCap = LineCap.Round;
-                pen.EndCap = LineCap.Round;
-                pen.LineJoin = LineJoin.Round;
-
-                for (int i = 0; i < points.Count - 1; i++)
-                {
-                    Point p1 = GridToPixelCenter(points[i]);
-                    Point p2 = GridToPixelCenter(points[i + 1]);
-                    g.DrawLine(pen, p1, p2);
-                }
-            }
-        }
-
-        private void DrawPartialPath(Graphics g, Color color, List<Point> points, int step)
-        {
-            if (points == null || points.Count < 2 || step <= 0) return;
-
-            using (Pen pen = new Pen(color, 12))
-            {
-                pen.StartCap = LineCap.Round;
-                pen.EndCap = LineCap.Round;
-                pen.LineJoin = LineJoin.Round;
-
-                // Draw only up to the current animation step
-                int linesToDraw = Math.Min(step, points.Count - 1);
-                for (int i = 0; i < linesToDraw; i++)
-                {
-                    Point p1 = GridToPixelCenter(points[i]);
-                    Point p2 = GridToPixelCenter(points[i + 1]);
-                    g.DrawLine(pen, p1, p2);
+                    for (int i = 0; i < pts.Count - 1; i++)
+                    {
+                        Point p1 = GridToPixelCenter(pts[i]);
+                        Point p2 = GridToPixelCenter(pts[i + 1]);
+                        g.DrawLine(pen, p1, p2);
+                    }
                 }
             }
         }
@@ -173,7 +121,6 @@ namespace LineGameWithTimer
 
         private void level1ButtonClick(object sender, EventArgs e)
         {
-            StopAnimation();
             dict.Clear();
             paths.Clear();
             level1 = true;
@@ -185,7 +132,6 @@ namespace LineGameWithTimer
 
         private void level2ButtonClick(object sender, EventArgs e)
         {
-            StopAnimation();
             dict.Clear();
             paths.Clear();
             level2 = true;
@@ -197,7 +143,6 @@ namespace LineGameWithTimer
 
         private void level3ButtonClick(object sender, EventArgs e)
         {
-            StopAnimation();
             dict.Clear();
             paths.Clear();
             level3 = true;
@@ -209,7 +154,6 @@ namespace LineGameWithTimer
 
         private void level4ButtonClick(object sender, EventArgs e)
         {
-            StopAnimation();
             dict.Clear();
             paths.Clear();
             level4 = true;
@@ -221,7 +165,6 @@ namespace LineGameWithTimer
 
         private void level5ButtonClick(object sender, EventArgs e)
         {
-            StopAnimation();
             dict.Clear();
             paths.Clear();
             level5 = true;
@@ -233,7 +176,7 @@ namespace LineGameWithTimer
 
         private void MainPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left || animationTimer.Enabled) return;
+            if (e.Button != MouseButtons.Left) return;
 
             if (TryGetEndpointAt(e.Location, out Color color, out Point gridPos))
             {
@@ -252,7 +195,7 @@ namespace LineGameWithTimer
 
         private void MainPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!isDrawing || activeColor == Color.Empty || animationTimer.Enabled) return;
+            if (!isDrawing || activeColor == Color.Empty) return;
 
             Point gridPos = PixelToGrid(e.Location);
             if (gridPos.X < 0 || gridPos.Y < 0 ||
@@ -398,58 +341,6 @@ namespace LineGameWithTimer
                 if (!ok) return;
             }
 
-            // All paths are completed - start animation
-            StartCompletionAnimation();
-        }
-
-        private void StartCompletionAnimation()
-        {
-            // Stop any existing animation
-            StopAnimation();
-
-            // Find the longest path to animate
-            var longestPath = paths.OrderByDescending(p => p.Value.Count).FirstOrDefault();
-
-            if (longestPath.Value != null && longestPath.Value.Count > 1)
-            {
-                currentAnimatingColor = longestPath.Key;
-                currentAnimatingPath = new List<Point>(longestPath.Value);
-                animationStep = 0;
-                animationTimer.Start();
-            }
-            else
-            {
-                ShowCompletionMessage();
-            }
-        }
-
-        private void AnimationTimer_Tick(object sender, EventArgs e)
-        {
-            animationStep++;
-
-            if (currentAnimatingPath == null || animationStep >= currentAnimatingPath.Count)
-            {
-                StopAnimation();
-                ShowCompletionMessage();
-                return;
-            }
-
-            mainPanel.Invalidate();
-        }
-
-        private void StopAnimation()
-        {
-            if (animationTimer.Enabled)
-            {
-                animationTimer.Stop();
-                animationStep = 0;
-                currentAnimatingColor = Color.Empty;
-                currentAnimatingPath = null;
-            }
-        }
-
-        private void ShowCompletionMessage()
-        {
             if (level5)
             {
                 MessageBox.Show("You completed Level 5.\nYou won all the levels! 🎉", "You Won");
