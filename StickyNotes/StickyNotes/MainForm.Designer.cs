@@ -38,35 +38,37 @@
             // 
             // topPanel
             // 
-            this.topPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.topPanel.Controls.Add(this.selectAllCheckBox);
             this.topPanel.Controls.Add(this.addLabel);
             this.topPanel.Controls.Add(this.stickyNotesLabel);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(500, 78);
+            this.topPanel.Padding = new System.Windows.Forms.Padding(13, 9, 13, 9);
+            this.topPanel.Size = new System.Drawing.Size(429, 68);
             this.topPanel.TabIndex = 0;
             // 
             // selectAllCheckBox
             // 
+            this.selectAllCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.selectAllCheckBox.AutoSize = true;
             this.selectAllCheckBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.selectAllCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.selectAllCheckBox.Location = new System.Drawing.Point(385, 50);
+            this.selectAllCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
+            this.selectAllCheckBox.Location = new System.Drawing.Point(322, 41);
             this.selectAllCheckBox.Name = "selectAllCheckBox";
-            this.selectAllCheckBox.Size = new System.Drawing.Size(90, 23);
+            this.selectAllCheckBox.Size = new System.Drawing.Size(82, 21);
             this.selectAllCheckBox.TabIndex = 2;
-            this.selectAllCheckBox.Text = "Select All";
+            this.selectAllCheckBox.Text = "Select all";
             this.selectAllCheckBox.UseVisualStyleBackColor = true;
             this.selectAllCheckBox.CheckedChanged += new System.EventHandler(this.SelectAllCheckBoxClicked);
             // 
             // addLabel
             // 
+            this.addLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.addLabel.AutoSize = true;
             this.addLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.addLabel.Location = new System.Drawing.Point(343, 36);
+            this.addLabel.Location = new System.Drawing.Point(291, 27);
             this.addLabel.Name = "addLabel";
             this.addLabel.Size = new System.Drawing.Size(36, 37);
             this.addLabel.TabIndex = 1;
@@ -75,29 +77,32 @@
             // 
             // stickyNotesLabel
             // 
-            this.stickyNotesLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
-            this.stickyNotesLabel.Location = new System.Drawing.Point(182, 22);
+            this.stickyNotesLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
+            this.stickyNotesLabel.Location = new System.Drawing.Point(156, 9);
             this.stickyNotesLabel.Name = "stickyNotesLabel";
-            this.stickyNotesLabel.Size = new System.Drawing.Size(131, 36);
+            this.stickyNotesLabel.Size = new System.Drawing.Size(141, 31);
             this.stickyNotesLabel.TabIndex = 0;
             this.stickyNotesLabel.Text = "Sticky Notes";
+            this.stickyNotesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // bottomPanel
             // 
             this.bottomPanel.AutoScroll = true;
-            this.bottomPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 78);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 68);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(500, 522);
+            this.bottomPanel.Size = new System.Drawing.Size(429, 452);
             this.bottomPanel.TabIndex = 1;
             // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(500, 600);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(429, 520);
             this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.topPanel);
             this.Name = "MainForm";
+            this.Text = "Sticky Notes";
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
             this.ResumeLayout(false);

@@ -97,14 +97,17 @@ namespace StickyNotes
                 {
                     dataLabel = new Label()
                     {
-                        AutoSize = true,
+                        AutoSize = false,
                         Text = contentList[i].Header,
-                        Font = new Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold),
-                        TextAlign=ContentAlignment.MiddleCenter
+                        Font = new Font("Segoe UI", 13F, FontStyle.Bold),
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        ForeColor = Color.FromArgb(33, 33, 33),
+                        Location = new Point(10, 8),
+                        Size = new Size(dataPanel.Width - 20, 40)
                     };
-                    dataLabel.Location = new Point((dataPanel.Width / 2) - (dataLabel.Width), (dataPanel.Height / 2) - (dataLabel.Height));
 
                 }
+                dataLabel.Click += PanelClicked;
                 dataPanel.Controls.Add(dataLabel);
 
                 if (isSelectAllChecked)
@@ -112,11 +115,13 @@ namespace StickyNotes
                     dataCheckBox = new CheckBox()
                     {
                         Name = contentList[i].Id,
-                        Size = new Size(40, 40),
-                        Location = new Point(0, 0),
-                        TextAlign = ContentAlignment.MiddleCenter
+                        Size = new Size(20, 20),
+                        Location = new Point(10, dataPanel.Height - 30),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        FlatStyle = FlatStyle.Flat
 
                     };
+                    dataCheckBox.FlatAppearance.BorderSize = 1;
                     dataCheckBox.Checked = true;
                     dataPanel.Controls.Add(dataCheckBox);
                 }
@@ -124,15 +129,20 @@ namespace StickyNotes
                 dataDateTimePanel = new Label()
                 {
                     Name = contentList[i].Id,
-                    Size = new Size(200, 40),
-                    Location = new Point(dataPanel.Width - 200 - 10, dataPanel.Height - 40),
+                    Size = new Size(200, 20),
+                    Location = new Point(dataPanel.Width - 200 - 10, dataPanel.Height - 30),
                     Text = contentList[i].CreatedDateTime,
-                    TextAlign = ContentAlignment.MiddleRight
+                    TextAlign = ContentAlignment.MiddleRight,
+                    Font = new Font("Segoe UI", 8F),
+                    ForeColor = Color.Gray
                 };
+                dataDateTimePanel.Click += PanelClicked;
                 dataPanel.Controls.Add(dataDateTimePanel);
                 bottomPanel.Controls.Add(dataPanel);
                 y += 90;
             }
+            bottomPanel.ResumeLayout();
+
         }
 
         private void SelectAllCheckBoxClicked(object sender, EventArgs e)
@@ -143,13 +153,17 @@ namespace StickyNotes
                 deleteButton = new Button
                 {
                     Text = "Delete",
-                    BackColor = Color.Red,
-                    Font = new Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold),
+                    BackColor = Color.FromArgb(244, 67, 54),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 11F, FontStyle.Bold),
                     FlatStyle = FlatStyle.Flat,
                     TextAlign = ContentAlignment.MiddleCenter,
-                    Size = new Size(90, 50),
-                    Location = new Point(10, 10)
+                    Size = new Size(90, 40),
+                    Location = new Point(10, 10),
+                    Cursor = Cursors.Hand
                 };
+                deleteButton.FlatAppearance.BorderSize = 0;
+
                 deleteButton.Visible = true;
                 bottomPanel.Controls.Clear();
                 bottomPanel.Controls.Add(deleteButton);
