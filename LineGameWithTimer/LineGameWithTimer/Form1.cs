@@ -372,9 +372,10 @@ namespace LineGameWithTimer
 
                 bool ok = (first == ep.Start && last == ep.End) ||
                           (first == ep.End && last == ep.Start);
-
                 if (!ok) return;
             }
+                MessageBox.Show("Level Completed");
+            
 
             previewList.Clear();
             foreach (var path in paths)
@@ -430,6 +431,7 @@ namespace LineGameWithTimer
             }
             else
             {
+               
                 previewTimer.Stop();
                 isPreviewMode = false;
                 mainPanel.Invalidate();
