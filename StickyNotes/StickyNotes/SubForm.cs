@@ -12,14 +12,45 @@ namespace StickyNotes
 {
     public partial class SubForm : Form
     {
-
-        public SubForm(string a)
+        bool isEditing = false;
+        string id;
+        public SubForm()
         {
             InitializeComponent();
-            label1.Text = a;
+            MaximumSize = new Size(300,400);
+            MinimumSize = new Size(300, 400);
+        }
+
+        private void AddButtonClick(object sender, EventArgs e)
+        {
+            string header = headerRichTextBox.Text;
+            string content = contentRichTextBox.Text;
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                MessageBox.Show("Content must have a value.");
+                return;
+            }
+            if (!isEditing)
+            {
+                MainForm mf = new MainForm(header, content);
+                Close();
+            }
+            if (isEditing)
+            {
+                MainForm mf = new MainForm(id, header, content);
+                Close();
+            }
         }
 
 
+        public SubForm(string id, string header, string content)
+        {
+            InitializeComponent();
+            this.id = id;
+            isEditing = true;
+            headerRichTextBox.Text = header;
+            contentRichTextBox.Text = content;
+        }
     }
 
 

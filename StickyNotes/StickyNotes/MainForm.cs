@@ -12,45 +12,181 @@ namespace StickyNotes
 {
     public partial class MainForm : Form
     {
-        private List<ContentStructure> contentList = new List<ContentStructure>();
+        private List<ContentStructure> contentList;
+        private bool isSelectAllChecked = false;
+        private Button deleteButton = new Button();
+        private Label dataLabel;
+        CheckBox dataCheckBox;
+        Panel dataPanel;
+        Label dataDateTimePanel;
         public MainForm()
         {
             InitializeComponent();
             MaximumSize = new Size(500, 600);
             MinimumSize = new Size(500, 600);
-            Load += ResizeAndLoad;
-            Resize += ResizeAndLoad;
+            Resize += ReloadAndResize;
+            Load += ReloadAndResize;
+
         }
 
-        public void ResizeAndLoad(object s,EventArgs e)
+        private void AddLabelClick(object sender, EventArgs e)
         {
-            stickyNotesLabel.Location = new Point(
-                topPanel.Width/2-(stickyNotesLabel.Width)+80,
-                topPanel.Height / 2 - (stickyNotesLabel.Height)
-                );
+            SubForm sf = new SubForm();
+            sf.ShowDialog();
+            bottomPanel.Controls.Clear();
 
-            addLabel.Location = new Point(stickyNotesLabel.Width+190 ,
-                stickyNotesLabel.Height
-                );
-
-            selectAllCheckBox.Location = new Point(stickyNotesLabel.Width + 230,
-             stickyNotesLabel.Height+13
-             );
+            ReloadAndResize(this, EventArgs.Empty);
         }
 
-    }
-    public class ContentStructure
-    {
-        public string Id;
-        public string Header;
-        public string Content;
-
-        public ContentStructure(string id, string header, string content)
+        public MainForm(string header, string content)
         {
-            Id = id;
-            Header = header;
-            Content = content;
+            bool success = DataController.WriteData(header, content);
+            if (!success)
+            {
+                MessageBox.Show("Data not added.");
+                return;
+            }
+            MessageBox.Show("Data added successfully.");
+        }
+
+        public MainForm(string id,string header,string content)
+        {
+
+        }
+
+        public void ReloadAndResize(object s, EventArgs e)
+        {
+            contentList = DataController.LoadData();
+
+            int x = 10, y = 10;
+            if (isSelectAllChecked)
+            {
+                y = 70;
+            }
+            for (int i = contentList.Count - 1; i >= 0; i--)
+            {
+                dataPanel = new Panel()
+                {
+                    Size = new Size(450, 80),
+                    BorderStyle = BorderStyle.Fixed3D,
+                    Location = new Point(x, y),
+                    Name = contentList[i].Id,
+                    Cursor = Cursors.Hand
+
+                };
+                dataPanel.Click += PanelClicked;
+
+                if (string.IsNullOrWhiteSpace(contentList[i].Header))
+                {
+                    dataLabel = new Label()
+                    {
+                        AutoSize=true,
+                        Text = contentList[i].Header,
+                        Font = new Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold),
+                    };
+                    dataLabel.Location = new Point((dataPanel.Width / 2) +50- (dataLabel.Width), (dataPanel.Height / 2) - (dataLabel.Height));
+                }
+                else
+                {
+                    dataLabel = new Label()
+                    {
+                        AutoSize = true,
+                        Text = contentList[i].Header,
+                        Font = new Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold),
+                        TextAlign=ContentAlignment.MiddleCenter
+                    };
+                    dataLabel.Location = new Point((dataPanel.Width / 2) - (dataLabel.Width), (dataPanel.Height / 2) - (dataLabel.Height));
+
+                }
+                dataPanel.Controls.Add(dataLabel);
+
+                if (isSelectAllChecked)
+                {
+                    dataCheckBox = new CheckBox()
+                    {
+                        Name = contentList[i].Id,
+                        Size = new Size(40, 40),
+                        Location = new Point(10, 5),
+                        TextAlign = ContentAlignment.MiddleCenter
+
+                    };
+                    dataCheckBox.Checked = true;
+                    dataPanel.Controls.Add(dataCheckBox);
+                }
+
+                dataDateTimePanel = new Label()
+                {
+                    Name = contentList[i].Id,
+                    Location = new Point(dataPanel.Right - 130, dataPanel.Bottom - 30),
+                    Size=new Size(200,40),
+                    Text=contentList[i].CreatedDateTime
+                };
+                dataPanel.Controls.Add(dataDateTimePanel);
+                bottomPanel.Controls.Add(dataPanel);
+                y += 90;
+            }
+        }
+
+        private void SelectAllCheckBoxClicked(object sender, EventArgs e)
+        {
+            if (selectAllCheckBox.Checked)
+            {
+                isSelectAllChecked = true;
+                deleteButton = new Button
+                {
+                    Text = "Delete",
+                    BackColor = Color.Red,
+                    Font = new Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold),
+                    FlatStyle = FlatStyle.Flat,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Size = new Size(90, 50),
+                    Location = new Point(10, 10)
+                };
+                deleteButton.Visible = true;
+                bottomPanel.Controls.Clear();
+                bottomPanel.Controls.Add(deleteButton);
+                ReloadAndResize(this, EventArgs.Empty);
+            }
+            if (!selectAllCheckBox.Checked)
+            {
+                isSelectAllChecked = false;
+                deleteButton.Visible = false;
+                bottomPanel.Controls.Clear();
+                ReloadAndResize(this, EventArgs.Empty);
+            }
+        }
+
+        private void PanelClicked(object s, EventArgs e)
+        {
+            if (!isSelectAllChecked)
+            {
+                Control clicked = s as Control;
+                Panel panel;
+                if (clicked is Panel)
+                {
+                    panel = (Panel)clicked;
+                }
+                else
+                {
+                    panel = null;
+                }
+                if (panel == null)
+                {
+                    return;
+                }
+                string id = panel.Name;
+                foreach (var ls in contentList)
+                {
+                    if (id == ls.Id)
+                    {
+                        SubForm sf = new SubForm(id, ls.Header, ls.Content);
+                        sf.ShowDialog();
+                        bottomPanel.Controls.Clear();
+                        ReloadAndResize(this, EventArgs.Empty);
+                    }
+                }
+            }
         }
     }
-
 }
+

@@ -38,64 +38,63 @@
             // 
             // topPanel
             // 
+            this.topPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.topPanel.Controls.Add(this.selectAllCheckBox);
             this.topPanel.Controls.Add(this.addLabel);
             this.topPanel.Controls.Add(this.stickyNotesLabel);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(676, 78);
+            this.topPanel.Size = new System.Drawing.Size(500, 78);
             this.topPanel.TabIndex = 0;
-            this.topPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             // 
             // selectAllCheckBox
             // 
             this.selectAllCheckBox.AutoSize = true;
-            this.selectAllCheckBox.Location = new System.Drawing.Point(584, 52);
+            this.selectAllCheckBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.selectAllCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.selectAllCheckBox.Location = new System.Drawing.Point(385, 50);
             this.selectAllCheckBox.Name = "selectAllCheckBox";
-            this.selectAllCheckBox.Size = new System.Drawing.Size(70, 17);
+            this.selectAllCheckBox.Size = new System.Drawing.Size(90, 23);
             this.selectAllCheckBox.TabIndex = 2;
             this.selectAllCheckBox.Text = "Select All";
             this.selectAllCheckBox.UseVisualStyleBackColor = true;
-            this.selectAllCheckBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.selectAllCheckBox.Cursor = System.Windows.Forms.Cursors.Hand;
-
+            this.selectAllCheckBox.CheckedChanged += new System.EventHandler(this.SelectAllCheckBoxClicked);
             // 
             // addLabel
             // 
             this.addLabel.AutoSize = true;
-            this.addLabel.Location = new System.Drawing.Point(609, 36);
+            this.addLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.addLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.addLabel.Location = new System.Drawing.Point(343, 36);
             this.addLabel.Name = "addLabel";
-            this.addLabel.Size = new System.Drawing.Size(13, 13);
+            this.addLabel.Size = new System.Drawing.Size(36, 37);
             this.addLabel.TabIndex = 1;
             this.addLabel.Text = "+";
-            this.addLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.addLabel.Cursor = System.Windows.Forms.Cursors.Hand;
-
+            this.addLabel.Click += new System.EventHandler(this.AddLabelClick);
             // 
             // stickyNotesLabel
             // 
             this.stickyNotesLabel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold);
-            this.stickyNotesLabel.Location = new System.Drawing.Point(276, 24);
+            this.stickyNotesLabel.Location = new System.Drawing.Point(182, 22);
             this.stickyNotesLabel.Name = "stickyNotesLabel";
-            this.stickyNotesLabel.Size = new System.Drawing.Size(156, 36);
+            this.stickyNotesLabel.Size = new System.Drawing.Size(131, 36);
             this.stickyNotesLabel.TabIndex = 0;
             this.stickyNotesLabel.Text = "Sticky Notes";
             // 
             // bottomPanel
             // 
             this.bottomPanel.AutoScroll = true;
+            this.bottomPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bottomPanel.Location = new System.Drawing.Point(0, 78);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(676, 330);
+            this.bottomPanel.Size = new System.Drawing.Size(500, 522);
             this.bottomPanel.TabIndex = 1;
-            this.bottomPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
             // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(676, 408);
+            this.ClientSize = new System.Drawing.Size(500, 600);
             this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.topPanel);
             this.Name = "MainForm";
