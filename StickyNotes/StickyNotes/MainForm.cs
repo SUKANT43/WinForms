@@ -51,7 +51,13 @@ namespace StickyNotes
 
         public MainForm(string id,string header,string content)
         {
-
+            bool success = DataController.EditData(id, header, content);
+            if (!success)
+            {
+                MessageBox.Show("Data not edited.");
+                return;
+            }
+            MessageBox.Show("Data edited successfully.");
         }
 
         public void ReloadAndResize(object s, EventArgs e)
@@ -80,11 +86,12 @@ namespace StickyNotes
                 {
                     dataLabel = new Label()
                     {
-                        AutoSize=true,
-                        Text = contentList[i].Header,
+                        AutoSize = true,
+                        Text = contentList[i].Content,
                         Font = new Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold),
+                        TextAlign = ContentAlignment.MiddleCenter
                     };
-                    dataLabel.Location = new Point((dataPanel.Width / 2) +50- (dataLabel.Width), (dataPanel.Height / 2) - (dataLabel.Height));
+                    dataLabel.Location = new Point(10, (dataPanel.Height / 2) - (dataLabel.Height));
                 }
                 else
                 {
@@ -106,7 +113,7 @@ namespace StickyNotes
                     {
                         Name = contentList[i].Id,
                         Size = new Size(40, 40),
-                        Location = new Point(10, 5),
+                        Location = new Point(0, 0),
                         TextAlign = ContentAlignment.MiddleCenter
 
                     };
@@ -117,9 +124,10 @@ namespace StickyNotes
                 dataDateTimePanel = new Label()
                 {
                     Name = contentList[i].Id,
-                    Location = new Point(dataPanel.Right - 130, dataPanel.Bottom - 30),
-                    Size=new Size(200,40),
-                    Text=contentList[i].CreatedDateTime
+                    Size = new Size(200, 40),
+                    Location = new Point(dataPanel.Width - 200 - 10, dataPanel.Height - 40),
+                    Text = contentList[i].CreatedDateTime,
+                    TextAlign = ContentAlignment.MiddleRight
                 };
                 dataPanel.Controls.Add(dataDateTimePanel);
                 bottomPanel.Controls.Add(dataPanel);
@@ -168,7 +176,7 @@ namespace StickyNotes
                 }
                 else
                 {
-                    panel = null;
+                    panel = clicked.Parent as Panel;
                 }
                 if (panel == null)
                 {

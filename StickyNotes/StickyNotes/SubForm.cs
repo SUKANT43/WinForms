@@ -39,6 +39,7 @@ namespace StickyNotes
             {
                 MainForm mf = new MainForm(id, header, content);
                 Close();
+
             }
         }
 

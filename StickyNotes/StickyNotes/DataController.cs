@@ -71,6 +71,33 @@ namespace StickyNotes
             }
         }
 
+        public static bool EditData(string id,string header,string content)
+        {
+            try
+            {
+                List<ContentStructure> list = LoadData();
+                for(int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].Id == id)
+                    {
+                        list[i].Header = header;
+                        list[i].Content = content;
+                        list[i].CreatedDateTime= DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        break;
+                    }
+                }
+                bool save = SaveAll(list);
+                if (!save)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
 
     }
