@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 namespace StickyNotes
 {
     class DataController
@@ -99,6 +100,32 @@ namespace StickyNotes
             }
         }
 
+        public static bool DeleteData(List<CheckBox> ls)
+        {
+            try
+            {
+                List<ContentStructure> list = LoadData();
+                List<ContentStructure> filteredList = new List<ContentStructure>();
+                for(int i = 0; i < list.Count; i++)
+                {
+                    var check = ls.FirstOrDefault(e => e.Name == list[i].Id && e.Checked);
+                    if (check == null)
+                    {
+                        filteredList.Add(list[i]);
+                    }
+                }
+                bool save = SaveAll(filteredList);
+                if (!save)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
     }
 }

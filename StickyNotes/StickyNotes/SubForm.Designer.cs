@@ -39,6 +39,8 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.BackColor = System.Drawing.Color.White;
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.mainPanel.Controls.Add(this.addButton);
             this.mainPanel.Controls.Add(this.contentRichTextBox);
             this.mainPanel.Controls.Add(this.contentLabel);
@@ -47,19 +49,21 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(300, 350);
+            this.mainPanel.Padding = new System.Windows.Forms.Padding(20);
+            this.mainPanel.Size = new System.Drawing.Size(320, 380);
             this.mainPanel.TabIndex = 0;
             // 
             // addButton
             // 
-            this.addButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.addButton.BackColor = System.Drawing.Color.FromArgb(76, 175, 80);
             this.addButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addButton.FlatAppearance.BorderSize = 0;
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.addButton.Location = new System.Drawing.Point(113, 266);
+            this.addButton.ForeColor = System.Drawing.Color.White;
+            this.addButton.Location = new System.Drawing.Point(100, 300);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(62, 28);
+            this.addButton.Size = new System.Drawing.Size(120, 36);
             this.addButton.TabIndex = 4;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = false;
@@ -67,48 +71,57 @@
             // 
             // contentRichTextBox
             // 
+            this.contentRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.contentRichTextBox.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.contentRichTextBox.Location = new System.Drawing.Point(59, 133);
+            this.contentRichTextBox.Location = new System.Drawing.Point(23, 170);
             this.contentRichTextBox.Name = "contentRichTextBox";
-            this.contentRichTextBox.Size = new System.Drawing.Size(214, 110);
+            this.contentRichTextBox.Size = new System.Drawing.Size(274, 110);
             this.contentRichTextBox.TabIndex = 3;
             this.contentRichTextBox.Text = "";
             // 
             // contentLabel
             // 
             this.contentLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.contentLabel.Location = new System.Drawing.Point(12, 110);
+            this.contentLabel.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
+            this.contentLabel.Location = new System.Drawing.Point(20, 145);
             this.contentLabel.Name = "contentLabel";
-            this.contentLabel.Size = new System.Drawing.Size(70, 20);
+            this.contentLabel.Size = new System.Drawing.Size(100, 20);
             this.contentLabel.TabIndex = 2;
-            this.contentLabel.Text = "Content:";
+            this.contentLabel.Text = "Content";
             // 
             // headerRichTextBox
             // 
+            this.headerRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.headerRichTextBox.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.headerRichTextBox.Location = new System.Drawing.Point(59, 49);
+            this.headerRichTextBox.Location = new System.Drawing.Point(23, 70);
             this.headerRichTextBox.Name = "headerRichTextBox";
-            this.headerRichTextBox.Size = new System.Drawing.Size(214, 42);
+            this.headerRichTextBox.Size = new System.Drawing.Size(274, 45);
             this.headerRichTextBox.TabIndex = 1;
             this.headerRichTextBox.Text = "";
             // 
             // headerLabel
             // 
             this.headerLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.headerLabel.Location = new System.Drawing.Point(12, 26);
+            this.headerLabel.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
+            this.headerLabel.Location = new System.Drawing.Point(20, 45);
             this.headerLabel.Name = "headerLabel";
-            this.headerLabel.Size = new System.Drawing.Size(70, 20);
+            this.headerLabel.Size = new System.Drawing.Size(100, 20);
             this.headerLabel.TabIndex = 0;
-            this.headerLabel.Text = "Header:";
+            this.headerLabel.Text = "Header";
             // 
             // SubForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 350);
+            this.BackColor = System.Drawing.Color.FromArgb(245, 247, 250);
+            this.ClientSize = new System.Drawing.Size(320, 380);
             this.Controls.Add(this.mainPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SubForm";
-            this.Text = "SubForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Sticky Note";
             this.mainPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 

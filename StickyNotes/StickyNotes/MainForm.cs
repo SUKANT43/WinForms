@@ -19,6 +19,7 @@ namespace StickyNotes
         CheckBox dataCheckBox;
         Panel dataPanel;
         Label dataDateTimePanel;
+        List<CheckBox> checkBoxList = new List<CheckBox>();
         public MainForm()
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace StickyNotes
             MinimumSize = new Size(500, 600);
             Resize += ReloadAndResize;
             Load += ReloadAndResize;
-
+            addLabel.Click += SelectAllCheckBoxClicked;
         }
 
         private void AddLabelClick(object sender, EventArgs e)
@@ -34,7 +35,6 @@ namespace StickyNotes
             SubForm sf = new SubForm();
             sf.ShowDialog();
             bottomPanel.Controls.Clear();
-
             ReloadAndResize(this, EventArgs.Empty);
         }
 
@@ -46,7 +46,9 @@ namespace StickyNotes
                 MessageBox.Show("Data not added.");
                 return;
             }
+
             MessageBox.Show("Data added successfully.");
+
         }
 
         public MainForm(string id,string header,string content)
@@ -63,6 +65,7 @@ namespace StickyNotes
         public void ReloadAndResize(object s, EventArgs e)
         {
             contentList = DataController.LoadData();
+            checkBoxList.Clear();
 
             int x = 10, y = 10;
             if (isSelectAllChecked)
@@ -80,7 +83,7 @@ namespace StickyNotes
                     Cursor = Cursors.Hand
 
                 };
-                dataPanel.Click += PanelClicked;
+                dataPanel.DoubleClick += PanelClicked;
 
                 if (string.IsNullOrWhiteSpace(contentList[i].Header))
                 {
@@ -107,7 +110,7 @@ namespace StickyNotes
                     };
 
                 }
-                dataLabel.Click += PanelClicked;
+                dataLabel.DoubleClick += PanelClicked;
                 dataPanel.Controls.Add(dataLabel);
 
                 if (isSelectAllChecked)
@@ -119,11 +122,10 @@ namespace StickyNotes
                         Location = new Point(10, dataPanel.Height - 30),
                         TextAlign = ContentAlignment.MiddleCenter,
                         FlatStyle = FlatStyle.Flat
-
                     };
                     dataCheckBox.FlatAppearance.BorderSize = 1;
-                    dataCheckBox.Checked = true;
                     dataPanel.Controls.Add(dataCheckBox);
+                    checkBoxList.Add(dataCheckBox);
                 }
 
                 dataDateTimePanel = new Label()
@@ -136,13 +138,31 @@ namespace StickyNotes
                     Font = new Font("Segoe UI", 8F),
                     ForeColor = Color.Gray
                 };
-                dataDateTimePanel.Click += PanelClicked;
+                dataDateTimePanel.DoubleClick += PanelClicked;
                 dataPanel.Controls.Add(dataDateTimePanel);
                 bottomPanel.Controls.Add(dataPanel);
                 y += 90;
             }
-            bottomPanel.ResumeLayout();
 
+        }
+
+        private void DeleteButtonClicked(object s,EventArgs e)
+        {
+            if (checkBoxList.Count == 0)
+            {
+                MessageBox.Show("No items selected");
+                return;
+            }
+           bool check= DataController.DeleteData(checkBoxList);
+            if (!check)
+            {
+                MessageBox.Show("Data not deleted.");
+                return;
+            }
+             MessageBox.Show("Data deleted successfully!.");
+            bottomPanel.Controls.Clear();
+            ReloadAndResize(this, EventArgs.Empty);
+            SelectAllCheckBoxClicked(this, EventArgs.Empty);
         }
 
         private void SelectAllCheckBoxClicked(object sender, EventArgs e)
@@ -163,10 +183,12 @@ namespace StickyNotes
                     Cursor = Cursors.Hand
                 };
                 deleteButton.FlatAppearance.BorderSize = 0;
+                deleteButton.Click += DeleteButtonClicked;
 
                 deleteButton.Visible = true;
                 bottomPanel.Controls.Clear();
                 bottomPanel.Controls.Add(deleteButton);
+
                 ReloadAndResize(this, EventArgs.Empty);
             }
             if (!selectAllCheckBox.Checked)
@@ -209,6 +231,8 @@ namespace StickyNotes
                 }
             }
         }
+
+
     }
 }
 
