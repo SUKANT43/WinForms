@@ -29,18 +29,20 @@
         private void InitializeComponent()
         {
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.saveButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.contentRichTextBox = new System.Windows.Forms.RichTextBox();
             this.contentLabel = new System.Windows.Forms.Label();
             this.headerRichTextBox = new System.Windows.Forms.RichTextBox();
             this.headerLabel = new System.Windows.Forms.Label();
-            this.saveButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.White;
+            this.mainPanel.Controls.Add(this.okButton);
             this.mainPanel.Controls.Add(this.saveButton);
             this.mainPanel.Controls.Add(this.addButton);
             this.mainPanel.Controls.Add(this.contentRichTextBox);
@@ -50,9 +52,25 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Padding = new System.Windows.Forms.Padding(17, 17, 17, 17);
+            this.mainPanel.Padding = new System.Windows.Forms.Padding(17);
             this.mainPanel.Size = new System.Drawing.Size(274, 329);
             this.mainPanel.TabIndex = 0;
+            // 
+            // saveButton
+            // 
+            this.saveButton.BackColor = System.Drawing.Color.Navy;
+            this.saveButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveButton.FlatAppearance.BorderSize = 0;
+            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.saveButton.ForeColor = System.Drawing.Color.White;
+            this.saveButton.Location = new System.Drawing.Point(12, 278);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(103, 31);
+            this.saveButton.TabIndex = 5;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = false;
+            this.saveButton.Click += new System.EventHandler(this.SaveButtonClick);
             // 
             // addButton
             // 
@@ -110,21 +128,21 @@
             this.headerLabel.TabIndex = 0;
             this.headerLabel.Text = "Header";
             // 
-            // saveButton
+            // okButton
             // 
-            this.saveButton.BackColor = System.Drawing.Color.Navy;
-            this.saveButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.saveButton.FlatAppearance.BorderSize = 0;
-            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.saveButton.ForeColor = System.Drawing.Color.White;
-            this.saveButton.Location = new System.Drawing.Point(12, 278);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(103, 31);
-            this.saveButton.TabIndex = 5;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = false;
-            this.saveButton.Click += new System.EventHandler(this.SaveButtonClick);
+            this.okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.okButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.okButton.FlatAppearance.BorderSize = 0;
+            this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.okButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.okButton.ForeColor = System.Drawing.Color.White;
+            this.okButton.Location = new System.Drawing.Point(182, 278);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(41, 31);
+            this.okButton.TabIndex = 6;
+            this.okButton.Text = "Ok";
+            this.okButton.UseVisualStyleBackColor = false;
+            this.okButton.Click += new System.EventHandler(this.OkButtonClick);
             // 
             // SubForm
             // 
@@ -153,5 +171,6 @@
         private System.Windows.Forms.Label contentLabel;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button okButton;
     }
 }

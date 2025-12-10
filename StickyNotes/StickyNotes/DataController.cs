@@ -34,26 +34,7 @@ namespace StickyNotes
             }
         }
 
-        public static string WriteData(string header, string content,bool check)
-        {
-            try
-            {
-                List<ContentStructure> list = LoadData();
-                string id = (list.Count + 1).ToString();
-                string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                list.Add(new ContentStructure(id, header, content, dateTime));
-                bool save = SaveAll(list);
-                if (!save)
-                {
-                    return "0";
-                }
-                return id;
-            }
-            catch (Exception e)
-            {
-                return "0";
-            }
-        }
+        
 
         public static List<ContentStructure> LoadData()
         {

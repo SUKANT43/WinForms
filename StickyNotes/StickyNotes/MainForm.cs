@@ -20,7 +20,8 @@ namespace StickyNotes
         Panel dataPanel;
         Label dataDateTimePanel;
         List<CheckBox> checkBoxList = new List<CheckBox>();
-        string editId;
+        private NotifyIcon notifyIcon;
+
         public MainForm()
         {
             InitializeComponent();
@@ -29,16 +30,21 @@ namespace StickyNotes
             Resize += ReloadAndResize;
             Load += ReloadAndResize;
             addLabel.Click += SelectAllCheckBoxClicked;
+            notifyIcon = new NotifyIcon();
+            notifyIcon.Icon = SystemIcons.Information;
+            notifyIcon.Visible = true;
+
         }
 
-        private void AddLabelClick(object sender, EventArgs e)
+        private void SetupNotifyIcon()
         {
-            SubForm sf = new SubForm();
-            sf.ShowDialog();
-            bottomPanel.Controls.Clear();
-            ReloadAndResize(this, EventArgs.Empty);
+            notifyIcon = new NotifyIcon();
+            notifyIcon.Icon = SystemIcons.Information;
+            notifyIcon.Visible = true;
         }
 
+
+       
         public MainForm(string header, string content)
         {
             bool success = DataController.WriteData(header, content);
@@ -49,20 +55,52 @@ namespace StickyNotes
             }
 
             MessageBox.Show("Data added successfully.");
+            SetupNotifyIcon();
+            notifyIcon.BalloonTipTitle = "1";
+            notifyIcon.BalloonTipText = "First";
+            notifyIcon.ShowBalloonTip(3000);
         }
 
-
-
-        public MainForm(string id,string header,string content)
+        public MainForm(string id, string header, string content)
         {
             bool success = DataController.EditData(id, header, content);
             if (!success)
             {
-                MessageBox.Show("Data not edited.");
+                MessageBox.Show("Data not saved.");
                 return;
             }
-            MessageBox.Show("Data edited successfully.");
+
+            MessageBox.Show("Data saved successfully.");
+
         }
+
+        private void DeleteButtonClicked(object s, EventArgs e)
+        {
+            if (checkBoxList.Count == 0)
+            {
+                MessageBox.Show("No items selected");
+                return;
+            }
+            bool check = DataController.DeleteData(checkBoxList);
+            if (!check)
+            {
+                MessageBox.Show("Data not deleted.");
+                return;
+            }
+            MessageBox.Show("Data deleted successfully!.");
+            bottomPanel.Controls.Clear();
+            ReloadAndResize(this, EventArgs.Empty);
+            SelectAllCheckBoxClicked(this, EventArgs.Empty);
+        }
+
+        private void AddLabelClick(object sender, EventArgs e)
+        {
+            SubForm sf = new SubForm();
+            sf.ShowDialog();
+            bottomPanel.Controls.Clear();
+            ReloadAndResize(this, EventArgs.Empty);
+        }
+
 
         public void ReloadAndResize(object s, EventArgs e)
         {
@@ -149,24 +187,7 @@ namespace StickyNotes
 
         }
 
-        private void DeleteButtonClicked(object s,EventArgs e)
-        {
-            if (checkBoxList.Count == 0)
-            {
-                MessageBox.Show("No items selected");
-                return;
-            }
-           bool check= DataController.DeleteData(checkBoxList);
-            if (!check)
-            {
-                MessageBox.Show("Data not deleted.");
-                return;
-            }
-             MessageBox.Show("Data deleted successfully!.");
-            bottomPanel.Controls.Clear();
-            ReloadAndResize(this, EventArgs.Empty);
-            SelectAllCheckBoxClicked(this, EventArgs.Empty);
-        }
+      
 
         private void SelectAllCheckBoxClicked(object sender, EventArgs e)
         {

@@ -27,11 +27,13 @@ namespace StickyNotes
             if (isEditing)
             {
                 addButton.Visible = false;
+                okButton.Visible = true;
                 saveButton.Visible = true;
             }
             else
             {
                 addButton.Visible = true;
+                okButton.Visible = false;
                 saveButton.Visible = false;
             }
         }
@@ -50,12 +52,7 @@ namespace StickyNotes
                 MainForm mf = new MainForm(header, content);
                 Close();
             }
-            if (isEditing)
-            {
-                MainForm mf = new MainForm(id, header, content);
-                Close();
-            }
-           
+            
         }
 
 
@@ -70,12 +67,16 @@ namespace StickyNotes
 
         }
 
+        private void OkButtonClick(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void SaveButtonClick(object sender, EventArgs e)
         {
             if (isEditing)
             {
                 MainForm mf = new MainForm(id, headerRichTextBox.Text, contentRichTextBox.Text);
-                Close();
             }
         }
     }
