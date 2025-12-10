@@ -20,6 +20,7 @@ namespace StickyNotes
         Panel dataPanel;
         Label dataDateTimePanel;
         List<CheckBox> checkBoxList = new List<CheckBox>();
+        string editId;
         public MainForm()
         {
             InitializeComponent();
@@ -48,8 +49,9 @@ namespace StickyNotes
             }
 
             MessageBox.Show("Data added successfully.");
-
         }
+
+
 
         public MainForm(string id,string header,string content)
         {
@@ -121,7 +123,8 @@ namespace StickyNotes
                         Size = new Size(20, 20),
                         Location = new Point(10, dataPanel.Height - 30),
                         TextAlign = ContentAlignment.MiddleCenter,
-                        FlatStyle = FlatStyle.Flat
+                        FlatStyle = FlatStyle.Flat,
+                        Checked=true
                     };
                     dataCheckBox.FlatAppearance.BorderSize = 1;
                     dataPanel.Controls.Add(dataCheckBox);

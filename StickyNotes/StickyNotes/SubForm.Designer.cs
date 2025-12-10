@@ -34,13 +34,14 @@
             this.contentLabel = new System.Windows.Forms.Label();
             this.headerRichTextBox = new System.Windows.Forms.RichTextBox();
             this.headerLabel = new System.Windows.Forms.Label();
+            this.saveButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.White;
-            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.mainPanel.Controls.Add(this.saveButton);
             this.mainPanel.Controls.Add(this.addButton);
             this.mainPanel.Controls.Add(this.contentRichTextBox);
             this.mainPanel.Controls.Add(this.contentLabel);
@@ -49,21 +50,21 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Padding = new System.Windows.Forms.Padding(20);
-            this.mainPanel.Size = new System.Drawing.Size(320, 380);
+            this.mainPanel.Padding = new System.Windows.Forms.Padding(17, 17, 17, 17);
+            this.mainPanel.Size = new System.Drawing.Size(274, 329);
             this.mainPanel.TabIndex = 0;
             // 
             // addButton
             // 
-            this.addButton.BackColor = System.Drawing.Color.FromArgb(76, 175, 80);
+            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
             this.addButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addButton.FlatAppearance.BorderSize = 0;
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(100, 300);
+            this.addButton.Location = new System.Drawing.Point(151, 278);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(120, 36);
+            this.addButton.Size = new System.Drawing.Size(103, 31);
             this.addButton.TabIndex = 4;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = false;
@@ -73,19 +74,19 @@
             // 
             this.contentRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.contentRichTextBox.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.contentRichTextBox.Location = new System.Drawing.Point(23, 170);
+            this.contentRichTextBox.Location = new System.Drawing.Point(20, 147);
             this.contentRichTextBox.Name = "contentRichTextBox";
-            this.contentRichTextBox.Size = new System.Drawing.Size(274, 110);
+            this.contentRichTextBox.Size = new System.Drawing.Size(235, 96);
             this.contentRichTextBox.TabIndex = 3;
             this.contentRichTextBox.Text = "";
             // 
             // contentLabel
             // 
             this.contentLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.contentLabel.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
-            this.contentLabel.Location = new System.Drawing.Point(20, 145);
+            this.contentLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.contentLabel.Location = new System.Drawing.Point(17, 126);
             this.contentLabel.Name = "contentLabel";
-            this.contentLabel.Size = new System.Drawing.Size(100, 20);
+            this.contentLabel.Size = new System.Drawing.Size(86, 17);
             this.contentLabel.TabIndex = 2;
             this.contentLabel.Text = "Content";
             // 
@@ -93,28 +94,44 @@
             // 
             this.headerRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.headerRichTextBox.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.headerRichTextBox.Location = new System.Drawing.Point(23, 70);
+            this.headerRichTextBox.Location = new System.Drawing.Point(20, 61);
             this.headerRichTextBox.Name = "headerRichTextBox";
-            this.headerRichTextBox.Size = new System.Drawing.Size(274, 45);
+            this.headerRichTextBox.Size = new System.Drawing.Size(235, 40);
             this.headerRichTextBox.TabIndex = 1;
             this.headerRichTextBox.Text = "";
             // 
             // headerLabel
             // 
             this.headerLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.headerLabel.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
-            this.headerLabel.Location = new System.Drawing.Point(20, 45);
+            this.headerLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.headerLabel.Location = new System.Drawing.Point(17, 39);
             this.headerLabel.Name = "headerLabel";
-            this.headerLabel.Size = new System.Drawing.Size(100, 20);
+            this.headerLabel.Size = new System.Drawing.Size(86, 17);
             this.headerLabel.TabIndex = 0;
             this.headerLabel.Text = "Header";
             // 
+            // saveButton
+            // 
+            this.saveButton.BackColor = System.Drawing.Color.Navy;
+            this.saveButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveButton.FlatAppearance.BorderSize = 0;
+            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.saveButton.ForeColor = System.Drawing.Color.White;
+            this.saveButton.Location = new System.Drawing.Point(12, 278);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(103, 31);
+            this.saveButton.TabIndex = 5;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = false;
+            this.saveButton.Click += new System.EventHandler(this.SaveButtonClick);
+            // 
             // SubForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(245, 247, 250);
-            this.ClientSize = new System.Drawing.Size(320, 380);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ClientSize = new System.Drawing.Size(274, 329);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -135,5 +152,6 @@
         private System.Windows.Forms.RichTextBox contentRichTextBox;
         private System.Windows.Forms.Label contentLabel;
         private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.Button saveButton;
     }
 }

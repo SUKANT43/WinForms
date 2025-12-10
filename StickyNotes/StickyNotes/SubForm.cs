@@ -12,13 +12,28 @@ namespace StickyNotes
 {
     public partial class SubForm : Form
     {
-        bool isEditing = false;
+        bool isEditing = false,isSave=false;
         string id;
         public SubForm()
         {
             InitializeComponent();
             MaximumSize = new Size(300,400);
             MinimumSize = new Size(300, 400);
+            Load += LoadPage;
+        }
+
+        public void LoadPage(object e,EventArgs s)
+        {
+            if (isEditing)
+            {
+                addButton.Visible = false;
+                saveButton.Visible = true;
+            }
+            else
+            {
+                addButton.Visible = true;
+                saveButton.Visible = false;
+            }
         }
 
         private void AddButtonClick(object sender, EventArgs e)
@@ -40,6 +55,7 @@ namespace StickyNotes
                 MainForm mf = new MainForm(id, header, content);
                 Close();
             }
+           
         }
 
 
@@ -50,6 +66,17 @@ namespace StickyNotes
             isEditing = true;
             headerRichTextBox.Text = header;
             contentRichTextBox.Text = content;
+            Load += LoadPage;
+
+        }
+
+        private void SaveButtonClick(object sender, EventArgs e)
+        {
+            if (isEditing)
+            {
+                MainForm mf = new MainForm(id, headerRichTextBox.Text, contentRichTextBox.Text);
+                Close();
+            }
         }
     }
 
