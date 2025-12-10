@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.okButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.contentRichTextBox = new System.Windows.Forms.RichTextBox();
             this.contentLabel = new System.Windows.Forms.Label();
             this.headerRichTextBox = new System.Windows.Forms.RichTextBox();
             this.headerLabel = new System.Windows.Forms.Label();
-            this.okButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +55,22 @@
             this.mainPanel.Padding = new System.Windows.Forms.Padding(17);
             this.mainPanel.Size = new System.Drawing.Size(274, 329);
             this.mainPanel.TabIndex = 0;
+            // 
+            // okButton
+            // 
+            this.okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.okButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.okButton.FlatAppearance.BorderSize = 0;
+            this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.okButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.okButton.ForeColor = System.Drawing.Color.White;
+            this.okButton.Location = new System.Drawing.Point(182, 278);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(41, 31);
+            this.okButton.TabIndex = 6;
+            this.okButton.Text = "Ok";
+            this.okButton.UseVisualStyleBackColor = false;
+            this.okButton.Click += new System.EventHandler(this.OkButtonClick);
             // 
             // saveButton
             // 
@@ -127,22 +143,6 @@
             this.headerLabel.Size = new System.Drawing.Size(86, 17);
             this.headerLabel.TabIndex = 0;
             this.headerLabel.Text = "Header";
-            // 
-            // okButton
-            // 
-            this.okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.okButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.okButton.FlatAppearance.BorderSize = 0;
-            this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.okButton.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.okButton.ForeColor = System.Drawing.Color.White;
-            this.okButton.Location = new System.Drawing.Point(182, 278);
-            this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(41, 31);
-            this.okButton.TabIndex = 6;
-            this.okButton.Text = "Ok";
-            this.okButton.UseVisualStyleBackColor = false;
-            this.okButton.Click += new System.EventHandler(this.OkButtonClick);
             // 
             // SubForm
             // 

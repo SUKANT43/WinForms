@@ -69,6 +69,7 @@ namespace StickyNotes
 
         private void OkButtonClick(object sender, EventArgs e)
         {
+            MessageBox.Show("Data Saved.");
             Close();
         }
 

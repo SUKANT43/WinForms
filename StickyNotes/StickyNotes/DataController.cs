@@ -9,17 +9,17 @@ namespace StickyNotes
 {
     class DataController
     {
-        static string desktop=Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        static string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         static string path = Path.Combine(desktop, "stickyNotes.txt");
 
 
-        public static bool WriteData(string header,string content)
+        public static bool WriteData(string header, string content)
         {
             try
             {
-                List <ContentStructure>list= LoadData();
+                List<ContentStructure> list = LoadData();
                 string id = (list.Count + 1).ToString();
-                string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                 list.Add(new ContentStructure(id, header, content, dateTime));
                 bool save = SaveAll(list);
                 if (!save)
@@ -28,13 +28,13 @@ namespace StickyNotes
                 }
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
         }
 
-        
+
 
         public static List<ContentStructure> LoadData()
         {
@@ -56,7 +56,6 @@ namespace StickyNotes
                     list.Add(new ContentStructure(parts[0], parts[1], parts[2], parts[3]));
                 }
             }
-           
             return list;
         }
 
@@ -74,18 +73,18 @@ namespace StickyNotes
             }
         }
 
-        public static bool EditData(string id,string header,string content)
+        public static bool EditData(string id, string header, string content)
         {
             try
             {
                 List<ContentStructure> list = LoadData();
-                for(int i = 0; i < list.Count; i++)
+                for (int i = 0; i < list.Count; i++)
                 {
                     if (list[i].Id == id)
                     {
                         list[i].Header = header;
                         list[i].Content = content;
-                        list[i].CreatedDateTime= DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        list[i].CreatedDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                         break;
                     }
                 }
@@ -108,7 +107,7 @@ namespace StickyNotes
             {
                 List<ContentStructure> list = LoadData();
                 List<ContentStructure> filteredList = new List<ContentStructure>();
-                for(int i = 0; i < list.Count; i++)
+                for (int i = 0; i < list.Count; i++)
                 {
                     var check = ls.FirstOrDefault(e => e.Name == list[i].Id && e.Checked);
                     if (check == null)
@@ -127,6 +126,45 @@ namespace StickyNotes
             {
                 return false;
             }
+        }
+
+        public static bool SelectedDataForDelete(string id)
+        {
+            try {
+                List<ContentStructure> list = LoadData();
+                List<ContentStructure> filteredList = new List<ContentStructure>();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].Id != id)
+                    {
+                        filteredList.Add(list[i]);
+                    }
+                }
+                bool save = SaveAll(filteredList);
+                if (!save)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+        public static List<string> SelectedDataForEdit(string id)
+        {
+          List<ContentStructure> list = LoadData();
+            for(int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Id == id)
+                {
+                    return new List<string>() { list[i].Id, list[i].Header, list[i].Content };
+                }
+            }
+            return new List<string>();
         }
 
     }
