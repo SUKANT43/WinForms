@@ -15,6 +15,7 @@ namespace ToDoList
         public Form1()
         {
             InitializeComponent();
+            MinimumSize = new Size(600,700);
             Load += ResizeAndLoad;
             Resize += ResizeAndLoad;
         }

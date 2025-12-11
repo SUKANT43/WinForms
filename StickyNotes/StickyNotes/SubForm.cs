@@ -69,7 +69,7 @@ namespace StickyNotes
 
         private void OkButtonClick(object sender, EventArgs e)
         {
-            MessageBox.Show("Data Saved.");
+            MainForm mf = new MainForm(id, headerRichTextBox.Text, contentRichTextBox.Text);
             Close();
         }
 

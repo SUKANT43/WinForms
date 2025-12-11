@@ -20,13 +20,14 @@ namespace StickyNotes
         Panel dataPanel;
         Label dataDateTimePanel;
         List<CheckBox> checkBoxList = new List<CheckBox>();
-        private NotifyIcon notifyIcon;
         private ContextMenuStrip optionsMenu;
         private ToolStripMenuItem editMenuItem;
         private ToolStripMenuItem deleteMenuItem;
         List<Label> optionList = new List<Label>();
         private Label optionLabel;
         string optionClickedId;
+        List<NotificationForm> notes = new List<NotificationForm>();
+
         public MainForm()
         {
             InitializeComponent();
@@ -35,9 +36,6 @@ namespace StickyNotes
             Resize += ReloadAndResize;
             Load += ReloadAndResize;
             addLabel.Click += SelectAllCheckBoxClicked;
-            notifyIcon = new NotifyIcon();
-            notifyIcon.Icon = SystemIcons.Information;
-            notifyIcon.Visible = true;
             optionsMenu = new ContextMenuStrip();
             editMenuItem = new ToolStripMenuItem("Edit");
             deleteMenuItem = new ToolStripMenuItem("Delete");
@@ -51,18 +49,37 @@ namespace StickyNotes
             editMenuItem.Click += EditOptionClicked;
         }
 
+        void ShowNote(string msg)
+        {
+            NotificationForm n = new NotificationForm(msg);
+
+            int x = Screen.PrimaryScreen.WorkingArea.Width - n.Width - 10;
+            int y = Screen.PrimaryScreen.WorkingArea.Height - n.Height - 10;
+
+            foreach (var f in notes)
+            { 
+                y -= (f.Height + 10);
+            }
+
+            n.Location = new Point(x, y);
+
+            notes.Add(n);
+
+            n.Show();
+        }
+
         private void DeleteOptionClicked(object s,EventArgs e)
         {
             bool check = DataController.SelectedDataForDelete(optionClickedId);
             if (!check)
             {
-                MessageBox.Show("Data not deleted.");
+                ShowNote("Data not deleted.");
                 return;
             }
             optionClickedId = "";
             bottomPanel.Controls.Clear();
             ReloadAndResize(this, EventArgs.Empty);
-            MessageBox.Show("Data deleted successfully.");
+            ShowNote("Data deleted successfully.");
         }
 
         private void EditOptionClicked(object s, EventArgs e)
@@ -70,7 +87,7 @@ namespace StickyNotes
             List<String> st = DataController.SelectedDataForEdit(optionClickedId);
             if (st.Count == 0)
             {
-                MessageBox.Show("Something went wrong.");
+                ShowNote("Something went wrong.");
                 return;
             }
             optionClickedId = "";
@@ -79,30 +96,15 @@ namespace StickyNotes
             bottomPanel.Controls.Clear();
             ReloadAndResize(this, EventArgs.Empty);
         }
-
-           
-        private void SetupNotifyIcon()
-        {
-            notifyIcon = new NotifyIcon();
-            notifyIcon.Icon = SystemIcons.Information;
-            notifyIcon.Visible = true;
-        }
-
-
-       
         public MainForm(string header, string content)
         {
             bool success = DataController.WriteData(header, content);
             if (!success)
             {
-                MessageBox.Show("Data not added.");
+                ShowNote("Data not added.");
                 return;
             }
-            SetupNotifyIcon();
-            notifyIcon.BalloonTipTitle = "1";
-            notifyIcon.BalloonTipText = "First";
-            notifyIcon.ShowBalloonTip(3000);
-            MessageBox.Show("Data added successfully.");
+            ShowNote("Data added successfully.");
         }
 
         public MainForm(string id, string header, string content)
@@ -110,33 +112,36 @@ namespace StickyNotes
             bool success = DataController.EditData(id, header, content);
             if (!success)
             {
-                MessageBox.Show("Data not saved.");
+                ShowNote("Data not saved.");
                 return;
             }
-
-            MessageBox.Show("Data saved successfully.");
-
+            ShowNote("Data saved successfully.");
         }
 
         private void DeleteButtonClicked(object s, EventArgs e)
         {
             if (checkBoxList.Count == 0)
             {
-                MessageBox.Show("No items selected");
+                ShowNote("No items selected");
                 return;
             }
             bool check = DataController.DeleteData(checkBoxList);
             if (!check)
             {
-                MessageBox.Show("Data not deleted.");
+                ShowNote("Data not deleted.");
                 return;
+            }
+            foreach (var c in checkBoxList)
+            {
+                string dataId = c.Name;
+                ShowNote($"id:{dataId} deleted.");
             }
             bottomPanel.Controls.Clear();
 
             SelectAllCheckBoxClicked(this, EventArgs.Empty);
             ReloadAndResize(this, EventArgs.Empty);
 
-            MessageBox.Show("Data deleted successfully!.");
+           
 
         }
 
@@ -159,7 +164,7 @@ namespace StickyNotes
             {
                 y = 70;
             }
-            for (int i = contentList.Count - 1; i >= 0; i--)
+            for (int i = contentList.Count - 1; i >= 0; i--) 
             {
                 dataPanel = new Panel()
                 {
@@ -178,9 +183,11 @@ namespace StickyNotes
                     {
                         AutoSize = false,
                         Text = contentList[i].Content,
-                        Font = new Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold),
-                        TextAlign = ContentAlignment.MiddleCenter,
-                        BorderStyle=BorderStyle.FixedSingle
+                        Font = new Font("Segoe UI", 13F, FontStyle.Bold),
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        ForeColor = Color.FromArgb(33, 33, 33), 
+                        Location = new Point(10, 8),
+                        Size = new Size(400, 40)
                     };
                     dataLabel.Location = new Point(10, (dataPanel.Height / 2) - (dataLabel.Height));
                 }
@@ -194,9 +201,8 @@ namespace StickyNotes
                         TextAlign = ContentAlignment.MiddleLeft,
                         ForeColor = Color.FromArgb(33, 33, 33),
                         Location = new Point(10, 8),
-                        Size = new Size(100, 40)
+                        Size = new Size(400, 40),
                     };
-
                 }
                 dataLabel.DoubleClick += PanelClicked;
                 dataPanel.Controls.Add(dataLabel);
@@ -247,6 +253,7 @@ namespace StickyNotes
             }
 
         }
+
 
          private void OptionLabelClicked(object s,EventArgs e)
          {
@@ -330,8 +337,6 @@ namespace StickyNotes
                 }
             }
         }
-
-
     }
 }
 
