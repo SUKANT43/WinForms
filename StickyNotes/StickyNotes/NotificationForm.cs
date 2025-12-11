@@ -23,7 +23,13 @@ namespace StickyNotes
             FormBorderStyle = FormBorderStyle.None;
             TopMost = true;
             StartPosition = FormStartPosition.Manual;
-
+            ProgressBar pb= new ProgressBar()
+            {
+                Dock=DockStyle.Bottom,
+                Minimum = 0,
+                Maximum = 3000,
+                Value = 0,
+            };
             Controls.Add(new Label
             {
                 Text = msg,
@@ -31,8 +37,22 @@ namespace StickyNotes
                 TextAlign = ContentAlignment.MiddleCenter
             });
 
-            Timer t = new Timer { Interval = 10000 };
-            t.Tick += (s, e) => Close();
+            Controls.Add(pb);
+
+            Timer t = new Timer { Interval = 10 };
+            t.Tick += (s, e) => {
+                try
+                {
+                    pb.Value += 10;
+                    if (pb.Value >= pb.Maximum)
+                    {
+                        Close();
+                    }
+                    MainForm mf = new MainForm();
+                }
+                catch(Exception ee) { }
+                
+                };
             t.Start();
         }
     }

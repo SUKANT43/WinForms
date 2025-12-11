@@ -26,7 +26,7 @@ namespace StickyNotes
         List<Label> optionList = new List<Label>();
         private Label optionLabel;
         string optionClickedId;
-        List<NotificationForm> notes = new List<NotificationForm>();
+       static List<NotificationForm> notes = new List<NotificationForm>();
 
         public MainForm()
         {
@@ -68,6 +68,9 @@ namespace StickyNotes
             n.Show();
         }
 
+
+    
+
         private void DeleteOptionClicked(object s,EventArgs e)
         {
             bool check = DataController.SelectedDataForDelete(optionClickedId);
@@ -107,6 +110,7 @@ namespace StickyNotes
             ShowNote("Data added successfully.");
         }
 
+
         public MainForm(string id, string header, string content)
         {
             bool success = DataController.EditData(id, header, content);
@@ -140,7 +144,7 @@ namespace StickyNotes
 
             SelectAllCheckBoxClicked(this, EventArgs.Empty);
             ReloadAndResize(this, EventArgs.Empty);
-
+             
            
 
         }
