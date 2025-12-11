@@ -26,6 +26,7 @@ namespace StickyNotes
         List<Label> optionList = new List<Label>();
         private Label optionLabel;
         string optionClickedId;
+        int y;
        static List<NotificationForm> notes = new List<NotificationForm>();
 
         public MainForm()
@@ -54,7 +55,7 @@ namespace StickyNotes
             NotificationForm n = new NotificationForm(msg);
 
             int x = Screen.PrimaryScreen.WorkingArea.Width - n.Width - 10;
-            int y = Screen.PrimaryScreen.WorkingArea.Height - n.Height - 10;
+             y = Screen.PrimaryScreen.WorkingArea.Height - n.Height - 10;
 
             foreach (var f in notes)
             { 
@@ -62,14 +63,45 @@ namespace StickyNotes
             }
 
             n.Location = new Point(x, y);
-
+            n.FormClosed += (s, e) => notes.Remove(n);
             notes.Add(n);
-
+            y = 0;
             n.Show();
         }
 
+        /*void ShowNote(string msg)
+        {
+            NotificationForm n = new NotificationForm(msg);
 
-    
+            int x = Screen.PrimaryScreen.WorkingArea.Width - n.Width - 10;
+            int y = Screen.PrimaryScreen.WorkingArea.Height - n.Height - 10;
+
+            // move up for each existing notification
+            foreach (var f in notes)
+                y -= (f.Height + 10);
+
+            n.Location = new Point(x, y);
+
+            // when closed → remove from list
+            n.FormClosed += (s, e) => notes.Remove(n);
+
+            notes.Add(n);
+            n.Show();
+        }*/
+
+        public  void ShowNote()
+        {
+
+            int x = Screen.PrimaryScreen.WorkingArea.Width - 250 - 10;
+            int y = Screen.PrimaryScreen.WorkingArea.Height - 60 - 10;
+
+            foreach (var f in notes)
+            {
+               y-= (f.Height + 10);
+            }
+
+        }
+
 
         private void DeleteOptionClicked(object s,EventArgs e)
         {

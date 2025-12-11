@@ -38,17 +38,18 @@ namespace StickyNotes
             });
 
             Controls.Add(pb);
+            MainForm mf = new MainForm();
 
             Timer t = new Timer { Interval = 10 };
             t.Tick += (s, e) => {
                 try
-                {
+                { 
                     pb.Value += 10;
                     if (pb.Value >= pb.Maximum)
                     {
+                        mf.ShowNote();
                         Close();
                     }
-                    MainForm mf = new MainForm();
                 }
                 catch(Exception ee) { }
                 
