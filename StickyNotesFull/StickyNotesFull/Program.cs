@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StickyNotes
+namespace StickyNotesFull
 {
     static class Program
     {
@@ -16,10 +16,9 @@ namespace StickyNotes
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MainForm mf = new MainForm();
             SubForm sf = new SubForm();
-            mf.Show();
-            Application.Run();
+            MainForm mf = new MainForm(sf);
+            Application.Run(mf);
         }
     }
 }

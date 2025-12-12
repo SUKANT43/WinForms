@@ -12,7 +12,7 @@ namespace StickyNotes
 {
     public partial class SubForm : Form
     {
-        bool isEditing = false,isSave=false;
+        bool isEditing = false;
         string id;
         public SubForm()
         {

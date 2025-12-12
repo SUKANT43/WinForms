@@ -69,26 +69,6 @@ namespace StickyNotes
             n.Show();
         }
 
-        /*void ShowNote(string msg)
-        {
-            NotificationForm n = new NotificationForm(msg);
-
-            int x = Screen.PrimaryScreen.WorkingArea.Width - n.Width - 10;
-            int y = Screen.PrimaryScreen.WorkingArea.Height - n.Height - 10;
-
-            // move up for each existing notification
-            foreach (var f in notes)
-                y -= (f.Height + 10);
-
-            n.Location = new Point(x, y);
-
-            // when closed → remove from list
-            n.FormClosed += (s, e) => notes.Remove(n);
-
-            notes.Add(n);
-            n.Show();
-        }*/
-
         public  void ShowNote()
         {
 
