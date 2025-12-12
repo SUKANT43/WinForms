@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ToDoList.Properties
+namespace PropsManagement.Properties
 {
 
 

@@ -7,11 +7,10 @@ using System.IO;
 using System.Windows.Forms;
 namespace StickyNotes
 {
-    class DataController
+    static class DataController
     {
         static string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         static string path = Path.Combine(desktop, "stickyNotes.txt");
-
 
         public static bool WriteData(string header, string content)
         {

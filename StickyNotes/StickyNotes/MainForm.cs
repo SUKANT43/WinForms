@@ -176,9 +176,6 @@ namespace StickyNotes
 
             SelectAllCheckBoxClicked(this, EventArgs.Empty);
             ReloadAndResize(this, EventArgs.Empty);
-             
-           
-
         }
 
         private void AddLabelClick(object sender, EventArgs e)

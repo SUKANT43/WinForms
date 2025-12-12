@@ -47,7 +47,6 @@ namespace StickyNotes
                     pb.Value += 10;
                     if (pb.Value >= pb.Maximum)
                     {
-                        mf.ShowNote();
                         Close();
                     }
                 }

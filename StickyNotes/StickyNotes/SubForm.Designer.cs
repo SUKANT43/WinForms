@@ -152,7 +152,6 @@
             this.ClientSize = new System.Drawing.Size(274, 329);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SubForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
