@@ -2,7 +2,7 @@
 
 namespace StickyNotesFull
 {
-    public class DataEventArgs : EventArgs
+    public class CustomEventData
     {
         public string Id { get; }
         public string Header { get; }
@@ -11,14 +11,14 @@ namespace StickyNotesFull
         public string SelectedColor { get; }
         public string FileName { get; }
 
-        public DataEventArgs(string header, string content, string color)
+        public CustomEventData(string header, string content, string color)
         {
             Header = header;
             Content = content;
             SelectedColor = color;
         }
 
-        public DataEventArgs(string id, string header, string content,  string createdAt, string color, string fileName)
+        public CustomEventData(string id, string header, string content,  string createdAt, string color, string fileName)
         {
             Id = id;
             Header = header;

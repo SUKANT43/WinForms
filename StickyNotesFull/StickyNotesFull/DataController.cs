@@ -6,13 +6,11 @@ namespace StickyNotesFull
 {
     static class DataController
     {
-        static string desktop =
-            Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+       private static string desktop =Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-        static string stickyNotesFolder =
-            Path.Combine(desktop, "stickyNotesData");
+       private static string stickyNotesFolder = Path.Combine(desktop, "stickyNotesData");
 
-        public static bool AddData(DataEventArgs e)
+        public static bool AddData(CustomEventData e)
         {
             try
             {
@@ -38,7 +36,7 @@ namespace StickyNotesFull
             }
         }
 
-        public static bool UpdateData(string fileName, DataEventArgs e)
+        public static bool UpdateData(string fileName, CustomEventData e)
         {
             try
             {
@@ -59,9 +57,9 @@ namespace StickyNotesFull
             }
         }
 
-        public static List<DataEventArgs> GetData()
+        public static List<CustomEventData> GetData()
         {
-            List<DataEventArgs> list = new List<DataEventArgs>();
+            List<CustomEventData> list = new List<CustomEventData>();
 
             if (!Directory.Exists(stickyNotesFolder))
                 return list;
@@ -77,7 +75,7 @@ namespace StickyNotesFull
 
                 if (parts.Length < 4) continue;
 
-                list.Add(new DataEventArgs(
+                list.Add(new CustomEventData(
                     Path.GetFileNameWithoutExtension(file),
                     parts[0],
                     parts[1],

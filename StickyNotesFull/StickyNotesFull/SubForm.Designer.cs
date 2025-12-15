@@ -86,7 +86,7 @@
             this.greenLabel.Name = "greenLabel";
             this.greenLabel.Size = new System.Drawing.Size(26, 23);
             this.greenLabel.TabIndex = 6;
-            this.greenLabel.Click += new System.EventHandler(this.greenLabelClick);
+            this.greenLabel.Click += new System.EventHandler(this.GreenLabelClick);
             // 
             // purpleLabel
             // 
@@ -95,7 +95,7 @@
             this.purpleLabel.Name = "purpleLabel";
             this.purpleLabel.Size = new System.Drawing.Size(26, 23);
             this.purpleLabel.TabIndex = 5;
-            this.purpleLabel.Click += new System.EventHandler(this.purpleLabelClick);
+            this.purpleLabel.Click += new System.EventHandler(this.PurpleLabelClick);
             // 
             // redLabel
             // 
@@ -104,7 +104,7 @@
             this.redLabel.Name = "redLabel";
             this.redLabel.Size = new System.Drawing.Size(26, 23);
             this.redLabel.TabIndex = 4;
-            this.redLabel.Click += new System.EventHandler(this.redLabelClick);
+            this.redLabel.Click += new System.EventHandler(this.RedLabelClick);
             // 
             // ContentRichTextBox
             // 

@@ -8,7 +8,7 @@ namespace StickyNotesFull
 {
     public partial class MainForm : Form
     {
-        private List<DataEventArgs> dataList;
+        private List<CustomEventData> dataList;
         private List<Panel> dataPanelList = new List<Panel>();
 
         private int x, y;
@@ -24,23 +24,16 @@ namespace StickyNotesFull
         public MainForm(SubForm sf)
         {
             InitializeComponent();
-
             subForm = sf;
-            dataList = new List<DataEventArgs>();
-
+            dataList = new List<CustomEventData>();
             BackColor = Color.FromArgb(32, 32, 32);
             ForeColor = Color.White;
-
             MaximumSize = new Size(650, 1500);
-            MinimumSize = new Size(350, 450);
-
+            MinimumSize = new Size(650, 450);
             bottomPanel.AutoScroll = true;
-
             Load += MainFormLoad;
             Resize += (s, e) => AlignPanels();
-
             subForm.DataEvents += CreateUser;
-
             selectAllCheckBox = new CheckBox
             {
                 Text = "Select",
@@ -99,7 +92,7 @@ namespace StickyNotesFull
             }
         }
 
-        private void CreateNotePanel(DataEventArgs data)
+        private void CreateNotePanel(CustomEventData data)
         {
             int panelWidth = bottomPanel.DisplayRectangle.Width - 20;
 
@@ -108,7 +101,8 @@ namespace StickyNotesFull
                 Name = data.FileName,
                 BackColor = Color.FromArgb(41, 41, 41),
                 BorderStyle = BorderStyle.FixedSingle,
-                Size = new Size(panelWidth, 120)
+                Size = new Size(panelWidth, 120),
+
             };
 
             Panel colorPanel = new Panel
@@ -134,7 +128,7 @@ namespace StickyNotesFull
             {
                 Text = data.CreatedAt,
                 ForeColor = Color.Gray,
-                Location = new Point(panelWidth - 170, 95)
+                Location = new Point(panelWidth - 100, 95)
             };
 
             CheckBox cb = new CheckBox
@@ -144,7 +138,6 @@ namespace StickyNotesFull
                 Visible = false
             };
 
-            // Context menu
             ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem editItem = new ToolStripMenuItem("Edit");
             ToolStripMenuItem deleteItem = new ToolStripMenuItem("Delete")
@@ -218,11 +211,14 @@ namespace StickyNotesFull
         private void AlignPanels()
         {
             int top = 60;
-            foreach (var panel in dataPanelList)
+            if (!isEditMode)
             {
-                panel.Width = bottomPanel.DisplayRectangle.Width - 20;
-                panel.Location = new Point(10, top);
-                top += panel.Height + 12;
+                foreach (var panel in dataPanelList)
+                {
+                    panel.Width = bottomPanel.DisplayRectangle.Width - 20;
+                    panel.Location = new Point(10, top);
+                    top += panel.Height + 12;
+                }
             }
         }
 
@@ -266,7 +262,7 @@ namespace StickyNotesFull
             selectAllCheckBox.Checked = false;
         }
 
-        private void CreateUser(object sender, DataEventArgs e)
+        private void CreateUser(object sender, CustomEventData e)
         {
             if (isEditMode)
                 DataController.UpdateData(editingFileName, e);

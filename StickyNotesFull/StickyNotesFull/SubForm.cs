@@ -6,8 +6,8 @@ namespace StickyNotesFull
 {
     public partial class SubForm : Form
     {
-        public event EventHandler<DataEventArgs> DataEvents;
-        private List<DataEventArgs> dataList;
+        public event EventHandler<CustomEventData> DataEvents;
+        private List<CustomEventData> dataList;
         string colorName;
         string editFileName;
         bool isEdit;
@@ -22,12 +22,11 @@ namespace StickyNotesFull
 
             LoadUi();
             dataList = DataController.GetData();
+            
         }
 
-        public void EditData(DataEventArgs data)
+        public void EditData(CustomEventData data)
         {
-            Controls.Clear();
-            InitializeComponent();
             headerRichTextBox.Text = "";
             contentRichTextBox.Text = "";
             colorName = "";
@@ -61,11 +60,16 @@ namespace StickyNotesFull
 
         private void AddButtonClick(object sender, EventArgs e)
         {
+            string inputHeader = headerRichTextBox.Text.Trim();
+
             foreach (var data in dataList)
             {
-                if (data.Header.Equals(headerRichTextBox.Text))
+                if (string.IsNullOrWhiteSpace(data.Header))
+                    continue;
+
+                if (string.Equals( data.Header.Trim(),inputHeader, StringComparison.OrdinalIgnoreCase))
                 {
-                    MessageBox.Show("The header already exist.");
+                    MessageBox.Show("The header already exists.");
                     return;
                 }
             }
@@ -75,8 +79,9 @@ namespace StickyNotesFull
                 return;
             }
 
+
             DataEvents?.Invoke(
-                this, new DataEventArgs(
+                this, new CustomEventData(
                     editFileName,
                     headerRichTextBox.Text,
                     contentRichTextBox.Text,
@@ -93,19 +98,19 @@ namespace StickyNotesFull
             Close();
         }
 
-        private void redLabelClick(object sender, EventArgs e)
+        private void RedLabelClick(object sender, EventArgs e)
         {
             colorName = "red";
             colorPanel.BackColor = redLabel.BackColor;
         }
 
-        private void purpleLabelClick(object sender, EventArgs e)
+        private void PurpleLabelClick(object sender, EventArgs e)
         {
             colorName = "purple";
             colorPanel.BackColor = purpleLabel.BackColor;
         }
 
-        private void greenLabelClick(object sender, EventArgs e)
+        private void GreenLabelClick(object sender, EventArgs e)
         {
             colorName = "green";
             colorPanel.BackColor = greenLabel.BackColor;
