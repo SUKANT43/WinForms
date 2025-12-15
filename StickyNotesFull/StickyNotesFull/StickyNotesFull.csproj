@@ -48,11 +48,23 @@
   <ItemGroup>
     <Compile Include="DataController.cs" />
     <Compile Include="DataEventArgs.cs" />
+    <Compile Include="DataUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataUserControl.Designer.cs">
+      <DependentUpon>DataUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotificationForm.Designer.cs">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +74,9 @@
     <Compile Include="SubForm.Designer.cs">
       <DependentUpon>SubForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DataUserControl.resx">
+      <DependentUpon>DataUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

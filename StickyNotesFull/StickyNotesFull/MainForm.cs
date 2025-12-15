@@ -20,6 +20,7 @@ namespace StickyNotesFull
         private bool isSelectMode = false;
         private Button deleteButton;
         private CheckBox selectAllCheckBox;
+        static List<NotificationForm> notes = new List<NotificationForm>();
 
         public MainForm(SubForm sf)
         {
@@ -59,6 +60,26 @@ namespace StickyNotesFull
             deleteButton.Click += DeleteSelectedNotes;
             bottomPanel.Controls.Add(deleteButton);
         }
+
+        void ShowNote(string msg)
+        {
+            NotificationForm n = new NotificationForm(msg);
+
+            int x = Screen.PrimaryScreen.WorkingArea.Width - n.Width - 10;
+            y = Screen.PrimaryScreen.WorkingArea.Height - n.Height - 10;
+
+            foreach (var f in notes)
+            {
+                y -= (f.Height + 10);
+            }
+
+            n.Location = new Point(x, y);
+            n.FormClosed += (s, e) => notes.Remove(n);
+            notes.Add(n);
+            y = 0;
+            n.Show();
+        }
+
 
         private void MainFormLoad(object sender, EventArgs e)
         {
@@ -162,6 +183,7 @@ namespace StickyNotesFull
                     MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     DataController.DeleteData(data.FileName);
+                    ShowNote(data.FileName+" is deleted.");
                     LoadNotes();
                 }
             };
@@ -257,6 +279,8 @@ namespace StickyNotesFull
                 DataController.DeleteData(panel.Name);
                 bottomPanel.Controls.Remove(panel);
                 dataPanelList.Remove(panel);
+                ShowNote(panel.Name+" is deleted.");
+
             }
 
             selectAllCheckBox.Checked = false;
@@ -265,9 +289,15 @@ namespace StickyNotesFull
         private void CreateUser(object sender, CustomEventData e)
         {
             if (isEditMode)
+            {
                 DataController.UpdateData(editingFileName, e);
+                ShowNote("Data Updated.");
+            }
             else
+            {
                 DataController.AddData(e);
+                ShowNote("New Data Added");
+            }
 
             LoadNotes();
         }
