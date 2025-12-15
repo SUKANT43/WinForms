@@ -54,6 +54,7 @@
             this.addLabel.Size = new System.Drawing.Size(13, 13);
             this.addLabel.TabIndex = 1;
             this.addLabel.Text = "+";
+            this.addLabel.Click += new System.EventHandler(this.AddLabelClick);
             // 
             // stickyNotesLabel
             // 
@@ -66,6 +67,7 @@
             // 
             // bottomPanel
             // 
+            this.bottomPanel.AutoScroll = true;
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bottomPanel.Location = new System.Drawing.Point(0, 104);
             this.bottomPanel.Name = "bottomPanel";

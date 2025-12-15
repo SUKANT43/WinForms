@@ -1,48 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StickyNotesFull
 {
     public partial class MainForm : Form
     {
-        private event EventHandler<DataEventArgs> dataEvent;
-        private List<Panel> dataPanelList = new List<Panel>();
+        private List<DataEventArgs> dataList;
+        private int x, y;
+        private SubForm subForm;
 
-        //data panel
-        private Panel dataPanel;
-        private Panel colorPanel;
-        private Label headerLabel;
-        private Label timeLabel;
-        private Label optionLabel;
-        private ContextMenuStrip optionsMenu;
-        private ToolStripMenuItem editMenuItem;
-        private ToolStripMenuItem deleteMenuItem;
-
-
-        public MainForm(Form sf)
+        public MainForm(SubForm sf)
         {
             InitializeComponent();
-            dataPanelList = new List<Panel>();
-            this.BackColor = Color.FromArgb(32, 32, 32);
-            this.ForeColor = Color.White;
+
+            subForm = sf;
+            dataList = new List<DataEventArgs>();
+
+            BackColor = Color.FromArgb(32, 32, 32);
+            ForeColor = Color.White;
+
             MaximumSize = new Size(650, 1500);
             MinimumSize = new Size(350, 450);
+
+            bottomPanel.AutoScroll = true;
+
             Load += PageLoadAndResize;
             Resize += PageLoadAndResize;
+
+            sf.DataEvents += CreateUser;
         }
 
-        public void PageLoadAndResize(object s,EventArgs e)
+        public void PageLoadAndResize(object sender, EventArgs e)
         {
             bottomPanel.Controls.Clear();
+            x = 0;
+            y = 10;
             ManageDesign();
-            DataVisible(0,0);
+            ShowData();
         }
 
         private void ManageDesign()
@@ -50,64 +46,126 @@ namespace StickyNotesFull
             stickyNotesLabel.Font = new Font("Montserrat", 15, FontStyle.Bold);
             addLabel.Font = new Font("Montserrat", 20, FontStyle.Bold);
 
-            stickyNotesLabel.Location = new Point(10,10);
-            addLabel.Location = new Point(topPanel.Width-35,10);
+            stickyNotesLabel.Location = new Point(10, 10);
+            addLabel.Location = new Point(topPanel.Width - 35, 10);
         }
 
-        private void DataVisible(int x,int y)
+        private void ShowData()
         {
-            x = 0;
-            y = 0;
-            dataPanel = new Panel()
-            {
-                Location=new Point(200,bottomPanel.Right),
-                BorderStyle=BorderStyle.FixedSingle,
-            };
-            
-            dataPanel.BackColor= Color.FromArgb(41, 41, 41);
-            dataPanel.Size = new Size(Width-20,120);
+            dataList = DataController.GetData();
 
-            colorPanel = new Panel()
+            foreach (var data in dataList)
             {
+                CreateNotePanel(data);
+            }
+        }
+
+        private void CreateNotePanel(DataEventArgs data)
+        {
+            int panelWidth = bottomPanel.DisplayRectangle.Width - 20;
+
+            Panel dataPanel = new Panel
+            {
+                BackColor = Color.FromArgb(41, 41, 41),
+                BorderStyle = BorderStyle.FixedSingle,
+                Size = new Size(panelWidth, 120)
+            };
+
+            x = (bottomPanel.ClientSize.Width - dataPanel.Width) / 2;
+            dataPanel.Location = new Point( x, y);
+
+            Panel colorPanel = new Panel
+            {
+                Size = new Size(dataPanel.Width, 10),
                 Location = new Point(0, 0),
-                Size = new Size(),
+                BackColor = data.SelectedColor == "green"
+                    ? Color.Green
+                    : data.SelectedColor == "purple"
+                        ? Color.BlueViolet
+                        : Color.FromArgb(255, 128, 128)
             };
-            colorPanel.BackColor = Color.BlueViolet;
-            colorPanel.Size = new Size(dataPanel.Width, 10);
+
+            Label optionLabel = new Label
+            {
+                Text = "...",
+                Font = new Font("Montserrat", 15, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(dataPanel.Width - 40, 0),
+                Cursor = Cursors.Hand
+            };
+
+            Label headerLabel = new Label
+            {
+                Text = data.Header,
+                Font = new Font("Montserrat", 10, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(10, 30),
+                Size = new Size(dataPanel.Width - 20, 30)
+            };
+
+            Label timeLabel = new Label
+            {
+                Text = data.CreatedAt,
+                ForeColor = Color.Gray,
+                Location = new Point(dataPanel.Width - 160, dataPanel.Height - 20)
+            };
+
+            ContextMenuStrip menu = new ContextMenuStrip();
+
+            ToolStripMenuItem editItem = new ToolStripMenuItem("Edit");
+            ToolStripMenuItem deleteItem = new ToolStripMenuItem("Delete")
+            {
+                ForeColor = Color.Red
+            };
+
+            editItem.Click += (s, e) =>
+            {
+                subForm.EditData(data);
+                subForm.DataEvents += (ss, ee) =>
+                {
+                    DataController.UpdateData(data.FileName, ee);
+                    PageLoadAndResize(this, EventArgs.Empty);
+                };
+                subForm.ShowDialog();
+            };
+
+            deleteItem.Click += (s, e) =>
+            {
+                if (MessageBox.Show("Delete this note?", "Confirm",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    DataController.DeleteData(data.FileName);
+                    PageLoadAndResize(this, EventArgs.Empty);
+                }
+            };
+
+            menu.Items.Add(editItem);
+            menu.Items.Add(deleteItem);
+
+            optionLabel.Click += (s, e) =>
+            {
+                menu.Show(optionLabel, new Point(0, optionLabel.Height));
+            };
+
             dataPanel.Controls.Add(colorPanel);
-
-            optionLabel = new Label()
-            {
-                Text="...",
-                Location=new Point(dataPanel.Width-40,0),
-            };
-            optionLabel.Font=new Font("Montserrat", 15, FontStyle.Bold);
             dataPanel.Controls.Add(optionLabel);
-
-            timeLabel = new Label()
-            {
-                Text="12-12-2025 13:31",
-                Location=new Point(dataPanel.Width-90,dataPanel.Height-20),
-                ForeColor=Color.Gray
-            };
+            dataPanel.Controls.Add(headerLabel);
             dataPanel.Controls.Add(timeLabel);
 
-            headerLabel = new Label()
-            {
-                Text="Hi Hello.........",
-                Location=new Point(0,30),
-                BorderStyle=BorderStyle.FixedSingle
-            };
-            headerLabel.Size = new Size(dataPanel.Width - 20, 30);
-            headerLabel.Font = new Font("Montserrat", 10, FontStyle.Bold);
-            dataPanel.Controls.Add(headerLabel);
-
             bottomPanel.Controls.Add(dataPanel);
-            dataPanelList.Add(dataPanel);
+
+            y += dataPanel.Height + 12;
         }
 
-        public MainForm()
+        private void CreateUser(object sender, DataEventArgs e)
         {
+            DataController.AddData(e);
+            PageLoadAndResize(this, EventArgs.Empty);
+        }
+
+        private void AddLabelClick(object sender, EventArgs e)
+        {
+            subForm.ShowDialog();
         }
     }
 }

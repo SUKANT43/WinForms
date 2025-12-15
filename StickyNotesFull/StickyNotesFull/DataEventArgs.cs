@@ -1,31 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StickyNotesFull
 {
-    class DataEventArgs:EventArgs
+    public class DataEventArgs : EventArgs
     {
-        string Id { get; }
-        string Header { get; }
-        string Content { get; }
-        string CreatedAt { get; }
-        string SelectedColor { get; }
-        public DataEventArgs(string Header,string Content)
+        public string Id { get; }
+        public string Header { get; }
+        public string Content { get; }
+        public string CreatedAt { get; }
+        public string SelectedColor { get; }
+        public string FileName { get; }
+
+        public DataEventArgs(string header, string content, string color)
         {
-            this.Header = Header;
-            this.Content = Content;
-            this.SelectedColor = SelectedColor;
+            Header = header;
+            Content = content;
+            SelectedColor = color;
         }
-        public DataEventArgs(string Id,string Header,string Content,string CreatedAt,string SelectedColor)
+
+        public DataEventArgs(string id, string header, string content,  string createdAt, string color, string fileName)
         {
-            this.Id = Id;
-            this.Header = Header;
-            this.Content = Content;
-            this.CreatedAt = CreatedAt;
-            this.SelectedColor = SelectedColor;
+            Id = id;
+            Header = header;
+            Content = content;
+            CreatedAt = createdAt;
+            SelectedColor = color;
+            FileName = fileName;
         }
     }
 }
