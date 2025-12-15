@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Collections.Generic;
 namespace StickyNotesFull
 {
     public partial class SubForm : Form
     {
         public event EventHandler<DataEventArgs> DataEvents;
-
+        private List<DataEventArgs> dataList;
         string colorName;
         string editFileName;
         bool isEdit;
@@ -15,14 +15,25 @@ namespace StickyNotesFull
         public SubForm()
         {
             InitializeComponent();
-            InitUI();
+            headerRichTextBox.Text = "";
+            contentRichTextBox.Text = "";
+            colorName = "";
+            colorPanel.BackColor = Color.Transparent;
+
+            LoadUi();
+            dataList = DataController.GetData();
         }
 
         public void EditData(DataEventArgs data)
         {
             Controls.Clear();
             InitializeComponent();
-            InitUI();
+            headerRichTextBox.Text = "";
+            contentRichTextBox.Text = "";
+            colorName = "";
+            colorPanel.BackColor = Color.Transparent;
+
+            LoadUi();
 
             isEdit = true;
             editFileName = data.FileName;
@@ -33,12 +44,11 @@ namespace StickyNotesFull
             colorPanel.BackColor = data.SelectedColor == "green"
                     ? Color.Green
                     : data.SelectedColor == "purple"
-                        ? Color.BlueViolet
-                        : Color.FromArgb(255, 128, 128);
-
+                    ? Color.BlueViolet
+                    : Color.FromArgb(255, 128, 128);
         }
 
-        private void InitUI()
+        private void LoadUi()
         {
             BackColor = Color.FromArgb(32, 32, 32);
             headerRichTextBox.BackColor = Color.FromArgb(41, 41, 41);
@@ -51,10 +61,19 @@ namespace StickyNotesFull
 
         private void AddButtonClick(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(headerRichTextBox.Text) ||
-                string.IsNullOrEmpty(contentRichTextBox.Text) ||
-                string.IsNullOrEmpty(colorName))
+            foreach (var data in dataList)
+            {
+                if (data.Header.Equals(headerRichTextBox.Text))
+                {
+                    MessageBox.Show("The header already exist.");
+                    return;
+                }
+            }
+            if (string.IsNullOrEmpty(headerRichTextBox.Text) || string.IsNullOrEmpty(contentRichTextBox.Text) ||string.IsNullOrEmpty(colorName))
+            {
+                MessageBox.Show("All the field must have value");
                 return;
+            }
 
             DataEvents?.Invoke(
                 this, new DataEventArgs(
