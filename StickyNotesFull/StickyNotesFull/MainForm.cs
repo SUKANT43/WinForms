@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace StickyNotesFull
@@ -14,6 +15,10 @@ namespace StickyNotesFull
         private bool isEditMode = false;
         private string editingFileName;
 
+        private bool isSelectAllChecked = false;
+        private List<CheckBox> checkBoxList = new List<CheckBox>();
+        private Button deleteButton;
+        private CheckBox selectAllCheckBox;
         public MainForm(SubForm sf)
         {
             InitializeComponent();
@@ -33,15 +38,33 @@ namespace StickyNotesFull
             Resize += PageLoadAndResize;
 
             subForm.DataEvents += CreateUser;
+
+            selectAllCheckBox = new CheckBox
+            {
+                Name = "selectAllCheckBox",
+                Text = "Select ",
+                ForeColor = Color.White,
+                Location = new Point(10, 45),
+                Font = new Font("Montserrat", 10, FontStyle.Bold),
+            AutoSize = true
+            };
+            selectAllCheckBox.CheckedChanged += SelectAllCheckBoxClicked;
+            topPanel.Controls.Add(selectAllCheckBox);
         }
 
         public void PageLoadAndResize(object sender, EventArgs e)
         {
             bottomPanel.Controls.Clear();
+            checkBoxList.Clear();
+
             x = 0;
-            y = 10;
+            y = isSelectAllChecked ? 60 : 10;
+
             ManageDesign();
             ShowData();
+
+            if (isSelectAllChecked)
+                AddDeleteButton();
         }
 
         private void ManageDesign()
@@ -71,7 +94,8 @@ namespace StickyNotesFull
             {
                 BackColor = Color.FromArgb(41, 41, 41),
                 BorderStyle = BorderStyle.FixedSingle,
-                Size = new Size(panelWidth, 120)
+                Size = new Size(panelWidth, 120),
+                Name = data.FileName
             };
 
             x = (bottomPanel.ClientSize.Width - dataPanel.Width) / 2;
@@ -81,20 +105,10 @@ namespace StickyNotesFull
             {
                 Size = new Size(dataPanel.Width, 10),
                 Location = new Point(0, 0),
-                BackColor = data.SelectedColor == "green"
-                    ? Color.Green
-                    : data.SelectedColor == "purple"
-                        ? Color.BlueViolet
-                        : Color.FromArgb(255, 128, 128)
-            };
-
-            Label optionLabel = new Label
-            {
-                Text = "...",
-                Font = new Font("Montserrat", 15, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(dataPanel.Width - 40, 0),
-                Cursor = Cursors.Hand
+                BackColor =
+                    data.SelectedColor == "green" ? Color.Green :
+                    data.SelectedColor == "purple" ? Color.BlueViolet :
+                    Color.FromArgb(255, 128, 128)
             };
 
             Label headerLabel = new Label
@@ -103,7 +117,7 @@ namespace StickyNotesFull
                 Font = new Font("Montserrat", 10, FontStyle.Bold),
                 ForeColor = Color.White,
                 Location = new Point(10, 30),
-                Size = new Size(dataPanel.Width - 20, 30)
+                Size = new Size(dataPanel.Width - 60, 30)
             };
 
             Label timeLabel = new Label
@@ -113,8 +127,19 @@ namespace StickyNotesFull
                 Location = new Point(dataPanel.Width - 160, dataPanel.Height - 20)
             };
 
-            ContextMenuStrip menu = new ContextMenuStrip();
+            if (isSelectAllChecked)
+            {
+                CheckBox cb = new CheckBox
+                {
+                    Name = data.FileName,
+                    Location = new Point(10, dataPanel.Height - 30),
+                    Checked = true
+                };
+                checkBoxList.Add(cb);
+                dataPanel.Controls.Add(cb);
+            }
 
+            ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem editItem = new ToolStripMenuItem("Edit");
             ToolStripMenuItem deleteItem = new ToolStripMenuItem("Delete")
             {
@@ -123,12 +148,12 @@ namespace StickyNotesFull
 
             editItem.Click += (s, e) =>
             {
+                if (isSelectAllChecked) return;
+
                 isEditMode = true;
                 editingFileName = data.FileName;
-
                 subForm.EditData(data);
                 subForm.ShowDialog();
-
                 isEditMode = false;
             };
 
@@ -145,9 +170,30 @@ namespace StickyNotesFull
             menu.Items.Add(editItem);
             menu.Items.Add(deleteItem);
 
+            Label optionLabel = new Label
+            {
+                Text = "...",
+                Font = new Font("Montserrat", 15, FontStyle.Bold),
+                ForeColor = Color.White,
+                Location = new Point(dataPanel.Width - 40, 0),
+                Cursor = Cursors.Hand
+            };
+
             optionLabel.Click += (s, e) =>
             {
-                menu.Show(optionLabel, new Point(0, optionLabel.Height));
+                if (!isSelectAllChecked)
+                    menu.Show(optionLabel, new Point(0, optionLabel.Height));
+            };
+
+            dataPanel.DoubleClick += (s, e) =>
+            {
+                if (isSelectAllChecked) return;
+
+                isEditMode = true;
+                editingFileName = data.FileName;
+                subForm.EditData(data);
+                subForm.ShowDialog();
+                isEditMode = false;
             };
 
             dataPanel.Controls.Add(colorPanel);
@@ -159,16 +205,60 @@ namespace StickyNotesFull
             y += dataPanel.Height + 12;
         }
 
+        private void SelectAllCheckBoxClicked(object sender, EventArgs e)
+        {
+            isSelectAllChecked = ((CheckBox)sender).Checked;
+            PageLoadAndResize(this, EventArgs.Empty);
+        }
+
+        private void AddDeleteButton()
+        {
+            deleteButton = new Button
+            {
+                Text = "Delete",
+                BackColor = Color.FromArgb(244, 67, 54),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Size = new Size(90, 40),
+                Location = new Point(10, 10)
+            };
+            deleteButton.FlatAppearance.BorderSize = 0;
+            deleteButton.Click += DeleteSelectedNotes;
+                bottomPanel.Controls.Add(deleteButton);
+        }
+
+        private void DeleteSelectedNotes(object sender, EventArgs e)
+        {
+            var selected = checkBoxList.Where(c => c.Checked).ToList();
+
+            if (selected.Count == 0)
+            {
+                MessageBox.Show("No items selected");
+                return;
+            }
+
+            if (MessageBox.Show("Delete selected notes?", "Confirm",MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                return;
+            }
+
+
+            foreach (var cb in selected)
+            {
+                DataController.DeleteData(cb.Name);
+            }
+
+            isSelectAllChecked = false;
+            selectAllCheckBox.Checked = false;
+            PageLoadAndResize(this, EventArgs.Empty);
+        }
+
         private void CreateUser(object sender, DataEventArgs e)
         {
             if (isEditMode)
-            {
                 DataController.UpdateData(editingFileName, e);
-            }
             else
-            {
                 DataController.AddData(e);
-            }
 
             PageLoadAndResize(this, EventArgs.Empty);
         }
