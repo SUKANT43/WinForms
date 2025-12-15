@@ -11,6 +11,9 @@ namespace StickyNotesFull
         private int x, y;
         private SubForm subForm;
 
+        private bool isEditMode = false;
+        private string editingFileName;
+
         public MainForm(SubForm sf)
         {
             InitializeComponent();
@@ -29,7 +32,7 @@ namespace StickyNotesFull
             Load += PageLoadAndResize;
             Resize += PageLoadAndResize;
 
-            sf.DataEvents += CreateUser;
+            subForm.DataEvents += CreateUser;
         }
 
         public void PageLoadAndResize(object sender, EventArgs e)
@@ -72,7 +75,7 @@ namespace StickyNotesFull
             };
 
             x = (bottomPanel.ClientSize.Width - dataPanel.Width) / 2;
-            dataPanel.Location = new Point( x, y);
+            dataPanel.Location = new Point(x, y);
 
             Panel colorPanel = new Panel
             {
@@ -120,13 +123,13 @@ namespace StickyNotesFull
 
             editItem.Click += (s, e) =>
             {
+                isEditMode = true;
+                editingFileName = data.FileName;
+
                 subForm.EditData(data);
-                subForm.DataEvents += (ss, ee) =>
-                {
-                    DataController.UpdateData(data.FileName, ee);
-                    PageLoadAndResize(this, EventArgs.Empty);
-                };
                 subForm.ShowDialog();
+
+                isEditMode = false;
             };
 
             deleteItem.Click += (s, e) =>
@@ -153,18 +156,26 @@ namespace StickyNotesFull
             dataPanel.Controls.Add(timeLabel);
 
             bottomPanel.Controls.Add(dataPanel);
-
             y += dataPanel.Height + 12;
         }
 
         private void CreateUser(object sender, DataEventArgs e)
         {
-            DataController.AddData(e);
+            if (isEditMode)
+            {
+                DataController.UpdateData(editingFileName, e);
+            }
+            else
+            {
+                DataController.AddData(e);
+            }
+
             PageLoadAndResize(this, EventArgs.Empty);
         }
 
         private void AddLabelClick(object sender, EventArgs e)
         {
+            isEditMode = false;
             subForm.ShowDialog();
         }
     }
