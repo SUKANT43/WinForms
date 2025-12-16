@@ -11,14 +11,19 @@ namespace TogleButton
         private Rectangle toggleRect;
         private Label textLabel;
 
+        private Timer animationTimer;
+        private int currentThumbX;
+        private int targetThumbX;
+        private int thumbSize;
+
         public bool IsOn
         {
-            get => isOn;
+            get { return isOn; }
             set
             {
                 isOn = value;
+                StartAnimation();
                 UpdateLabel();
-                Invalidate();
             }
         }
 
@@ -34,13 +39,18 @@ namespace TogleButton
                 ForeColor = Color.White,
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
                 BackColor = Color.Transparent,
-                Cursor = Cursors.Hand
             };
 
             Controls.Add(textLabel);
 
             MouseDown += Toggle;
             textLabel.Click += Toggle;
+
+            animationTimer = new Timer
+            {
+                Interval = 10 
+            };
+            animationTimer.Tick += AnimateThumb;
 
             UpdateLabel();
         }
@@ -65,13 +75,17 @@ namespace TogleButton
                 g.FillPath(trackBrush, path);
             }
 
-            int thumbSize = toggleRect.Height - 6;
-            int thumbX = isOn
-                ? toggleRect.Right - thumbSize - 3
-                : toggleRect.Left + 3;
+            thumbSize = toggleRect.Height - 6;
+
+            if (currentThumbX == 0)
+            {
+                currentThumbX = isOn
+                    ? toggleRect.Right - thumbSize - 3
+                    : toggleRect.Left + 3;
+            }
 
             Rectangle thumbRect = new Rectangle(
-                thumbX,
+                currentThumbX,
                 toggleRect.Top + 3,
                 thumbSize,
                 thumbSize
@@ -88,10 +102,34 @@ namespace TogleButton
             IsOn = !IsOn;
         }
 
+        private void StartAnimation()
+        {
+            targetThumbX = isOn
+                ? toggleRect.Right - thumbSize - 3
+                : toggleRect.Left + 3;
+
+            animationTimer.Start();
+        }
+
+        private void AnimateThumb(object sender, EventArgs e)
+        {
+            int speed = 4; 
+            if (currentThumbX < targetThumbX)
+                currentThumbX += speed;
+            else if (currentThumbX > targetThumbX)
+                currentThumbX -= speed;
+
+            if (Math.Abs(currentThumbX - targetThumbX) <= speed)
+            {
+                currentThumbX = targetThumbX;
+                animationTimer.Stop();
+            }
+            Invalidate();
+        }
+
         private void UpdateLabel()
         {
             textLabel.Text = isOn ? "ON" : "OFF";
-
             textLabel.Location = isOn
                 ? new Point(8, Height / 2 - textLabel.Height / 2)
                 : new Point(Width - textLabel.Width - 8, Height / 2 - textLabel.Height / 2);
@@ -101,12 +139,10 @@ namespace TogleButton
         {
             GraphicsPath path = new GraphicsPath();
             int d = radius;
-
             path.AddArc(r.X, r.Y, d, d, 180, 90);
             path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
             path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
             path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
-
             path.CloseFigure();
             return path;
         }
