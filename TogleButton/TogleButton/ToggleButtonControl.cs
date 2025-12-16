@@ -1,76 +1,81 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
 namespace TogleButton
 {
     public partial class ToggleButtonControl : UserControl
     {
-        Rectangle toogleRect;
-        bool isClick;
-        Label textLabel=new Label();
+        private bool isOn;
+        private Rectangle toggleRect;
+        private Label textLabel;
+
+        public bool IsOn
+        {
+            get => isOn;
+            set
+            {
+                isOn = value;
+                UpdateLabel();
+                Invalidate();
+            }
+        }
+
         public ToggleButtonControl()
         {
-            InitializeComponent();
             DoubleBuffered = true;
+            Size = new Size(100, 35);
+            BackColor = Color.Transparent;
 
-            toogleRect = new Rectangle(50, 50, 100, 35);
-            Paint += PaintScreen;
-            MouseDown += MouseDownEvent;
-            textLabel.Click += TextLabelClick;
+            textLabel = new Label
+            {
+                AutoSize = true,
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                BackColor = Color.Transparent,
+                Cursor = Cursors.Hand
+            };
+
+            Controls.Add(textLabel);
+
+            MouseDown += Toggle;
+            textLabel.Click += Toggle;
+
+            UpdateLabel();
         }
-        private void PaintScreen(object s, PaintEventArgs e)
+
+        protected override void OnPaint(PaintEventArgs e)
         {
+            base.OnPaint(e);
+
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            using (GraphicsPath path = GetRoundedRect(toogleRect, toogleRect.Height))
+            toggleRect = new Rectangle(
+                ClientRectangle.X + 3,
+                ClientRectangle.Y + 3,
+                ClientRectangle.Width - 6,
+                ClientRectangle.Height - 6
+            );
+
+            using (GraphicsPath path = GetRoundedRect(toggleRect, toggleRect.Height))
+            using (SolidBrush trackBrush = new SolidBrush(isOn ? Color.RoyalBlue : Color.Black))
             {
-                using (SolidBrush trackBrush = new SolidBrush(isClick ? Color.Blue : Color.Black))
-                {
-                    g.FillPath(trackBrush, path);
-                }
+                g.FillPath(trackBrush, path);
             }
 
-            int thumbSize = toogleRect.Height - 6;
-            int thumbX = isClick
-                ?toogleRect.Right-thumbSize-2
-                :toogleRect.Left + 3;
+            int thumbSize = toggleRect.Height - 6;
+            int thumbX = isOn
+                ? toggleRect.Right - thumbSize - 3
+                : toggleRect.Left + 3;
 
             Rectangle thumbRect = new Rectangle(
                 thumbX,
-                toogleRect.Top + 3,
+                toggleRect.Top + 3,
                 thumbSize,
                 thumbSize
-                );
-
-            if (isClick)
-            {
-                textLabel.Text = "Off";
-                textLabel.AutoSize = true;
-                textLabel.ForeColor = Color.White;
-                textLabel.BackColor = Color.Blue;
-                textLabel.Location = new Point(toogleRect.Left+10,toogleRect.Top+8);
-                textLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-                Controls.Add(textLabel);
-            }
-            else
-            {
-                textLabel.Text = "On";
-                textLabel.AutoSize = true;
-                textLabel.ForeColor = Color.White;
-                textLabel.BackColor = Color.Black;
-                textLabel.Location = new Point(toogleRect.Right - 35, toogleRect.Top + 8);
-                textLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-                Controls.Add(textLabel);
-
-            }
+            );
 
             using (SolidBrush thumbBrush = new SolidBrush(Color.White))
             {
@@ -78,22 +83,21 @@ namespace TogleButton
             }
         }
 
-        private void MouseDownEvent(object s,MouseEventArgs e)
+        private void Toggle(object sender, EventArgs e)
         {
-            if (toogleRect.Contains(e.Location))
-            {
-                isClick = !isClick;
-                Invalidate();
-            }
+            IsOn = !IsOn;
         }
 
-        private void TextLabelClick(object s,EventArgs e)
+        private void UpdateLabel()
         {
-            isClick = !isClick;
-            Invalidate();
+            textLabel.Text = isOn ? "ON" : "OFF";
+
+            textLabel.Location = isOn
+                ? new Point(8, Height / 2 - textLabel.Height / 2)
+                : new Point(Width - textLabel.Width - 8, Height / 2 - textLabel.Height / 2);
         }
 
-        GraphicsPath GetRoundedRect(Rectangle r, int radius)
+        private GraphicsPath GetRoundedRect(Rectangle r, int radius)
         {
             GraphicsPath path = new GraphicsPath();
             int d = radius;
@@ -102,11 +106,9 @@ namespace TogleButton
             path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
             path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
             path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
-            path.CloseFigure();
 
+            path.CloseFigure();
             return path;
         }
     }
-
 }
-

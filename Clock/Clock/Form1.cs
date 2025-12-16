@@ -7,18 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
-namespace TogleButton
+
+namespace Clock
 {
-    public partial class ToggleButtonForm : Form
+    public partial class Form1 : Form
     {
-        Rectangle toogleRect;
-        public ToggleButtonForm()
+        public Form1()
         {
             InitializeComponent();
-            ToggleButtonControl btn = new ToggleButtonControl();
-            Controls.Add(btn);
+            ClockControl cc = new ClockControl();
+            cc.AutoSize = true;
+            cc.Size = new Size(400, 400);
+            cc.Location = new Point(100, 75);
+            Controls.Add(cc);
         }
     }
 }
-
