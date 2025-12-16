@@ -68,7 +68,6 @@ namespace StickyNotesFull
             topPanel.Controls.Add(deleteButton);
         }
 
-
         private void MainFormLoad(object sender, EventArgs e)
         {
             ManageDesign();
