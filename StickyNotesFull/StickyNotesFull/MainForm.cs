@@ -9,32 +9,39 @@ namespace StickyNotesFull
     public partial class MainForm : Form
     {
         private List<CustomEventData> dataList;
-        private List<Panel> dataPanelList = new List<Panel>();
 
-        private int x, y;
+        private int y;
         private SubForm subForm;
 
         private bool isEditMode = false;
+        private bool isSelectMode = false;
         private string editingFileName;
 
-        private bool isSelectMode = false;
         private Button deleteButton;
         private CheckBox selectAllCheckBox;
+
         static List<NotificationForm> notes = new List<NotificationForm>();
 
         public MainForm(SubForm sf)
         {
             InitializeComponent();
+
             subForm = sf;
             dataList = new List<CustomEventData>();
+
             BackColor = Color.FromArgb(32, 32, 32);
             ForeColor = Color.White;
+
             MaximumSize = new Size(650, 1500);
             MinimumSize = new Size(650, 450);
+
             bottomPanel.AutoScroll = true;
+
             Load += MainFormLoad;
-            Resize += (s, e) => AlignPanels();
+            Resize += (s, e) => AlignNotes();
+
             subForm.DataEvents += CreateUser;
+
             selectAllCheckBox = new CheckBox
             {
                 Text = "Select",
@@ -53,31 +60,12 @@ namespace StickyNotesFull
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
                 Size = new Size(90, 40),
-                Location = new Point(10, 10),
+                Location = new Point(110, 35),
                 Visible = false
             };
             deleteButton.FlatAppearance.BorderSize = 0;
             deleteButton.Click += DeleteSelectedNotes;
-            bottomPanel.Controls.Add(deleteButton);
-        }
-
-        void ShowNote(string msg)
-        {
-            NotificationForm n = new NotificationForm(msg);
-
-            int x = Screen.PrimaryScreen.WorkingArea.Width - n.Width - 10;
-            y = Screen.PrimaryScreen.WorkingArea.Height - n.Height - 10;
-
-            foreach (var f in notes)
-            {
-                y -= (f.Height + 10);
-            }
-
-            n.Location = new Point(x, y);
-            n.FormClosed += (s, e) => notes.Remove(n);
-            notes.Add(n);
-            y = 0;
-            n.Show();
+            topPanel.Controls.Add(deleteButton);
         }
 
 
@@ -96,77 +84,25 @@ namespace StickyNotesFull
             addLabel.Location = new Point(topPanel.Width - 35, 10);
         }
 
+
         private void LoadNotes()
         {
             bottomPanel.Controls.Clear();
-            dataPanelList.Clear();
-
-            bottomPanel.Controls.Add(deleteButton);
 
             dataList = DataController.GetData();
-
-            y = 60;
+            y = 10;
 
             foreach (var data in dataList)
-            {
                 CreateNotePanel(data);
-            }
         }
 
         private void CreateNotePanel(CustomEventData data)
         {
             int panelWidth = bottomPanel.DisplayRectangle.Width - 20;
 
-            Panel dataPanel = new Panel
-            {
-                Name = data.FileName,
-                BackColor = Color.FromArgb(41, 41, 41),
-                BorderStyle = BorderStyle.FixedSingle,
-                Size = new Size(panelWidth, 120),
+            DataUserControl note = new DataUserControl(data, panelWidth);
 
-            };
-
-            Panel colorPanel = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 10,
-                BackColor =
-                    data.SelectedColor == "green" ? Color.Green :
-                    data.SelectedColor == "purple" ? Color.BlueViolet :
-                    Color.FromArgb(255, 128, 128)
-            };
-
-            Label headerLabel = new Label
-            {
-                Text = data.Header,
-                Font = new Font("Montserrat", 10, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(40, 30),
-                Size = new Size(panelWidth - 80, 30)
-            };
-
-            Label timeLabel = new Label
-            {
-                Text = data.CreatedAt,
-                ForeColor = Color.Gray,
-                Location = new Point(panelWidth - 100, 95)
-            };
-
-            CheckBox cb = new CheckBox
-            {
-                Name = data.FileName,
-                Location = new Point(10, 85),
-                Visible = false
-            };
-
-            ContextMenuStrip menu = new ContextMenuStrip();
-            ToolStripMenuItem editItem = new ToolStripMenuItem("Edit");
-            ToolStripMenuItem deleteItem = new ToolStripMenuItem("Delete")
-            {
-                ForeColor = Color.Red
-            };
-
-            editItem.Click += (s, e) =>
+            note.EditRequested += (s, e) =>
             {
                 if (isSelectMode) return;
 
@@ -177,94 +113,54 @@ namespace StickyNotesFull
                 isEditMode = false;
             };
 
-            deleteItem.Click += (s, e) =>
+            note.DeleteRequested += (s, e) =>
             {
                 if (MessageBox.Show("Delete this note?", "Confirm",
                     MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     DataController.DeleteData(data.FileName);
-                    ShowNote(data.FileName+" is deleted.");
+                    ShowNote(data.FileName + " is deleted.");
                     LoadNotes();
                 }
             };
 
-            menu.Items.Add(editItem);
-            menu.Items.Add(deleteItem);
+            note.Location = new Point(10, y);
+            y += note.Height + 12;
 
-            Label optionLabel = new Label
-            {
-                Text = "...",
-                Font = new Font("Montserrat", 15, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(panelWidth - 40, 0),
-                Cursor = Cursors.Hand
-            };
-
-            optionLabel.Click += (s, e) =>
-            {
-                if (!isSelectMode)
-                    menu.Show(optionLabel, new Point(0, optionLabel.Height));
-            };
-
-            dataPanel.DoubleClick += (s, e) =>
-            {
-                if (isSelectMode) return;
-
-                isEditMode = true;
-                editingFileName = data.FileName;
-                subForm.EditData(data);
-                subForm.ShowDialog();
-                isEditMode = false;
-            };
-
-            dataPanel.Controls.Add(colorPanel);
-            dataPanel.Controls.Add(optionLabel);
-            dataPanel.Controls.Add(headerLabel);
-            dataPanel.Controls.Add(timeLabel);
-            dataPanel.Controls.Add(cb);
-
-            dataPanel.Location = new Point(10, y);
-            y += dataPanel.Height + 12;
-
-            bottomPanel.Controls.Add(dataPanel);
-            dataPanelList.Add(dataPanel);
+            bottomPanel.Controls.Add(note);
         }
 
-        private void AlignPanels()
+        private void AlignNotes()
         {
-            int top = 60;
-            if (!isEditMode)
+            int top = 10;
+            int width = bottomPanel.DisplayRectangle.Width - 20;
+
+            foreach (DataUserControl note in bottomPanel.Controls.OfType<DataUserControl>())
             {
-                foreach (var panel in dataPanelList)
-                {
-                    panel.Width = bottomPanel.DisplayRectangle.Width - 20;
-                    panel.Location = new Point(10, top);
-                    top += panel.Height + 12;
-                }
+                note.Width = width;
+                note.Location = new Point(10, top);
+                top += note.Height + 12;
             }
         }
+
 
         private void SelectModeChanged(object sender, EventArgs e)
         {
             isSelectMode = selectAllCheckBox.Checked;
-
             deleteButton.Visible = isSelectMode;
 
-            foreach (var panel in dataPanelList)
-            {
-                var cb = panel.Controls.OfType<CheckBox>().First();
-                cb.Visible = isSelectMode;
-                cb.Checked = false;
-            }
+            foreach (DataUserControl note in bottomPanel.Controls.OfType<DataUserControl>())
+                note.SetSelectMode(isSelectMode);
         }
 
         private void DeleteSelectedNotes(object sender, EventArgs e)
         {
-            var selectedPanels = dataPanelList
-                .Where(p => p.Controls.OfType<CheckBox>().First().Checked)
+            var selectedNotes = bottomPanel.Controls
+                .OfType<DataUserControl>()
+                .Where(n => n.IsSelected)
                 .ToList();
 
-            if (selectedPanels.Count == 0)
+            if (selectedNotes.Count == 0)
             {
                 MessageBox.Show("No items selected");
                 return;
@@ -274,17 +170,16 @@ namespace StickyNotesFull
                 MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
 
-            foreach (var panel in selectedPanels)
+            foreach (var note in selectedNotes)
             {
-                DataController.DeleteData(panel.Name);
-                bottomPanel.Controls.Remove(panel);
-                dataPanelList.Remove(panel);
-                ShowNote(panel.Name+" is deleted.");
-
+                DataController.DeleteData(note.Data.FileName);
+                bottomPanel.Controls.Remove(note);
+                ShowNote(note.Data.FileName + " is deleted.");
             }
 
             selectAllCheckBox.Checked = false;
         }
+
 
         private void CreateUser(object sender, CustomEventData e)
         {
@@ -296,7 +191,7 @@ namespace StickyNotesFull
             else
             {
                 DataController.AddData(e);
-                ShowNote("New Data Added");
+                ShowNote("New Data Added.");
             }
 
             LoadNotes();
@@ -306,6 +201,23 @@ namespace StickyNotesFull
         {
             isEditMode = false;
             subForm.ShowDialog();
+        }
+
+
+        void ShowNote(string msg)
+        {
+            NotificationForm n = new NotificationForm(msg);
+
+            int x = Screen.PrimaryScreen.WorkingArea.Width - n.Width - 10;
+            int y = Screen.PrimaryScreen.WorkingArea.Height - n.Height - 10;
+
+            foreach (var f in notes)
+                y -= (f.Height + 10);
+
+            n.Location = new Point(x, y);
+            n.FormClosed += (s, e) => notes.Remove(n);
+            notes.Add(n);
+            n.Show();
         }
     }
 }

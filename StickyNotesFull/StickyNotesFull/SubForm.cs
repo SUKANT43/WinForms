@@ -19,7 +19,7 @@ namespace StickyNotesFull
             contentRichTextBox.Text = "";
             colorName = "";
             colorPanel.BackColor = Color.Transparent;
-
+            isEdit = false;
             LoadUi();
             dataList = DataController.GetData();
             
@@ -67,7 +67,7 @@ namespace StickyNotesFull
                 if (string.IsNullOrWhiteSpace(data.Header))
                     continue;
 
-                if (string.Equals( data.Header.Trim(),inputHeader, StringComparison.OrdinalIgnoreCase))
+                if ((string.Equals(data.Header.Trim(),inputHeader, StringComparison.OrdinalIgnoreCase)) && !isEdit)
                 {
                     MessageBox.Show("The header already exists.");
                     return;
