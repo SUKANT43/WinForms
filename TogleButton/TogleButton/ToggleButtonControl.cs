@@ -9,50 +9,48 @@ namespace TogleButton
     {
         private bool isOn;
         private Rectangle toggleRect;
-        private Label textLabel;
 
         private Timer animationTimer;
         private int currentThumbX;
         private int targetThumbX;
-        private int thumbSize;
+        private int thumbSize ;
+
+        private  Font textFont;
 
         public bool IsOn
         {
-            get { return isOn; }
+            get => isOn;
             set
             {
                 isOn = value;
                 StartAnimation();
-                UpdateLabel();
+                Invalidate();
             }
         }
 
         public ToggleButtonControl()
         {
             DoubleBuffered = true;
-            Size = new Size(100, 35);
+            Size = new Size(80, 35);
             BackColor = Color.Transparent;
+            float fontSize = (float)(Height) * 0.35f;
 
-            textLabel = new Label
-            {
-                AutoSize = true,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-                BackColor = Color.Transparent,
-            };
+            textFont = new Font("Segoe UI", fontSize, FontStyle.Bold);
 
-            Controls.Add(textLabel);
 
             MouseDown += Toggle;
-            textLabel.Click += Toggle;
 
-            animationTimer = new Timer
-            {
-                Interval = 10 
-            };
+            animationTimer = new Timer { Interval = 10 };
             animationTimer.Tick += AnimateThumb;
+            Resize += ManageFontSize;
+        }
 
-            UpdateLabel();
+       public void  ManageFontSize(object s,EventArgs e)
+        {
+            float fontSize = (float)(Height) * 0.35f;
+            textFont = new Font("Segoe UI", fontSize, FontStyle.Bold);
+            Validate();
+
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -61,6 +59,7 @@ namespace TogleButton
 
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
             toggleRect = new Rectangle(
                 ClientRectangle.X + 3,
@@ -95,6 +94,26 @@ namespace TogleButton
             {
                 g.FillEllipse(thumbBrush, thumbRect);
             }
+
+            DrawText(g);
+        }
+
+        private void DrawText(Graphics g)
+        {
+            string text = isOn ? "ON" : "OFF";
+
+            SizeF textSize = g.MeasureString(text, textFont);
+
+            float x = isOn
+                ? toggleRect.Left + 8
+                : toggleRect.Right - textSize.Width - 8;
+
+            float y = toggleRect.Top + (toggleRect.Height - textSize.Height) / 2;
+
+            using (Brush textBrush = new SolidBrush(Color.White))
+            {
+                g.DrawString(text, textFont, textBrush, x, y);
+            }
         }
 
         private void Toggle(object sender, EventArgs e)
@@ -113,7 +132,8 @@ namespace TogleButton
 
         private void AnimateThumb(object sender, EventArgs e)
         {
-            int speed = 4; 
+            int speed = 4;
+
             if (currentThumbX < targetThumbX)
                 currentThumbX += speed;
             else if (currentThumbX > targetThumbX)
@@ -124,26 +144,21 @@ namespace TogleButton
                 currentThumbX = targetThumbX;
                 animationTimer.Stop();
             }
-            Invalidate();
-        }
 
-        private void UpdateLabel()
-        {
-            textLabel.Text = isOn ? "ON" : "OFF";
-            textLabel.Location = isOn
-                ? new Point(8, Height / 2 - textLabel.Height / 2)
-                : new Point(Width - textLabel.Width - 8, Height / 2 - textLabel.Height / 2);
+            Invalidate();
         }
 
         private GraphicsPath GetRoundedRect(Rectangle r, int radius)
         {
             GraphicsPath path = new GraphicsPath();
             int d = radius;
+
             path.AddArc(r.X, r.Y, d, d, 180, 90);
             path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
             path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
             path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
             path.CloseFigure();
+
             return path;
         }
     }
