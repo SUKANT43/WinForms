@@ -62,7 +62,7 @@ namespace TogleButton
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
             toggleRect = new Rectangle(
-                ClientRectangle.X + 3,
+                ClientRectangle.X ,
                 ClientRectangle.Y + 3,
                 ClientRectangle.Width - 6,
                 ClientRectangle.Height - 6
@@ -132,7 +132,7 @@ namespace TogleButton
 
         private void AnimateThumb(object sender, EventArgs e)
         {
-            int speed = 4;
+            int speed = 5;
 
             if (currentThumbX < targetThumbX)
                 currentThumbX += speed;

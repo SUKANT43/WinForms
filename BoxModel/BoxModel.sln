@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 15 for Windows Desktop
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxModel", "BoxModel\BoxModel.csproj", "{B2B1126F-8E07-47BA-ACE1-795E0A7CCFAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2B1126F-8E07-47BA-ACE1-795E0A7CCFAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B1126F-8E07-47BA-ACE1-795E0A7CCFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B1126F-8E07-47BA-ACE1-795E0A7CCFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B1126F-8E07-47BA-ACE1-795E0A7CCFAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {706F1C13-19E2-4FCD-B699-ED2916BEACD6}
+	EndGlobalSection
+EndGlobal

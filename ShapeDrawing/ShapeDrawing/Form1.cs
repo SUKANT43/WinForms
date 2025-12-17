@@ -16,11 +16,7 @@ namespace ShapeDrawing
         public Form1()
         {
             InitializeComponent();
-            typeof(Panel).InvokeMember("DoubleBuffered",
-                System.Reflection.BindingFlags.SetProperty|
-                System.Reflection.BindingFlags.Instance|
-                System.Reflection.BindingFlags.NonPublic,
-                null,leftPanel, new object[] { true });
+            DoubleBuffered = true;
             leftPanel.Paint += DrawShape;
             leftPanel.MouseDown += MouseDownClick;
             leftPanel.MouseMove += MouseMovement;
