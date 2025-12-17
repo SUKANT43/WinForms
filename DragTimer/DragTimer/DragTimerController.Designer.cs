@@ -79,6 +79,7 @@
             this.okLabel.TabIndex = 3;
             this.okLabel.Text = "Ok";
             this.okLabel.Visible = false;
+            //this.okLabel.Enabled = true;
             this.okLabel.Click += new System.EventHandler(this.OkLabelClick);
             // 
             // showValueTextBox

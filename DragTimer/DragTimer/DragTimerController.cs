@@ -95,6 +95,8 @@ namespace DragTimer
             showValueTextBox.DoubleClick += TextBoxDoubleClick;
         }
 
+        
+
         private void TextBoxDoubleClick(object s,EventArgs e)
         {
             mouseMove = false;
@@ -161,6 +163,13 @@ namespace DragTimer
             {
                 return;
             }
+
+            int deltaX = e.X - lastMouseX;
+
+            if (Math.Abs(deltaX) < speed)
+                return;
+
+
             int changeOccurs = lastMouseX - e.X;
             if(e.X< showValueTextBox.Location.X + showValueTextBox.Width / 2 && lastMouseX<e.X )
             {

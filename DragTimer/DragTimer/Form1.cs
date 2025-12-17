@@ -16,10 +16,10 @@ namespace DragTimer
         {
             InitializeComponent();
             DragTimerController dtc = new DragTimerController();
-            dtc.Max = 30;
-            dtc.Min = 0;
-            dtc.Step = 10;
-            dtc.Speed = 10;
+            dtc.Max = 140;
+            dtc.Min = -100;
+            dtc.Step = 30;
+            dtc.Speed = 120;
             Controls.Add(dtc);
         }
     }
