@@ -18,7 +18,7 @@ namespace DragTimer
             DragTimerController dtc = new DragTimerController();
             dtc.Max = 140;
             dtc.Min = -100;
-            dtc.Step = 10;
+            dtc.Step = 1;
             dtc.Speed = 20;
             Controls.Add(dtc);
 

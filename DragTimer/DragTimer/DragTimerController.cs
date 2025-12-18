@@ -70,9 +70,7 @@ namespace DragTimer
         {
             InitializeComponent();
 
-
-
-            showLabel.Text = currentValue.ToString();
+            showLabel.DisplayText = currentValue.ToString();
             showLabel.Visible = true;
 
             showValueTextBox.Visible = false;
@@ -129,7 +127,7 @@ namespace DragTimer
             step = 1;
             speed = 10;
 
-            showLabel.Text = currentValue.ToString();
+            showLabel.DisplayText = currentValue.ToString();
 
             showValueTextBox.Visible = false;
             showLabel.Visible = true;
@@ -177,7 +175,7 @@ namespace DragTimer
             }
 
             currentValue = CheckStep();
-            showLabel.Text = currentValue.ToString();
+            showLabel.DisplayText = currentValue.ToString();
             lastMouseX = e.X;
         }
 
@@ -191,14 +189,14 @@ namespace DragTimer
         {
             currentValue += GetStep();
             currentValue = CheckStep();
-            showLabel.Text = currentValue.ToString();
+            showLabel.DisplayText = currentValue.ToString();
         }
 
         private void DecreaseLabelClick(object sender, EventArgs e)
         {
             currentValue -= GetStep();
             currentValue = CheckStep();
-            showLabel.Text = currentValue.ToString();
+            showLabel.DisplayText = currentValue.ToString();
         }
 
         private int GetStep()
@@ -216,4 +214,5 @@ namespace DragTimer
             return currentValue;
         }
     }
+        
 }

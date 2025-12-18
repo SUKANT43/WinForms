@@ -1,108 +1,139 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DragTimer
 {
     public partial class CustomButton : UserControl
     {
-        private string text="button";
-        private int width=160;
-        private int height=50;
-        private Color backgroundColor=Color.SkyBlue;
-        private Color textColor=Color.Black;
+        private Color backgroundColor = Color.SkyBlue;
+        private Color textColor = Color.Black;
         private float textSize = 10f;
-        public string Text
+        private int cornerRadius = 20;
+
+        private Font textFont;
+
+        [Category("Appearance")]
+        public override string Text
         {
-            set =>text=value;
-            get => text;
+            get => base.Text;
+            set
+            {
+                base.Text = value;
+                Invalidate();
+            }
         }
 
-        public int Width
-        {
-            set => width = value;
-            get => width;
-        }
-
-        public int Height
-        {
-            set => height = value;
-            get =>height;
-        }
-
+        [Category("Appearance")]
         public Color BackgroundColor
         {
-            set => backgroundColor = value;
             get => backgroundColor;
+            set
+            {
+                backgroundColor = value;
+                Invalidate();
+            }
         }
 
+        [Category("Appearance")]
         public Color TextColor
         {
-            set => textColor = value;
             get => textColor;
+            set
+            {
+                textColor = value;
+                Invalidate();
+            }
         }
 
+        [Category("Appearance")]
         public float TextSize
         {
-            set => textSize = value;
             get => textSize;
+            set
+            {
+                textSize = value;
+                UpdateFont();
+                Invalidate();
+            }
         }
 
-        private Rectangle customRectangle;
-        private Font textFont;
+        [Category("Appearance")]
+        public int CornerRadius
+        {
+            get => cornerRadius;
+            set
+            {
+                cornerRadius = value;
+                Invalidate();
+            }
+        }
+
         public CustomButton()
         {
-            InitializeComponent();
-            customRectangle = new Rectangle();
-            Size = new Size(width, height);
-            textFont = new Font("Segoe UI", textSize, FontStyle.Bold);
-            Paint += PaintButton;
+            DoubleBuffered = true;
+            Size = new Size(160, 50);
+            Cursor = Cursors.Hand;
+
+            UpdateFont();
         }
 
-        private void PaintButton(object s,PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
+            base.OnPaint(e);
+
             Graphics g = e.Graphics;
-            customRectangle.Size = new Size(width, height);
-
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            using (GraphicsPath path = CreateCurve(customRectangle,customRectangle.Height))
+
+            Rectangle rect = ClientRectangle;
+
+            using (GraphicsPath path = CreateRoundedRectangle(rect, cornerRadius))
+            using (SolidBrush bgBrush = new SolidBrush(backgroundColor))
+            using (SolidBrush textBrush = new SolidBrush(textColor))
             {
-                using (Brush b = new SolidBrush(backgroundColor))
+                g.FillPath(bgBrush, path);
+
+                StringFormat sf = new StringFormat
                 {
-                    g.FillPath(b, path);
-                    WriteText(g);
-                }
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
+
+                g.DrawString(Text, textFont, textBrush, rect, sf);
             }
         }
 
-        private void WriteText(Graphics g)
+        protected override void OnResize(EventArgs e)
         {
-            SizeF textSize = g.MeasureString(text, textFont);
-            float x =(float)((customRectangle.X+ customRectangle.Width)-textSize.Width)/2;
-            float y = (float)((customRectangle.Y + customRectangle.Height)-textSize.Height)/2;
-            using(Brush b=new SolidBrush(Color.Black))
+            base.OnResize(e);
+            Invalidate();
+        }
+
+        private void UpdateFont()
+        {
+            textFont?.Dispose();
+            textFont = new Font("Segoe UI", textSize, FontStyle.Bold);
+        }
+
+        private GraphicsPath CreateRoundedRectangle(Rectangle r, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            int d = radius * 2;
+
+            if (radius <= 0)
             {
-                g.DrawString(text, textFont,b, x, y);
+                path.AddRectangle(r);
+                return path;
             }
-        }
 
-        private GraphicsPath CreateCurve(Rectangle r, int radius)
-        {
-            GraphicsPath path= new GraphicsPath();
-            int d = radius;
             path.AddArc(r.X, r.Y, d, d, 180, 90);
             path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
             path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
             path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
             path.CloseFigure();
+
             return path;
         }
     }
