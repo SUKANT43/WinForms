@@ -1,6 +1,6 @@
-﻿namespace DragTimer
+﻿namespace OutputPanel
 {
-    partial class Form1
+    partial class ListViewPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -30,18 +30,22 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // listView1
+            // 
+            // 
+            // ListViewPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.listView1);
+            this.Name = "ListViewPanel";
+            this.Text = "ListViewPanel";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
     }
 }
-

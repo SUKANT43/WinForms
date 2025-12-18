@@ -31,7 +31,8 @@
             this.decreaseLabel = new System.Windows.Forms.Label();
             this.increaseLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.okLabel = new System.Windows.Forms.Label();
+            this.showLabel = new System.Windows.Forms.Label();
+            this.okButton = new DragTimer.CustomButton();
             this.showValueTextBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +61,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.okLabel);
+            this.panel1.Controls.Add(this.showLabel);
+            this.panel1.Controls.Add(this.okButton);
             this.panel1.Controls.Add(this.showValueTextBox);
             this.panel1.Controls.Add(this.decreaseLabel);
             this.panel1.Controls.Add(this.increaseLabel);
@@ -70,17 +72,27 @@
             this.panel1.Size = new System.Drawing.Size(302, 51);
             this.panel1.TabIndex = 11;
             // 
+            // showLabel
+            // 
+            this.showLabel.Location = new System.Drawing.Point(77, 14);
+            this.showLabel.Name = "showLabel";
+            this.showLabel.Size = new System.Drawing.Size(141, 20);
+            this.showLabel.TabIndex = 4;
+            this.showLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // okLabel
             // 
-            this.okLabel.AutoSize = true;
-            this.okLabel.Location = new System.Drawing.Point(233, 20);
-            this.okLabel.Name = "okLabel";
-            this.okLabel.Size = new System.Drawing.Size(21, 13);
-            this.okLabel.TabIndex = 3;
-            this.okLabel.Text = "Ok";
-            this.okLabel.Visible = false;
-            //this.okLabel.Enabled = true;
-            this.okLabel.Click += new System.EventHandler(this.OkLabelClick);
+            this.okButton.BackgroundColor = System.Drawing.Color.SkyBlue;
+            this.okButton.Location = new System.Drawing.Point(233, 20);
+            this.okButton.Name = "okButton";
+            this.okButton.Text = "ok";
+            this.okButton.TabIndex = 3;
+            this.okButton.Height = 40;
+            this.okButton.Width = 50;
+            this.okButton.TextColor = System.Drawing.Color.Black;
+            this.okButton.TextSize = 10F;
+            this.okButton.Visible = false;
+            this.okButton.Click += new System.EventHandler(this.OkbuttonClick);
             // 
             // showValueTextBox
             // 
@@ -109,6 +121,7 @@
         private System.Windows.Forms.Label increaseLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox showValueTextBox;
-        private System.Windows.Forms.Label okLabel;
+        private CustomButton okButton;
+        private System.Windows.Forms.Label showLabel;
     }
 }
