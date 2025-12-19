@@ -17,9 +17,11 @@ namespace Icons
         public Form1()
         {
             InitializeComponent();
-            InstaLogoControl il = new InstaLogoControl();
-            il.Size = new Size(200,200);
-            Controls.Add(il);
+            //InstaLogoControl il = new InstaLogoControl();
+            //il.Size = new Size(200,200);
+            //Controls.Add(il);
+            RssIconControl rss = new RssIconControl();
+            Controls.Add(rss);
         }
     }
 }

@@ -69,7 +69,9 @@ namespace DragTimer
         public DragTimerController()
         {
             InitializeComponent();
-
+            okButton.Text = "Ok";
+            increaseLabel.Text = "+";
+            decreaseLabel.Text = "-";
             showLabel.DisplayText = currentValue.ToString();
             showLabel.Visible = true;
 
@@ -214,5 +216,4 @@ namespace DragTimer
             return currentValue;
         }
     }
-        
 }

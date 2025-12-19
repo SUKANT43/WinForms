@@ -28,13 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.dragTimerController1 = new DragTimer.DragTimerController();
             this.SuspendLayout();
+            // 
+            // dragTimerController1
+            // 
+            this.dragTimerController1.Location = new System.Drawing.Point(93, 113);
+            this.dragTimerController1.Max = 100;
+            this.dragTimerController1.Min = 0;
+            this.dragTimerController1.Name = "dragTimerController1";
+            this.dragTimerController1.Size = new System.Drawing.Size(283, 49);
+            this.dragTimerController1.Speed = 10;
+            this.dragTimerController1.Step = 5;
+            this.dragTimerController1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dragTimerController1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -42,6 +55,8 @@
         }
 
         #endregion
+
+        private DragTimerController dragTimerController1;
     }
 }
 

@@ -18,8 +18,8 @@ namespace DragTimer
             DragTimerController dtc = new DragTimerController();
             dtc.Max = 140;
             dtc.Min = -100;
-            dtc.Step = 1;
-            dtc.Speed = 20;
+            dtc.Step = 10;
+            dtc.Speed = 5;
             Controls.Add(dtc);
 
             //CustomButton cb = new CustomButton();
@@ -30,5 +30,7 @@ namespace DragTimer
             //cb.Width = 20;
             //Controls.Add(cb);
         }
+
+        
     }
 }

@@ -15,7 +15,6 @@ namespace DragTimer
 
         private Font textFont;
 
-        [Category("Appearance")]
         public override string Text
         {
             get => base.Text;
@@ -26,7 +25,6 @@ namespace DragTimer
             }
         }
 
-        [Category("Appearance")]
         public Color BackgroundColor
         {
             get => backgroundColor;
@@ -37,7 +35,6 @@ namespace DragTimer
             }
         }
 
-        [Category("Appearance")]
         public Color TextColor
         {
             get => textColor;
@@ -48,7 +45,6 @@ namespace DragTimer
             }
         }
 
-        [Category("Appearance")]
         public float TextSize
         {
             get => textSize;
@@ -60,7 +56,6 @@ namespace DragTimer
             }
         }
 
-        [Category("Appearance")]
         public int CornerRadius
         {
             get => cornerRadius;
