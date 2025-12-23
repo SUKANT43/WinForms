@@ -15,22 +15,16 @@ namespace DragTimer
         public Form1()
         {
             InitializeComponent();
-            DragTimerController dtc = new DragTimerController();
-            dtc.Max = 140;
-            dtc.Min = -100;
-            dtc.Step = 10;
-            dtc.Speed = 5;
-            Controls.Add(dtc);
+           
 
-            //CustomButton cb = new CustomButton();
-            //cb.Location = new Point(300, 200);
-            //cb.BackgroundColor = Color.Red;
-            //cb.Text = "ok";
-            //cb.Height = 10;
-            //cb.Width = 20;
-            //Controls.Add(cb);
         }
 
-        
+        private void Button1Click(object sender, EventArgs e)
+        {
+            dragTimerController1.Min = (int)minNumeric.Value;
+            dragTimerController1.Max = (int)maxNumeric.Value;
+            dragTimerController1.Step = (int)stepNumeric.Value;
+            dragTimerController1.Speed = (int)speedNumeric.Value;
+        }
     }
 }

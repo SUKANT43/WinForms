@@ -61,7 +61,7 @@
             this.increaseLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.increaseLabel.Location = new System.Drawing.Point(172, 3);
             this.increaseLabel.Name = "increaseLabel";
-            this.increaseLabel.Size = new System.Drawing.Size(45, 35);
+            this.increaseLabel.Size = new System.Drawing.Size(55, 32);
             this.increaseLabel.TabIndex = 3;
             this.increaseLabel.TextColor = System.Drawing.Color.Black;
             this.increaseLabel.TextSize = 16F;

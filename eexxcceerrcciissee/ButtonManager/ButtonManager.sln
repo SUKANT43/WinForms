@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 15 for Windows Desktop
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButtonManager", "ButtonManager\ButtonManager.csproj", "{33A3DF15-1E13-4B52-BAB3-34443F3FB299}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33A3DF15-1E13-4B52-BAB3-34443F3FB299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A3DF15-1E13-4B52-BAB3-34443F3FB299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A3DF15-1E13-4B52-BAB3-34443F3FB299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A3DF15-1E13-4B52-BAB3-34443F3FB299}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {206A0721-8CD5-4460-903C-E47F80F1BE31}
+	EndGlobalSection
+EndGlobal
