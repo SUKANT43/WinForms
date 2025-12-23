@@ -24,8 +24,6 @@ namespace Icons
 
             circleRectangle = new Rectangle();
             circleRectangle.Size = new Size(Width - ((Width * 25) / 100), Height - ((Height * 25) / 100));
-
-
         }
 
         protected override void OnResize(EventArgs e)
@@ -41,7 +39,7 @@ namespace Icons
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            int circleSize = Math.Min(Width, Height) * 75 / 100;
+            int circleSize = (int)(Width * 0.75f);
             int cx = (Width - circleSize) / 2;
             int cy = (Height - circleSize) / 2;
 
