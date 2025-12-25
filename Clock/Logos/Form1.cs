@@ -16,7 +16,7 @@ namespace Logos
         Font textFont;
         PointF[] hexagon;
         Timer t;
-        public Form1()
+        public Form1()//clock form
         {
             DoubleBuffered = true;
             Paint += PaintLogo;
