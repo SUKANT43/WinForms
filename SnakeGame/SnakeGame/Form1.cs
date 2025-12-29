@@ -67,10 +67,11 @@ namespace SnakeGame
             DrawBall(g);
         }
 
+
         public void DrawLine(Graphics g)
         {
             using(Pen p=new Pen(Color.LightGray,4))
-            {
+            { 
                 g.DrawLine(p,linePoint.X,linePoint.Y,linePoint.X+100,linePoint.Y);
             }
         }
@@ -113,6 +114,12 @@ namespace SnakeGame
                 ballPoint = new Point();
                 ballDX = 30;
                 ballDY = 30;
+                //DialogResult result = MessageBox.Show(
+                    //"You lost the game",
+                    //"Game Over",
+                   // MessageBoxButtons.RetryCancel,
+                   // MessageBoxIcon.Warning
+               // );
             }
         }
 
