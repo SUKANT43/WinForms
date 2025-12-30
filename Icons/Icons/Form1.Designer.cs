@@ -31,6 +31,8 @@
             this.cloudDownloadCircleIcon1 = new Icons.CloudDownloadCircleIcon();
             this.instaLogoControl1 = new Icons.InstaLogoControl();
             this.rssIconControl1 = new Icons.RssIconControl();
+            this.cloudDownloadCircleIcon2 = new Icons.CloudDownloadCircleIcon();
+            this.rssIconControl2 = new Icons.RssIconControl();
             this.SuspendLayout();
             // 
             // cloudDownloadCircleIcon1
@@ -43,9 +45,9 @@
             // 
             // instaLogoControl1
             // 
-            this.instaLogoControl1.Location = new System.Drawing.Point(575, 40);
+            this.instaLogoControl1.Location = new System.Drawing.Point(644, 40);
             this.instaLogoControl1.Name = "instaLogoControl1";
-            this.instaLogoControl1.Size = new System.Drawing.Size(145, 147);
+            this.instaLogoControl1.Size = new System.Drawing.Size(144, 142);
             this.instaLogoControl1.TabIndex = 1;
             // 
             // rssIconControl1
@@ -56,11 +58,29 @@
             this.rssIconControl1.Size = new System.Drawing.Size(144, 102);
             this.rssIconControl1.TabIndex = 2;
             // 
+            // cloudDownloadCircleIcon2
+            // 
+            this.cloudDownloadCircleIcon2.BackColor = System.Drawing.Color.Black;
+            this.cloudDownloadCircleIcon2.Location = new System.Drawing.Point(86, 32);
+            this.cloudDownloadCircleIcon2.Name = "cloudDownloadCircleIcon2";
+            this.cloudDownloadCircleIcon2.Size = new System.Drawing.Size(100, 92);
+            this.cloudDownloadCircleIcon2.TabIndex = 3;
+            // 
+            // rssIconControl2
+            // 
+            this.rssIconControl2.BackColor = System.Drawing.Color.LimeGreen;
+            this.rssIconControl2.Location = new System.Drawing.Point(329, 62);
+            this.rssIconControl2.Name = "rssIconControl2";
+            this.rssIconControl2.Size = new System.Drawing.Size(118, 104);
+            this.rssIconControl2.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.rssIconControl2);
+            this.Controls.Add(this.cloudDownloadCircleIcon2);
             this.Controls.Add(this.rssIconControl1);
             this.Controls.Add(this.instaLogoControl1);
             this.Controls.Add(this.cloudDownloadCircleIcon1);
@@ -75,6 +95,8 @@
         private CloudDownloadCircleIcon cloudDownloadCircleIcon1;
         private InstaLogoControl instaLogoControl1;
         private RssIconControl rssIconControl1;
+        private CloudDownloadCircleIcon cloudDownloadCircleIcon2;
+        private RssIconControl rssIconControl2;
     }
 }
 
