@@ -72,6 +72,10 @@ namespace customLabel
                         width = maxWidth;
                         SizeF wrapped = g.MeasureString(lbl.Text, lbl.Font, width);
                         height = (int)Math.Ceiling(wrapped.Height) ;
+                        if (height > 100)
+                        {
+                            height += 100;
+                        }
                     }
                     else
                     {
@@ -85,8 +89,8 @@ namespace customLabel
                 Button delBtn = new Button
                 {
                     Text = "Delete",
-                    Height = lbl.Height,
-                    Location = new Point(lbl.Right -30, y+20),
+                    Height = 20,
+                    Location = new Point(lbl.Right -30, lbl.Bottom),
                 };
                 delBtn.Click += (s, e) =>
                 {
@@ -96,7 +100,7 @@ namespace customLabel
                 topPanel.Controls.Add(delBtn);
 
 
-                y += lbl.Height + 10+delBtn.Height;
+                y += lbl.Height + 40;
             }
         }
 

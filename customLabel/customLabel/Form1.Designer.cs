@@ -30,20 +30,22 @@
         {
             this.topPanel = new System.Windows.Forms.Panel();
             this.bottomPanel = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.addButton = new System.Windows.Forms.Button();
+            this.richTextBox = new System.Windows.Forms.RichTextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.bottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // topPanel
             // 
+            this.topPanel.AutoScroll = true;
             this.topPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.topPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(800, 493);
             this.topPanel.TabIndex = 1;
+            this.topPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.topPanel_Paint);
             // 
             // bottomPanel
             // 
@@ -56,22 +58,6 @@
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(800, 113);
             this.bottomPanel.TabIndex = 2;
-            topPanel.AutoScroll = true;
-            // 
-            // panel2
-            // 
-            this.panel2.Location = new System.Drawing.Point(195, 327);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(109, 143);
-            this.panel2.TabIndex = 0;
-            // 
-            // richTextBox
-            // 
-            this.richTextBox.Location = new System.Drawing.Point(24, 15);
-            this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(172, 74);
-            this.richTextBox.TabIndex = 1;
-            this.richTextBox.Text = "";
             // 
             // addButton
             // 
@@ -82,6 +68,21 @@
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.AddButtonClick);
+            // 
+            // richTextBox
+            // 
+            this.richTextBox.Location = new System.Drawing.Point(24, 15);
+            this.richTextBox.Name = "richTextBox";
+            this.richTextBox.Size = new System.Drawing.Size(172, 74);
+            this.richTextBox.TabIndex = 1;
+            this.richTextBox.Text = "";
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(195, 327);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(109, 143);
+            this.panel2.TabIndex = 0;
             // 
             // Form1
             // 
