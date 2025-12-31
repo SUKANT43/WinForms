@@ -31,7 +31,7 @@
             this.topPanel = new System.Windows.Forms.Panel();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.addButton = new System.Windows.Forms.Button();
-            this.richTextBox = new System.Windows.Forms.RichTextBox();
+            this.richTextBox = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.bottomPanel.SuspendLayout();
             this.SuspendLayout();
@@ -43,9 +43,8 @@
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(800, 493);
+            this.topPanel.Size = new System.Drawing.Size(800, 351);
             this.topPanel.TabIndex = 1;
-            this.topPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.topPanel_Paint);
             // 
             // bottomPanel
             // 
@@ -54,9 +53,9 @@
             this.bottomPanel.Controls.Add(this.richTextBox);
             this.bottomPanel.Controls.Add(this.panel2);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 380);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 351);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(800, 113);
+            this.bottomPanel.Size = new System.Drawing.Size(800, 142);
             this.bottomPanel.TabIndex = 2;
             // 
             // addButton
@@ -73,9 +72,8 @@
             // 
             this.richTextBox.Location = new System.Drawing.Point(24, 15);
             this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(172, 74);
+            this.richTextBox.Size = new System.Drawing.Size(172, 20);
             this.richTextBox.TabIndex = 1;
-            this.richTextBox.Text = "";
             // 
             // panel2
             // 
@@ -94,6 +92,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.bottomPanel.ResumeLayout(false);
+            this.bottomPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -103,7 +102,6 @@
         private System.Windows.Forms.Panel bottomPanel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button addButton;
-        private System.Windows.Forms.RichTextBox richTextBox;
+        private System.Windows.Forms.TextBox richTextBox;
     }
 }
-

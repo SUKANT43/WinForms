@@ -19,6 +19,7 @@ namespace customLabel
         public Form1()
         {
             InitializeComponent();
+            DoubleBuffered = true;
             //Paint += PagePaint;
         }
 
@@ -30,6 +31,7 @@ namespace customLabel
                 return;
             }
             ls.Add(new TextData(text:richTextBox.Text));
+           richTextBox.Clear();
             ShowLabel();
         }
 
@@ -72,17 +74,14 @@ namespace customLabel
                         width = maxWidth;
                         SizeF wrapped = g.MeasureString(lbl.Text, lbl.Font, width);
                         height = (int)Math.Ceiling(wrapped.Height) ;
-                        if (height > 100)
-                        {
-                            height += 100;
-                        }
+                        
                     }
                     else
                     {
                         height = (int)Math.Ceiling(size.Height) ;
                     }
 
-                    lbl.Size = new Size(width+10, height);
+                    lbl.Size = new Size(width, height);
                 }
 
                 topPanel.Controls.Add(lbl);
@@ -90,7 +89,7 @@ namespace customLabel
                 {
                     Text = "Delete",
                     Height = 20,
-                    Location = new Point(lbl.Right -30, lbl.Bottom),
+                    Location = new Point(10, lbl.Bottom),
                 };
                 delBtn.Click += (s, e) =>
                 {
@@ -103,8 +102,6 @@ namespace customLabel
                 y += lbl.Height + 40;
             }
         }
-
-
 
     }
 }
