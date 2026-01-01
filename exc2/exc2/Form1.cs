@@ -61,6 +61,11 @@ namespace exc2
                 max = 0;
             }
 
+            else
+            {
+                
+            }
+
             Label label = new Label()
             {
                 Text = $"num: {count++}, Width: {width}, Height: {height}",

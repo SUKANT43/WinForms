@@ -58,9 +58,9 @@
             this.sidePanel.Controls.Add(this.label2);
             this.sidePanel.Controls.Add(this.label1);
             this.sidePanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.sidePanel.Location = new System.Drawing.Point(957, 0);
+            this.sidePanel.Location = new System.Drawing.Point(944, 0);
             this.sidePanel.Name = "sidePanel";
-            this.sidePanel.Size = new System.Drawing.Size(233, 627);
+            this.sidePanel.Size = new System.Drawing.Size(246, 627);
             this.sidePanel.TabIndex = 0;
             // 
             // generateButton
@@ -162,9 +162,8 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(957, 627);
+            this.mainPanel.Size = new System.Drawing.Size(944, 627);
             this.mainPanel.TabIndex = 1;
-            this.mainPanel.AutoScroll = false;
             // 
             // Form1
             // 
