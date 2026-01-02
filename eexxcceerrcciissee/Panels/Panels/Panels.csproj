@@ -51,6 +51,18 @@
     <Compile Include="BellIcon.Designer.cs">
       <DependentUpon>BellIcon.cs</DependentUpon>
     </Compile>
+    <Compile Include="CalendarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CalendarControl.Designer.cs">
+      <DependentUpon>CalendarControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CalendarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalendarForm.Designer.cs">
+      <DependentUpon>CalendarForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Crud.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +95,12 @@
     <Compile Include="RoundedButton.Designer.cs">
       <DependentUpon>RoundedButton.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CalendarControl.resx">
+      <DependentUpon>CalendarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalendarForm.resx">
+      <DependentUpon>CalendarForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Crud.resx">
       <DependentUpon>Crud.cs</DependentUpon>
     </EmbeddedResource>

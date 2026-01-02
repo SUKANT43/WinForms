@@ -31,7 +31,8 @@ namespace Panels
             panel1.Controls.Add(bt);
             bt.Click += (s, e) =>
             {
-                cms.Show();
+
+                cms.Show(bt, new Point(0, bt.Height));
             };
         }
 

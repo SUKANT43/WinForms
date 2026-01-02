@@ -16,7 +16,7 @@ namespace Panels
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Crud());
+            Application.Run(new CalendarForm());
         }
     }
 }
