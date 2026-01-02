@@ -75,3 +75,23 @@ namespace Panels
         }
     }
 }
+
+//this code is works like a ratio
+//int[] widthRatios = { 3, 1 };
+//int totalRatio = widthRatios.Sum();
+
+//int x = 0;
+//for (int i = 0; i<widthRatios.Length; i++)
+//{
+//    int w = panel1.Width * widthRatios[i] / totalRatio;
+
+//Panel p = new Panel
+//{
+//    Location = new Point(x, 0),
+//    Size = new Size(w, panel1.Height),
+//    BackColor = i == 0 ? Color.Orange : Color.DarkOrange
+//};
+
+//panel1.Controls.Add(p);
+//    x += w;
+//}

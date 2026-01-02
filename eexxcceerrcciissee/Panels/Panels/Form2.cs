@@ -60,7 +60,6 @@ namespace Panels
             
             int w = (int)numericUpDown1.Value;
             int h = (int)numericUpDown2.Value;
-            for(int i = 0; i < 3000; i++) { 
             maxHeight = maxHeight > h ? maxHeight : h;
             if (x + w > panel2.Width)
             {
@@ -80,7 +79,6 @@ namespace Panels
             list.Add(l);
             panel2.Controls.Add(l);
              x += w;
-                }
         }
     }
 }
