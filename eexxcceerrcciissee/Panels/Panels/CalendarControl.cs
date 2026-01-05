@@ -19,6 +19,18 @@ namespace Panels
         public CalendarControl()
         {
             InitializeComponent();
+
+            typeof(UserControl).InvokeMember(
+                "DoubleBuffered",
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.SetProperty,
+                null,
+                this,
+                new object[] { true }
+            );
+
+            DoubleBuffered = true;
             LoadMonthAndYear();
             panel2.Paint += PaintPage;
             panel2.Resize += PageResize;
@@ -117,11 +129,12 @@ namespace Panels
 
         private void DrawCalendar(Graphics g)
         {
+            list.Clear(); 
             if (comboBox1.SelectedIndex < 0 || comboBox2.SelectedItem == null)
                 return;
 
             int year = (int)comboBox2.SelectedItem;
-            int month = comboBox1.SelectedIndex + 1;
+            int month = comboBox1.SelectedIndex+1 ;
 
             DateTime firstDay = new DateTime(year, month, 1);
             int startCol = (int)firstDay.DayOfWeek;
@@ -129,6 +142,7 @@ namespace Panels
 
             int col = startCol;
            
+
             using (Pen pen = new Pen(Color.Black, 2))
             using (StringFormat sf = new StringFormat
             {

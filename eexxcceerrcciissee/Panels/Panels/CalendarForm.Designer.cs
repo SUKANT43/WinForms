@@ -33,9 +33,9 @@
             // 
             // calendarControl1
             // 
-            this.calendarControl1.Location = new System.Drawing.Point(44, 12);
+            this.calendarControl1.Location = new System.Drawing.Point(26, -1);
             this.calendarControl1.Name = "calendarControl1";
-            this.calendarControl1.Size = new System.Drawing.Size(704, 338);
+            this.calendarControl1.Size = new System.Drawing.Size(701, 309);
             this.calendarControl1.TabIndex = 0;
             // 
             // CalendarForm
