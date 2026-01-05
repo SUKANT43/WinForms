@@ -1,48 +1,110 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
 namespace Panels
 {
-    public partial class RoundedButton : Form
+    public class RoundedButton : Button
     {
+        private bool isHovered = false;
+        private bool isPressed = false;
+
+        public int BorderRadius { get; set; } = 20;
+        public Color BorderColor { get; set; } = Color.Black;
+        public int BorderThickness { get; set; } = 2;
+
+        public Color NormalBackColor { get; set; } = Color.LightBlue;
+        public Color HoverBackColor { get; set; } = Color.DeepSkyBlue;
+        public Color PressedBackColor { get; set; } = Color.DodgerBlue;
+
         public RoundedButton()
         {
-            InitializeComponent();
-            Paint += PagePaint;
+            FlatStyle = FlatStyle.Flat;
+            FlatAppearance.BorderSize = 0;
+            BackColor = Color.Transparent;
+            ForeColor = Color.Black;
+
+            DoubleBuffered = true;
+            ResizeRedraw = true;
         }
 
-        private void PagePaint(object s, PaintEventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
-            Graphics g = e.Graphics;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            base.OnMouseEnter(e);
+            isHovered = true;
+            Invalidate();
+        }
 
-            Rectangle r = new Rectangle(200, 200, 200, 200);
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            isHovered = false;
+            isPressed = false;
+            Invalidate();
+        }
 
-            int radius = 100;
-            int d = radius * 2;
+        protected override void OnMouseDown(MouseEventArgs mevent)
+        {
+            base.OnMouseDown(mevent);
+            isPressed = true;
+            Invalidate();
+        }
 
-            using (SolidBrush b = new SolidBrush(Color.LightBlue))
-            using (Pen p = new Pen(Color.Black, 2))
+        protected override void OnMouseUp(MouseEventArgs mevent)
+        {
+            base.OnMouseUp(mevent);
+            isPressed = false;
+            Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.Clear(Parent.BackColor);
+
+            Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
+            int radius = Math.Min(BorderRadius, Height / 2);
+
+            using (GraphicsPath path = GetRoundedPath(rect, radius))
             {
-                GraphicsPath path = new GraphicsPath();
+                Region = new Region(path);
 
-                path.AddArc(r.X, r.Y, d, d, 180, 90);
-                path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
-                path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
-                path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
+                Color fillColor = NormalBackColor;
+                if (isPressed)
+                    fillColor = PressedBackColor;
+                else if (isHovered)
+                    fillColor = HoverBackColor;
 
-                path.CloseFigure();
+                using (SolidBrush brush = new SolidBrush(fillColor))
+                    e.Graphics.FillPath(brush, path);
 
-                g.FillPath(b, path);
-                g.DrawPath(p, path);
+                using (Pen pen = new Pen(BorderColor, BorderThickness))
+                    e.Graphics.DrawPath(pen, path);
+
+                TextRenderer.DrawText(
+                    e.Graphics,
+                    Text,
+                    Font,
+                    rect,
+                    ForeColor,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
+                );
             }
+        }
+
+        private GraphicsPath GetRoundedPath(Rectangle rect, int radius)
+        {
+            int d = radius * 2;
+            GraphicsPath path = new GraphicsPath();
+
+            path.AddArc(rect.X, rect.Y, d, d, 180, 90);
+            path.AddArc(rect.Right - d, rect.Y, d, d, 270, 90);
+            path.AddArc(rect.Right - d, rect.Bottom - d, d, d, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - d, d, d, 90, 90);
+            path.CloseFigure();
+
+            return path;
         }
     }
 }

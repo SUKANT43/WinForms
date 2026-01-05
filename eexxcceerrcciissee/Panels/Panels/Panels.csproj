@@ -98,9 +98,6 @@
     <Compile Include="RoundedButton.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RoundedButton.Designer.cs">
-      <DependentUpon>RoundedButton.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="CalendarControl.resx">
       <DependentUpon>CalendarControl.cs</DependentUpon>
     </EmbeddedResource>

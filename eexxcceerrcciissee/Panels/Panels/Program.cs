@@ -16,7 +16,7 @@ namespace Panels
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ListViewForm());
+            Application.Run(new Form1());
         }
     }
 }
