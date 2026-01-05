@@ -28,6 +28,7 @@ namespace Panels
             {
                 Text = "..."
             };
+
             panel1.Controls.Add(bt);
             bt.Click += (s, e) =>
             {
