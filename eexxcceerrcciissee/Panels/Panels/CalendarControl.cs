@@ -105,7 +105,6 @@ namespace Panels
                 {
                     for (int i = 0; i < 7; i++)
                     {
-
                     Rectangle rect = new Rectangle(
                         i * width,
                         y,
@@ -176,11 +175,7 @@ namespace Panels
                     }
                 }
             }
-
-          
         }
-        
-        
     }
 
     class DayCell
