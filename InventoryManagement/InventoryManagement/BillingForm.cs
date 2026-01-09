@@ -16,6 +16,8 @@ namespace InventoryManagement
         private double totalPrice;
         int x, y;
 
+        ShowBill showBill;
+
         InventoryItem selectedItem;
         private  BindingList<InventoryItem> itemList;
         private List<BillingData> billingList=new List<BillingData>();
@@ -23,9 +25,10 @@ namespace InventoryManagement
         public BindingList<BillClass> singleItemList=new BindingList<BillClass>();
       
 
-        public BillingForm()
+        public BillingForm(ShowBill sb)
         {
             InitializeComponent();
+            showBill = sb;
             itemList = GlobalItem.itemList;
             billingList = GlobalItem.billList;
             dataGridView.DataSource = singleItemList;
@@ -146,8 +149,8 @@ namespace InventoryManagement
                 panel6.Controls.Add(l);
                 l.Click += (s, e) =>
                 {
-                    ShowBill sb = new ShowBill(ls);
-                    sb.ShowDialog();
+                    showBill.LoadData(ls);
+                    showBill.ShowDialog();
                 };
                  x+= l.Width;
                 if (x+l.Width > panel6.Width)

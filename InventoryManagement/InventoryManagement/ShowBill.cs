@@ -12,9 +12,13 @@ namespace InventoryManagement
 {
     public partial class ShowBill : Form
     {
-        public ShowBill(BillingData bd)
+        public ShowBill()
         {
             InitializeComponent();
+        }
+
+        public void LoadData(BillingData bd)
+        {
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.ReadOnly = true;
             dataGridView.ForeColor = Color.Black;

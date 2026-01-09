@@ -16,7 +16,8 @@ namespace InventoryManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            BillingForm bf = new BillingForm();
+            ShowBill sb = new ShowBill();
+            BillingForm bf = new BillingForm(sb);
             Application.Run(new ItemsForm(bf));
         }
     }
