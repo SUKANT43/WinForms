@@ -19,11 +19,11 @@ namespace InventoryManagement
         ShowBill showBill;
 
         InventoryItem selectedItem;
-        private  BindingList<InventoryItem> itemList;
-        private List<BillingData> billingList=new List<BillingData>();
+        private BindingList<InventoryItem> itemList;
+        private List<BillingData> billingList = new List<BillingData>();
 
-        public BindingList<BillClass> singleItemList=new BindingList<BillClass>();
-      
+        public BindingList<BillClass> singleItemList = new BindingList<BillClass>();
+
 
         public BillingForm(ShowBill sb)
         {
@@ -89,9 +89,9 @@ namespace InventoryManagement
 
             //double offer = ((int)quantityUpDown.Value * selectedItem.Price) - (((int)quantityUpDown.Value * selectedItem.Price) - ((selectedItem.Discount) / 100)));
 
-            double offer = ((int)quantityUpDown.Value * selectedItem.Price) - (((int)quantityUpDown.Value*selectedItem.Price)-(selectedItem.Discount/100));
+            double offer = ((int)quantityUpDown.Value * selectedItem.Price) - (((int)quantityUpDown.Value * selectedItem.Price) - (selectedItem.Discount / 100));
 
-         if(selectedItem.Stock- (int)quantityUpDown.Value < 0)
+            if (selectedItem.Stock - (int)quantityUpDown.Value < 0)
             {
                 MessageBox.Show("Only " + selectedItem.Stock + " left.");
                 return;
@@ -104,7 +104,7 @@ namespace InventoryManagement
                 product: selectedItem.ProductName,
                 quantity: (int)quantityUpDown.Value,
                 originalPrice: ((int)quantityUpDown.Value * selectedItem.Price),
-                offeredPrice: ((int)quantityUpDown.Value * selectedItem.Price)-offer
+                offeredPrice: ((int)quantityUpDown.Value * selectedItem.Price) - offer
                 ));
             OfferedTotalPrice += offer;
             totalPrice += ((int)quantityUpDown.Value * selectedItem.Price);
@@ -126,14 +126,14 @@ namespace InventoryManagement
             ShowHistory();
         }
 
-        
+
 
         private void ShowHistory()
         {
             panel6.Controls.Clear();
             x = 0;
             y = 0;
-            foreach(var ls in billingList)
+            foreach (var ls in billingList)
             {
                 if (y == 0)
                 {
@@ -141,28 +141,24 @@ namespace InventoryManagement
                 }
                 Label l = new Label()
                 {
-                    Text = "Id: "+ls.Id+" Date: "+ls.CreatedAt,
-                    AutoSize=true,
-                    BorderStyle=BorderStyle.Fixed3D
+                    Text = "Id: " + ls.Id + " Date: " + ls.CreatedAt,
+                    AutoSize = true,
+                    BorderStyle = BorderStyle.Fixed3D
                 };
-                l.Location = new Point(x+=40, y);
+                l.Location = new Point(x += 40, y);
                 panel6.Controls.Add(l);
                 l.Click += (s, e) =>
                 {
                     showBill.LoadData(ls);
                     showBill.ShowDialog();
                 };
-                 x+= l.Width;
-                if (x+l.Width > panel6.Width)
+                x += l.Width;
+                if (x + l.Width > panel6.Width)
                 {
                     x = 0;
                     y += l.Height + 40;
-                }   
+                }
             }
         }
-
-
-
     }
-    }
-
+}

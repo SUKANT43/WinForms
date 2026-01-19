@@ -241,8 +241,6 @@ namespace InventoryManagement
 
             if (dataGridView.Columns[e.ColumnIndex].Name == "Edit")
             {
-
-
                 InventoryItem item = dataGridView.Rows[e.RowIndex].DataBoundItem as InventoryItem;
                 if (item == null)
                 {
@@ -296,8 +294,6 @@ namespace InventoryManagement
                 }
 
                 dataGridView.DataSource = result;
-
-            
 
         }
 
