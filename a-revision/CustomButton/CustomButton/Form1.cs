@@ -173,9 +173,21 @@ namespace CustomButton
             return page;
         }
 
+        protected override void OnClick(EventArgs e)
+        {
+            base.OnClick(e);
+        }
+
         private void TabChanged(object sender, EventArgs e)
         {
+            MessageBox.Show(e.GetType().ToString());
+
             MessageBox.Show("Current Tab: " + tab.SelectedTab.Text);
+        }
+
+        protected override void OnDoubleClick(EventArgs e)
+        {
+            base.OnDoubleClick(e);
         }
     }
 }

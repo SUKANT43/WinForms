@@ -122,6 +122,7 @@ namespace CustomButton
 
         protected override void OnPaintBackground(PaintEventArgs pevent)
         {
+
         }
 
     }
