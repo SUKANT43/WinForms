@@ -6,10 +6,10 @@ using System.Windows.Forms;
 namespace CustomaizablePanel
 {
 
-    class CustomControl : Control
+    public class CustomControl : Control
     {
         public int Row { get; set; } = 6;
-        public int Col { get; set; } = 6;
+        public int Col { get; set; } = 3;
         List<int> rowHeights = new List<int>();
         List<int> colWidths = new List<int>();
         const int MIN = 25;
