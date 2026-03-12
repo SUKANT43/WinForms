@@ -30,9 +30,11 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.navigateController1 = new CustomaizablePanel.NavigateController();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dragControl1 = new CustomaizablePanel.DragControl();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -48,11 +50,23 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.navigateController1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 397);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(800, 53);
             this.panel3.TabIndex = 1;
+            // 
+            // navigateController1
+            // 
+            this.navigateController1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navigateController1.Location = new System.Drawing.Point(0, 0);
+            this.navigateController1.Name = "navigateController1";
+            this.navigateController1.NumberOfPage = 6;
+            this.navigateController1.SelectedPage = 0;
+            this.navigateController1.Size = new System.Drawing.Size(800, 53);
+            this.navigateController1.TabIndex = 2;
+            this.navigateController1.Text = "navigateController1";
             // 
             // panel2
             // 
@@ -82,6 +96,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -91,6 +106,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
+        private NavigateController navigateController1;
         private DragControl dragControl1;
     }
 }

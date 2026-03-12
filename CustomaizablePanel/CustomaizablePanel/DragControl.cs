@@ -203,7 +203,5 @@ namespace CustomaizablePanel
             }
             Invalidate();
         }
-
-
     }
 }
