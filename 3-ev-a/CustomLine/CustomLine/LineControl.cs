@@ -53,7 +53,7 @@ namespace CustomLine
 
         public LineControl()
         {
-            ;
+            
             DoubleBuffered = true;
             horizontolList = new List<Point>();
             verticalList = new List<Point>();
@@ -61,6 +61,12 @@ namespace CustomLine
 
         }
 
+
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+            InitializeLine();
+        }
 
         protected override void OnResize(EventArgs e)
         {
@@ -141,6 +147,8 @@ namespace CustomLine
             xPoints.AddRange(verticalList.Select(p => p.X));
             yPoints.AddRange(horizontolList.Select(p => p.Y));
 
+            xPoints.Add(Width - 1);
+            yPoints.Add(Height - 1);
 
 
             using (Font font = new Font("Arial", 9))
