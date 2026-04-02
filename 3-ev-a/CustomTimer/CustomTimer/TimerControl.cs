@@ -1,24 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace CustomTimer
 {
     public partial class TimerControl : UserControl
     {
         private Stopwatch stopWatch;
+        private Timer uiTimer;
+        private bool isRunning;
+
+        private Rectangle playPauseRect = new Rectangle(20, 60, 60, 60);
+        private Rectangle resetRect = new Rectangle(100, 60, 60, 60);
+
         public TimerControl()
         {
             InitializeComponent();
+
+            DoubleBuffered = true;
+
+            stopWatch = new Stopwatch();
+
+            uiTimer = new Timer();
+            uiTimer.Interval = 100;
+            uiTimer.Tick += (s, e) => Invalidate();
+
             Paint += PaintPage;
         }
 
@@ -27,45 +35,137 @@ namespace CustomTimer
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            DrawPlayButton(g);
-            DrawPauseButton(g);
-            DrawClearButton(g);
+            DrawTime(g);
 
+            if (isRunning)
+                DrawPauseButton(g);
+            else
+                DrawPlayButton(g);
+
+            DrawResetButton(g);
         }
-      
+
+        private void DrawTime(Graphics g)
+        {
+            string time = stopWatch.Elapsed.ToString(@"hh\:mm\:ss\:fff");
+
+            using (Font font = new Font("Arial", 18, FontStyle.Bold))
+            using (Brush brush = new SolidBrush(Color.Black))
+            {
+                g.DrawString(time, font, brush, 20, 20);
+            }
+        }
 
         private void DrawPlayButton(Graphics g)
         {
-            Rectangle rect = new Rectangle(0, 0, 50, 50);
+            DrawRoundedRect(g, playPauseRect);
 
-            int radius = 10;
-            int diameter = radius * 2;
+            PointF[] triangle =
+            {
+                new PointF(playPauseRect.X + 18, playPauseRect.Y + 10),
+                new PointF(playPauseRect.X + 18, playPauseRect.Bottom - 10),
+                new PointF(playPauseRect.Right - 15, playPauseRect.Y + playPauseRect.Height / 2)
+            };
 
-            GraphicsPath path = new GraphicsPath();
-
-            path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
-            path.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
-            path.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
-            path.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
-
-            path.CloseFigure();
-
-            g.DrawPolygon(new Pen(Color.Black,2),new PointF[] {new PointF(rect.X+10,rect.Y+4),new PointF(rect.X+10,rect.Y+44),new PointF((rect.X+(rect.Height/2))+18,rect.Y+(rect.Width/2))});
-            g.FillPolygon(Brushes.Red, new PointF[] { new PointF(rect.X + 10, rect.Y + 4), new PointF(rect.X + 10, rect.Y + 44), new PointF((rect.X + (rect.Height / 2)) + 18, rect.Y + (rect.Width / 2)) });
-
-
-            g.DrawPath(new Pen(Color.Black,2), path);
+            using (Pen pen = new Pen(Color.Black, 2))
+            {
+                g.DrawPolygon(pen, triangle);
+                g.FillPolygon(Brushes.Red, triangle);
+            }
         }
 
         private void DrawPauseButton(Graphics g)
         {
+            DrawRoundedRect(g, playPauseRect);
 
+            using (Pen pen = new Pen(Color.Black, 3))
+            {
+                g.DrawLine(
+                    pen,
+                    playPauseRect.X + 18,
+                    playPauseRect.Y + 10,
+                    playPauseRect.X + 18,
+                    playPauseRect.Bottom - 10);
+
+                g.DrawLine(
+                    pen,
+                    playPauseRect.X + 38,
+                    playPauseRect.Y + 10,
+                    playPauseRect.X + 38,
+                    playPauseRect.Bottom - 10);
+            }
         }
 
-        private void DrawClearButton(Graphics g)
+        private void DrawResetButton(Graphics g)
         {
+            DrawRoundedRect(g, resetRect);
 
+            using (Pen pen = new Pen(Color.Black, 2))
+            {
+                g.DrawLine(
+                    pen,
+                    resetRect.X + 15,
+                    resetRect.Y + 15,
+                    resetRect.Right - 15,
+                    resetRect.Bottom - 15);
+
+                g.DrawLine(
+                    pen,
+                    resetRect.Right - 15,
+                    resetRect.Y + 15,
+                    resetRect.X + 15,
+                    resetRect.Bottom - 15);
+            }
         }
 
+        private void DrawRoundedRect(Graphics g, Rectangle rect)
+        {
+            int radius = 10;
+            int diameter = radius * 2;
+
+            using (GraphicsPath path = new GraphicsPath())
+            using (Pen pen = new Pen(Color.Black, 2))
+            {
+                path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
+                path.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
+                path.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
+                path.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
+
+                path.CloseFigure();
+
+                g.DrawPath(pen, path);
+            }
+        }
+
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            base.OnMouseClick(e);
+
+            if (playPauseRect.Contains(e.Location))
+            {
+                if (!isRunning)
+                {
+                    stopWatch.Start();
+                    uiTimer.Start();
+                    isRunning = true;
+                }
+                else
+                {
+                    stopWatch.Stop();
+                    uiTimer.Stop();
+                    isRunning = false;
+                }
+
+                Invalidate();
+            }
+            else if (resetRect.Contains(e.Location))
+            {
+                stopWatch.Reset();
+                uiTimer.Stop();
+                isRunning = false;
+
+                Invalidate();
+            }
+        }
     }
 }

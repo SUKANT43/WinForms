@@ -1,4 +1,4 @@
-﻿namespace CustomTimer
+﻿namespace IncrementAndDecrement
 {
     partial class Form1
     {
@@ -28,22 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.timerControl1 = new CustomTimer.TimerControl();
+            this.incrementAndDecrement1 = new IncrementAndDecrement.Controls.IncrementAndDecrement();
             this.SuspendLayout();
             // 
-            // timerControl1
+            // incrementAndDecrement1
             // 
-            this.timerControl1.Location = new System.Drawing.Point(167, 56);
-            this.timerControl1.Name = "timerControl1";
-            this.timerControl1.Size = new System.Drawing.Size(522, 213);
-            this.timerControl1.TabIndex = 0;
+            this.incrementAndDecrement1.CurrentValue = 0;
+            this.incrementAndDecrement1.End = 0;
+            this.incrementAndDecrement1.Location = new System.Drawing.Point(162, 95);
+            this.incrementAndDecrement1.Name = "incrementAndDecrement1";
+            this.incrementAndDecrement1.Size = new System.Drawing.Size(334, 132);
+            this.incrementAndDecrement1.Start = 0;
+            this.incrementAndDecrement1.TabIndex = 0;
+            this.incrementAndDecrement1.Text = "incrementAndDecrement1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.timerControl1);
+            this.Controls.Add(this.incrementAndDecrement1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -52,7 +56,7 @@
 
         #endregion
 
-        private TimerControl timerControl1;
+        private IncrementAndDecrement.Controls.IncrementAndDecrement incrementAndDecrement1;
     }
 }
 

@@ -1,0 +1,128 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace IncrementAndDecrement.Controls
+{
+    public class IncrementAndDecrement : Control
+    {
+        private int _start;
+        Rectangle incRect = new Rectangle(0, 0, 0, 0);
+        Rectangle valueRect = new Rectangle();
+        Rectangle decRect = new Rectangle();
+        SizeF valueSize;
+        public int Start
+        {
+            get => _start;
+            set
+            {
+                _start = value;
+            }
+        }
+
+        private int _end;
+        public int End
+        {
+            get => _end;
+            set
+            {
+                _end = value;
+            }
+        }
+
+        private int _currentValue;
+        public int CurrentValue
+        {
+            get => _currentValue;
+            set
+            {
+                _currentValue = value;
+            }
+        }
+
+        public IncrementAndDecrement()
+        {
+            Paint += PagePaint;
+            Invalidate();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            AlignRectangle();
+            Invalidate();
+        }
+
+        private void AlignRectangle()
+        {
+            incRect.Location = new Point(0, 0);
+            incRect.Size = new Size(Width / 4, Height - 2);
+
+            valueRect.Location = new Point(incRect.Width + 10, 0);
+            valueRect.Size = new Size(Width / 4, Height - 2);
+
+
+        }
+
+        private void PagePaint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            DrawIncrement(g);
+            DrawValue(g);
+            DrawDecrement(g);
+        }
+
+        private void DrawIncrement(Graphics g)
+        {
+            GraphicsPath path = new GraphicsPath();
+            int radius = 20;
+            int diameter = radius * 2;
+            path.AddArc(incRect.X, incRect.Y, diameter, diameter, 180, 90);
+            path.AddArc(incRect.Right - diameter, incRect.Y, diameter, diameter, 270, 90);
+            path.AddArc(incRect.Right - diameter, incRect.Bottom - diameter, diameter, diameter, 0, 90);
+            path.AddArc(incRect.X, incRect.Bottom - diameter, diameter, diameter, 90, 90);
+            path.CloseFigure();
+            g.DrawPath(new Pen(Color.Black, 2), path);
+
+            using (Font font = new Font("Arial", incRect.Width / 2))
+            {
+                SizeF textSize = g.MeasureString("+", font);
+
+
+                float x = incRect.X + (incRect.Width - textSize.Width) / 2;
+                float y = incRect.Y + (incRect.Height - textSize.Height) / 2;
+
+                g.DrawString("+", font, Brushes.Black, x, y);
+            }
+        }
+
+
+        private void DrawValue(Graphics g)
+        {
+            GraphicsPath path = new GraphicsPath();
+            int radius = 20;
+            int diameter = radius * 2;
+            path.AddArc(valueRect.X, valueRect.Y, diameter, diameter, 180, 90);
+            path.AddArc(valueRect.Right - diameter, valueRect.Y, diameter, diameter, 270, 90);
+            path.AddArc(valueRect.Right - diameter, valueRect.Bottom - diameter, diameter, diameter, 0, 90);
+            path.AddArc(valueRect.X, valueRect.Bottom - diameter, diameter, diameter, 90, 90);
+            path.CloseFigure();
+            g.DrawPath(new Pen(Color.Black, 2), path);
+
+
+        }
+
+        private void DrawDecrement(Graphics g)
+        {
+
+        }
+
+    }
+}
+
