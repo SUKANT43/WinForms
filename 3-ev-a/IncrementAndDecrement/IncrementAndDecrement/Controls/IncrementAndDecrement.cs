@@ -15,10 +15,7 @@ namespace IncrementAndDecrement.Controls
         Rectangle incRect = new Rectangle(0, 0, 0, 0);
         Rectangle valueRect = new Rectangle();
         Rectangle decRect = new Rectangle();
-        SizeF valueSize;
         Point previousLocation;
-        bool isIncrement = false;
-        bool isDecrement = false;
 
         public int Start
         {
@@ -223,10 +220,7 @@ namespace IncrementAndDecrement.Controls
             base.OnMouseUp(e);
             previousLocation = new Point();
             isMove = false;
-            isIncrement = false;
-            isDecrement = false;
         }
-
 
     }
 }
