@@ -35,9 +35,9 @@
             // 
             this.incrementAndDecrement1.CurrentValue = 0;
             this.incrementAndDecrement1.End = 0;
-            this.incrementAndDecrement1.Location = new System.Drawing.Point(162, 95);
+            this.incrementAndDecrement1.Location = new System.Drawing.Point(57, 102);
             this.incrementAndDecrement1.Name = "incrementAndDecrement1";
-            this.incrementAndDecrement1.Size = new System.Drawing.Size(456, 119);
+            this.incrementAndDecrement1.Size = new System.Drawing.Size(264, 51);
             this.incrementAndDecrement1.Start = 0;
             this.incrementAndDecrement1.TabIndex = 0;
             this.incrementAndDecrement1.Text = "incrementAndDecrement1";

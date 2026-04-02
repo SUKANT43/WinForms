@@ -16,6 +16,10 @@ namespace IncrementAndDecrement.Controls
         Rectangle valueRect = new Rectangle();
         Rectangle decRect = new Rectangle();
         SizeF valueSize;
+        Point previousLocation;
+        bool isIncrement = false;
+        bool isDecrement = false;
+
         public int Start
         {
             get => _start;
@@ -63,13 +67,13 @@ namespace IncrementAndDecrement.Controls
         private void AlignRectangle()
         {
             incRect.Location = new Point(5, 0);
-            incRect.Size = new Size((Width / 3)-10, Height - 2);
+            incRect.Size = new Size((Width / 3) - 10, Height - 2);
 
             valueRect.Location = new Point(incRect.Right + 10, 0);
             valueRect.Size = new Size((Width / 3) - 10, Height - 2);
 
             decRect.Location = new Point(valueRect.Right + 10, 0);
-            decRect.Size = new Size((Width / 3)-10, Height - 2);
+            decRect.Size = new Size((Width / 3) - 10, Height - 2);
 
         }
 
@@ -77,8 +81,8 @@ namespace IncrementAndDecrement.Controls
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            DrawIncrement(g);
             DrawValue(g);
+            DrawIncrement(g);
             DrawDecrement(g);
         }
 
@@ -118,14 +122,36 @@ namespace IncrementAndDecrement.Controls
             path.AddArc(valueRect.X, valueRect.Bottom - diameter, diameter, diameter, 90, 90);
             path.CloseFigure();
             g.DrawPath(new Pen(Color.Black, 2), path);
-            using(Font font=new Font("Arial", Height / 2, FontStyle.Bold))
+            float fontSize = valueRect.Width / 2f;
+            string text = _currentValue.ToString();
+
+            SizeF valueSize;
+            Font font;
+
+            do
             {
-                valueSize = g.MeasureString(_currentValue.ToString(), font);
+                font = new Font("Arial", fontSize, FontStyle.Bold);
+                valueSize = g.MeasureString(text, font);
+
+                if (valueSize.Width > valueRect.Width - 10)
+                {
+                    font.Dispose();
+                    fontSize--;
+                }
+                else
+                {
+                    break;
+                }
+
+            } while (fontSize > 6);
+
+            using (font)
+            {
                 float x = valueRect.X + (valueRect.Width - valueSize.Width) / 2;
                 float y = valueRect.Y + (valueRect.Height - valueSize.Height) / 2;
-                g.DrawString(_currentValue.ToString(), font, Brushes.Black, x, y);
-            }
 
+                g.DrawString(text, font, Brushes.Black, x, y);
+            }
         }
 
         private void DrawDecrement(Graphics g)
@@ -165,6 +191,42 @@ namespace IncrementAndDecrement.Controls
                 Invalidate();
             }
         }
+
+        bool isMove = false;
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseClick(e);
+            isMove = true;
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+
+            if ( e.X > previousLocation.X&&isMove)
+            {
+                previousLocation = e.Location;
+                _currentValue++;
+                Invalidate();
+            }
+
+          else if(isMove)
+            {
+                previousLocation = e.Location;
+                _currentValue--;
+                Invalidate();
+            }
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            previousLocation = new Point();
+            isMove = false;
+            isIncrement = false;
+            isDecrement = false;
+        }
+
 
     }
 }
