@@ -47,7 +47,9 @@ namespace IncrementAndDecrement.Controls
 
         public IncrementAndDecrement()
         {
+            DoubleBuffered = true;
             Paint += PagePaint;
+            AlignRectangle();
             Invalidate();
         }
 
@@ -60,12 +62,14 @@ namespace IncrementAndDecrement.Controls
 
         private void AlignRectangle()
         {
-            incRect.Location = new Point(0, 0);
-            incRect.Size = new Size(Width / 4, Height - 2);
+            incRect.Location = new Point(5, 0);
+            incRect.Size = new Size((Width / 3)-10, Height - 2);
 
-            valueRect.Location = new Point(incRect.Width + 10, 0);
-            valueRect.Size = new Size(Width / 4, Height - 2);
+            valueRect.Location = new Point(incRect.Right + 10, 0);
+            valueRect.Size = new Size((Width / 3) - 10, Height - 2);
 
+            decRect.Location = new Point(valueRect.Right + 10, 0);
+            decRect.Size = new Size((Width / 3)-10, Height - 2);
 
         }
 
@@ -114,13 +118,52 @@ namespace IncrementAndDecrement.Controls
             path.AddArc(valueRect.X, valueRect.Bottom - diameter, diameter, diameter, 90, 90);
             path.CloseFigure();
             g.DrawPath(new Pen(Color.Black, 2), path);
-
+            using(Font font=new Font("Arial", Height / 2, FontStyle.Bold))
+            {
+                valueSize = g.MeasureString(_currentValue.ToString(), font);
+                float x = valueRect.X + (valueRect.Width - valueSize.Width) / 2;
+                float y = valueRect.Y + (valueRect.Height - valueSize.Height) / 2;
+                g.DrawString(_currentValue.ToString(), font, Brushes.Black, x, y);
+            }
 
         }
 
         private void DrawDecrement(Graphics g)
         {
+            GraphicsPath path = new GraphicsPath();
+            int radius = 20;
+            int diameter = radius * 2;
+            path.AddArc(decRect.X, decRect.Y, diameter, diameter, 180, 90);
+            path.AddArc(decRect.Right - diameter, decRect.Y, diameter, diameter, 270, 90);
+            path.AddArc(decRect.Right - diameter, decRect.Bottom - diameter, diameter, diameter, 0, 90);
+            path.AddArc(decRect.X, decRect.Bottom - diameter, diameter, diameter, 90, 90);
+            path.CloseFigure();
+            g.DrawPath(new Pen(Color.Black, 2), path);
 
+            using (Font font = new Font("Arial", Height / 2, FontStyle.Bold))
+            {
+                SizeF textSize = g.MeasureString("-", font);
+                float x = decRect.X + (decRect.Width - textSize.Width) / 2;
+                float y = decRect.Y + (decRect.Height - textSize.Height) / 2;
+                g.DrawString("-", font, Brushes.Black, x, y);
+            }
+
+
+        }
+
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            base.OnMouseClick(e);
+            if (incRect.Contains(e.Location))
+            {
+                _currentValue += 1;
+                Invalidate();
+            }
+            if (decRect.Contains(e.Location))
+            {
+                _currentValue -= 1;
+                Invalidate();
+            }
         }
 
     }
