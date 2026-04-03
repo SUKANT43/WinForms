@@ -28,34 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toogleButtonControl1 = new ToogleButton.ToogleButtonControl();
-            this.toogleButtonControl2 = new ToogleButton.ToogleButtonControl();
             this.toogleButtonControl3 = new ToogleButton.ToogleButtonControl();
+            this.toogleButtonControl2 = new ToogleButton.ToogleButtonControl();
+            this.toogleButtonControl1 = new ToogleButton.ToogleButtonControl();
             this.SuspendLayout();
+            // 
+            // toogleButtonControl3
+            // 
+            this.toogleButtonControl3.Location = new System.Drawing.Point(314, 30);
+            this.toogleButtonControl3.Name = "toogleButtonControl3";
+            this.toogleButtonControl3.Size = new System.Drawing.Size(125, 41);
+            this.toogleButtonControl3.TabIndex = 2;
+            this.toogleButtonControl3.Text = "toogleButtonControl3";
+            // 
+            // toogleButtonControl2
+            // 
+            this.toogleButtonControl2.Location = new System.Drawing.Point(126, 203);
+            this.toogleButtonControl2.Name = "toogleButtonControl2";
+            this.toogleButtonControl2.Size = new System.Drawing.Size(388, 76);
+            this.toogleButtonControl2.TabIndex = 1;
+            this.toogleButtonControl2.Text = "toogleButtonControl2";
             // 
             // toogleButtonControl1
             // 
             this.toogleButtonControl1.Location = new System.Drawing.Point(180, 116);
             this.toogleButtonControl1.Name = "toogleButtonControl1";
-            this.toogleButtonControl1.Size = new System.Drawing.Size(444, 120);
+            this.toogleButtonControl1.Size = new System.Drawing.Size(318, 81);
             this.toogleButtonControl1.TabIndex = 0;
             this.toogleButtonControl1.Text = "toogleButtonControl1";
-            // 
-            // toogleButtonControl2
-            // 
-            this.toogleButtonControl2.Location = new System.Drawing.Point(314, 263);
-            this.toogleButtonControl2.Name = "toogleButtonControl2";
-            this.toogleButtonControl2.Size = new System.Drawing.Size(163, 68);
-            this.toogleButtonControl2.TabIndex = 1;
-            this.toogleButtonControl2.Text = "toogleButtonControl2";
-            // 
-            // toogleButtonControl3
-            // 
-            this.toogleButtonControl3.Location = new System.Drawing.Point(283, 29);
-            this.toogleButtonControl3.Name = "toogleButtonControl3";
-            this.toogleButtonControl3.Size = new System.Drawing.Size(122, 40);
-            this.toogleButtonControl3.TabIndex = 2;
-            this.toogleButtonControl3.Text = "toogleButtonControl3";
             // 
             // Form1
             // 

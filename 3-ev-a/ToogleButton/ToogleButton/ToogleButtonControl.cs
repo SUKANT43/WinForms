@@ -65,7 +65,7 @@ namespace ToogleButton
         private void DrawText(Graphics g)
         {
             string text = "";
-            using (Font font = new Font("Arial", Height/2, FontStyle.Bold))
+            using (Font font = new Font("Arial", Height / 2, FontStyle.Bold))
             {
                 using (Brush brush = new SolidBrush(primaryColor))
                 {
@@ -79,7 +79,7 @@ namespace ToogleButton
                     }
 
                     SizeF textSize = g.MeasureString(text, font);
-                    g.DrawString(text, font, brush,((outerRectangle.Width)/2)-(textSize.Width/2),((outerRectangle.Height)/2)-(textSize.Height/2));
+                    g.DrawString(text, font, brush, ((outerRectangle.Width) / 2) - (textSize.Width / 2), ((outerRectangle.Height) / 2) - (textSize.Height / 2));
 
                 }
             }
@@ -114,17 +114,7 @@ namespace ToogleButton
 
                 using (Brush brush = new SolidBrush(primaryColor))
                 {
-                    using (GraphicsPath path = new GraphicsPath())
-                    {
-                        path.AddArc(circleRectangle.X, circleRectangle.Y, diameter, diameter, 180, 90);
-                        path.AddArc(circleRectangle.Right - diameter, circleRectangle.Y, diameter, diameter, 270, 90);
-                        path.AddArc(circleRectangle.Right - diameter, circleRectangle.Bottom - diameter, diameter, diameter, 0, 90);
-                        path.AddArc(circleRectangle.X, circleRectangle.Bottom - diameter, diameter, diameter, 90, 90);
-                        path.CloseFigure();
-
-                        g.FillEllipse(brush, circleRectangle);
-
-                    }
+                    g.FillEllipse(brush, circleRectangle);
                 }
             }
             else
