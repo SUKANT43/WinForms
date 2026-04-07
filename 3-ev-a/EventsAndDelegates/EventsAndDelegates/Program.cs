@@ -26,7 +26,7 @@ namespace EventsAndDelegates
         }
     }
 
-    public class MessageClass:EventArgs
+    public class MessageClass : EventArgs
     {
         public string Message { get; set; }
     }
@@ -49,7 +49,7 @@ namespace EventsAndDelegates
             publisher1.SendMessage("hello1");
 
             Publisher2 publisher2 = new Publisher2();
-            publisher2.OnNotify +=ShowMessage2 ;
+            publisher2.OnNotify += ShowMessage2;
             publisher2.SendMessage();
 
             Publishere3 publishere3 = new Publishere3();

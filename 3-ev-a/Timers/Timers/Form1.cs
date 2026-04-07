@@ -33,6 +33,8 @@ namespace Timers
             stopwatch.Start();
             string time = stopwatch.Elapsed.ToString();
             stopwatch.Stop();
+            stopwatch.Reset();
+            stopwatch.Restart();
             MessageBox.Show(time);
 
         }
@@ -41,7 +43,7 @@ namespace Timers
         {
             MessageBox.Show("");
             Thread.Sleep(2000);
-        }
+        }  
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
@@ -52,6 +54,11 @@ namespace Timers
                     label1.Text = DateTime.Now.ToString("HH:mm:ss");
                 });
             }
+        }
+
+        private void TimeGetter()
+        {
+            
         }
 
     }
