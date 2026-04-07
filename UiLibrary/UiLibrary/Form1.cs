@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using GoLibrary;
 using MaterialLibrary;
 namespace UiLibrary
 {
@@ -28,13 +30,22 @@ namespace UiLibrary
 
             LinearGradientBrush brush = new LinearGradientBrush(new PointF(0,0),new PointF(Width,Height),Color.Red,Color.Black);
 
+            Data data = new Data(1, "Sukant C", 10000);
+            ObjectWriter.WriteXML(data, "data.xml",null);
+
         }
     }
 
+    [Serializable]
     public class Data
     {
+        [XmlElement]
         public int Id { get; set; }
+
+        [XmlElement]
         public string Name { get; set; }
+
+        [XmlElement]
         public decimal Price { get; set; }
 
         public Data(int id, string name, decimal price)
