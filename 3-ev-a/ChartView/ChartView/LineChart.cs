@@ -12,6 +12,8 @@ namespace ChartView
     {
         List<LineSeries> list;
         Dictionary<Month, float> monthPoint;
+        bool isMouseMoving;
+        Point currentPoint;
         public LineChart()
         {
             DoubleBuffered = true;
@@ -58,7 +60,28 @@ namespace ChartView
                         new ChartPoint(Month.Nov, 170),
                         new ChartPoint(Month.Dec, 190)
                     }
+                },
+                new LineSeries
+                {
+                    SeriesName = "Savings",
+                    LineColor = Color.Green,
+                    Points = new List<ChartPoint>
+                    {
+                        new ChartPoint(Month.Jan, 180),
+                        new ChartPoint(Month.Feb, 90),
+                        new ChartPoint(Month.Mar, 100),
+                        new ChartPoint(Month.Apr, 110),
+                        new ChartPoint(Month.May, 130),
+                        new ChartPoint(Month.Jun, 125),
+                        new ChartPoint(Month.Jul, 150),
+                        new ChartPoint(Month.Aug, 145),
+                        new ChartPoint(Month.Sep, 180),
+                        new ChartPoint(Month.Oct, 175),
+                        new ChartPoint(Month.Nov, 200),
+                        new ChartPoint(Month.Dec, 0)
+                    }
                 }
+
             };
             Paint += LinePaint;
         }
@@ -72,21 +95,83 @@ namespace ChartView
         private void LinePaint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             DrawLine(g);
             DrawMonth(g);
             DrawGraph(g);
+            DrawGraphShower(g);
+            DrawValue(g);
+        }
+
+        private void DrawValue(Graphics g)
+        {
+            if (isMouseMoving)
+            {
+                GetHoveredMonth();
+                
+                if (selectedMonth==Month.None)
+                {
+                    return;
+                }
+
+
+                foreach(var ls in list)
+                {
+                    for(int i = 0; i < ls.Points.Count; i++)
+                    {
+                        if (selectedMonth == ls.Points[i].Month)
+                        {
+                            using(Font font=new Font("Arial",9,FontStyle.Bold))
+                            using(Brush brush=new SolidBrush(ls.LineColor))
+                            {
+                                SizeF stringSize = g.MeasureString(ls.Points[i].Value.ToString(), font);
+                                g.DrawString(ls.Points[i].Value.ToString(), font, brush, new PointF(monthPoint[selectedMonth],(float)GetY(ls.Points[i].Value)));
+                            }
+                        }
+                    }
+                }
+
+            }
+
+        }
+        Month selectedMonth;
+        private void GetHoveredMonth()
+        {
+            const int tolerance = 5;
+
+            foreach (var item in monthPoint)
+            {
+                if (Math.Abs(item.Value - currentPoint.X+10) <= tolerance)
+                {
+                    selectedMonth = item.Key;
+                    return;
+                }
+            }
+
+            selectedMonth= Month.None;
+        }
+
+        private void DrawGraphShower(Graphics g)
+        {
+            if (isMouseMoving)
+            {
+                using (Pen pen = new Pen(Color.Black, 2))
+                {
+                    g.DrawLine(pen, new Point(currentPoint.X, Height - 30), new Point(currentPoint.X, 0));
+                }
+            }
         }
 
         private void DrawGraph(Graphics g)
         {
 
-            foreach(var ls in list)
+            foreach (var ls in list)
             {
-                for(int i=1;i<ls.Points.Count;i++)
+                for (int i = 1; i < ls.Points.Count; i++)
                 {
-                    using (Pen pen = new Pen(ls.LineColor,2))
+                    using (Pen pen = new Pen(ls.LineColor, 2))
                     {
-                        g.DrawLine(pen, monthPoint[ls.Points[i - 1].Month], (float)GetY(ls.Points[i - 1].Value),monthPoint[ls.Points[i].Month],(float)GetY(ls.Points[i].Value));
+                        g.DrawLine(pen, monthPoint[ls.Points[i - 1].Month]+10, (float)GetY(ls.Points[i - 1].Value), monthPoint[ls.Points[i].Month]+10, (float)GetY(ls.Points[i].Value));
                     }
                 }
             }
@@ -95,8 +180,8 @@ namespace ChartView
 
         private double GetY(double p)
         {
-             double max = list.SelectMany(series => series.Points).Max(point => point.Value);
-            double y = ((p / max) * (Height - 30));
+            double max = list.SelectMany(series => series.Points).Max(point => point.Value);
+            double y = (Height - 30) - ((p / max) * (Height - 30));
             return y;
 
         }
@@ -129,9 +214,37 @@ namespace ChartView
         {
             using (Pen pen = new Pen(Brushes.Black, 2))
             {
-                g.DrawLine(pen, new Point(10, Height - 30), new Point(10, 10));
+                g.DrawLine(pen, new Point(10, Height - 30), new Point(10, 0));
                 g.DrawLine(pen, new Point(10, Height - 30), new Point(Width - 10, Height - 30));
             }
         }
+
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            try
+            {
+                if (e.X > monthPoint[Month.Jan] && e.X < monthPoint[Month.Dec]+10 && e.Y < Height - 30 && e.Y >= 0)
+                {
+                    isMouseMoving = true;
+                    currentPoint = e.Location;
+                    Invalidate();
+                }
+
+                else
+                {
+                    isMouseMoving = false;
+                    Invalidate();
+                }
+            }
+            catch (Exception ee) { }
+        }
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            isMouseMoving = false;
+            Invalidate();
+        }
+
     }
 }
