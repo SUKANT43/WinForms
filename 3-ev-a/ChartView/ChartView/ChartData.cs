@@ -10,9 +10,9 @@ namespace ChartView
     public class ChartData
     {
         public string Name { get; set; }
-        public double Value { get; set; }
+        public float Value { get; set; }
         public Color Color { get; set; }
-        public ChartData(string name, double value, Color color)
+        public ChartData(string name, float value, Color color)
         {
             Name = name;
             Value = value;

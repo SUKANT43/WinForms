@@ -43,59 +43,55 @@ namespace ChartView
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             DrawLine(g);
-            DrawGraph(g);
-        }
-
-        private void DrawGraph(Graphics g)
-        {
             DrawBar(g);
         }
+
 
         private void DrawBar(Graphics g)
         {
             try
             {
-                            int gap = 10;
-            int padding = 10;
+                int gap = 10;
+                int padding = 10;
 
-            int barWidth = ((Width - (padding * 2)) - (gap * (dataList.Count - 1))) / dataList.Count;
-            int currentX = gap+(barWidth/2) ;
+                int barWidth = ((Width - (padding * 2)) - (gap * (dataList.Count - 1))) / dataList.Count;
+                int currentX = gap + (barWidth / 2);
 
-            int maxHeight = Height - 20;
-            double maxValue = dataList.Max(x => x.Value);
+                int maxHeight = Height - 20;
+                double maxValue = dataList.Max(x => x.Value);
 
-            foreach (var ls in dataList)
-            {
-                int barHeight = (int)((ls.Value / maxValue) * maxHeight);
-
-                using (Pen p = new Pen(ls.Color, barWidth))
+                foreach (var ls in dataList)
                 {
-                    g.DrawLine(
-                        p,
-                        new Point(currentX, Height - 10),
-                        new Point(currentX, Height - 10 - barHeight)
-                    );
+                    int barHeight = (int)((ls.Value / maxValue) * maxHeight);
+
+                    using (Pen p = new Pen(ls.Color, barWidth))
+                    {
+                        g.DrawLine(
+                            p,
+                            new Point(currentX, Height - 10),
+                            new Point(currentX, Height - 10 - barHeight)
+                        );
+                    }
+
+                    DrawValue(g, currentX, Height - 10 - barHeight, ls.Value, barWidth);
+
+                    currentX += barWidth + gap;
                 }
 
-                DrawValue(g, currentX, Height - 10 - barHeight, ls.Value,barWidth);
-
-                currentX += barWidth + gap;
             }
-
-            }
-            catch(Exception e)
+            catch (Exception e)
             {
 
             }
         }
 
-        private void DrawValue(Graphics g, int currentX, int currentY,double value,int barWidth)
+        private void DrawValue(Graphics g, int currentX, int currentY, double value, int barWidth)
         {
-            Font font = new Font("Ariel",barWidth/4, FontStyle.Bold);
-            using(Brush brush=new SolidBrush(Color.Black))
+            Font font = new Font("Ariel", barWidth / 4, FontStyle.Bold);
+            using (Brush brush = new SolidBrush(Color.Black))
             {
                 SizeF fontSize = g.MeasureString(value.ToString(), font);
-                g.DrawString(value.ToString(), font, brush, new PointF(currentX - (fontSize.Width / 2), (Height - 20)-(((Height-20)-currentY)/2)));
+                g.DrawString(value.ToString(), font, brush, new PointF(currentX - (fontSize.Width / 2), (Height - 20) - (((Height - 20) - currentY) / 2)));
             }
         }
 

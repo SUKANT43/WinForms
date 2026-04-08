@@ -28,23 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.lineChart1 = new ChartView.LineChart();
             this.chartDataViewer1 = new ChartView.ChartDataViewer();
             this.barChart1 = new ChartView.BarChart();
             this.SuspendLayout();
             // 
+            // lineChart1
+            // 
+            this.lineChart1.Location = new System.Drawing.Point(363, 194);
+            this.lineChart1.Name = "lineChart1";
+            this.lineChart1.Size = new System.Drawing.Size(414, 244);
+            this.lineChart1.TabIndex = 2;
+            this.lineChart1.Text = "lineChart1";
+            // 
             // chartDataViewer1
             // 
-            this.chartDataViewer1.Location = new System.Drawing.Point(497, 181);
+            this.chartDataViewer1.Location = new System.Drawing.Point(198, 37);
             this.chartDataViewer1.Name = "chartDataViewer1";
-            this.chartDataViewer1.Size = new System.Drawing.Size(186, 257);
+            this.chartDataViewer1.Size = new System.Drawing.Size(140, 172);
             this.chartDataViewer1.TabIndex = 1;
             this.chartDataViewer1.Text = "chartDataViewer1";
             // 
             // barChart1
             // 
-            this.barChart1.Location = new System.Drawing.Point(56, 149);
+            this.barChart1.Location = new System.Drawing.Point(11, 37);
             this.barChart1.Name = "barChart1";
-            this.barChart1.Size = new System.Drawing.Size(410, 289);
+            this.barChart1.Size = new System.Drawing.Size(181, 172);
             this.barChart1.TabIndex = 0;
             this.barChart1.Text = "barChart1";
             // 
@@ -52,7 +61,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(926, 450);
+            this.Controls.Add(this.lineChart1);
             this.Controls.Add(this.chartDataViewer1);
             this.Controls.Add(this.barChart1);
             this.Name = "Form1";
@@ -65,5 +75,6 @@
 
         private BarChart barChart1;
         private ChartDataViewer chartDataViewer1;
+        private LineChart lineChart1;
     }
 }
