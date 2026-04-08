@@ -35,7 +35,7 @@
             // 
             // lineChart1
             // 
-            this.lineChart1.Location = new System.Drawing.Point(475, 180);
+            this.lineChart1.Location = new System.Drawing.Point(536, 151);
             this.lineChart1.Name = "lineChart1";
             this.lineChart1.Size = new System.Drawing.Size(332, 239);
             this.lineChart1.TabIndex = 2;

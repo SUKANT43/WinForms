@@ -125,7 +125,11 @@ namespace ChartView
                             using(Brush brush=new SolidBrush(ls.LineColor))
                             {
                                 SizeF stringSize = g.MeasureString(ls.Points[i].Value.ToString(), font);
-                                g.DrawString(ls.Points[i].Value.ToString(), font, brush, new PointF(monthPoint[selectedMonth],(float)GetY(ls.Points[i].Value)));
+
+                                if ((float)GetY(ls.Points[i].Value) > currentPoint.Y)
+                                {
+                                    g.DrawString(ls.Points[i].Value.ToString(), font, brush, new PointF(monthPoint[selectedMonth], (float)GetY(ls.Points[i].Value)));
+                                }
                             }
                         }
                     }
@@ -155,9 +159,11 @@ namespace ChartView
         {
             if (isMouseMoving)
             {
-                using (Pen pen = new Pen(Color.Black, 2))
+                using (Pen pen = new Pen(Color.Gray, 2))
                 {
-                    g.DrawLine(pen, new Point(currentPoint.X, Height - 30), new Point(currentPoint.X, 0));
+                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDotDot;
+                    g.DrawLine(pen, new Point(currentPoint.X, Height - 30), new Point(currentPoint.X, currentPoint.Y));
+                    g.DrawLine(pen, new Point(10, currentPoint.Y), new Point(currentPoint.X, currentPoint.Y));
                 }
             }
         }
