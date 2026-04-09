@@ -63,6 +63,9 @@
     </Compile>
     <Compile Include="LineChartData.cs" />
     <Compile Include="Month.cs" />
+    <Compile Include="PieChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -16,7 +16,7 @@ namespace ChartView
         {
             Name = name;
             Value = value;
-            Color = color;
+            Color = color; 
         }
 
     }

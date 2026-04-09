@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace ChartView
         Dictionary<Month, float> monthPoint;
         bool isMouseMoving;
         Point currentPoint;
+        double max;
         public LineChart()
         {
             DoubleBuffered = true;
@@ -78,11 +80,13 @@ namespace ChartView
                         new ChartPoint(Month.Sep, 180),
                         new ChartPoint(Month.Oct, 175),
                         new ChartPoint(Month.Nov, 200),
-                        new ChartPoint(Month.Dec, 0)
+                        new ChartPoint(Month.Dec,300 )
                     }
                 }
 
             };
+            max = list.SelectMany(series => series.Points).Max(point => point.Value);
+
             Paint += LinePaint;
         }
 
@@ -108,25 +112,25 @@ namespace ChartView
             if (isMouseMoving)
             {
                 GetHoveredMonth();
-                
-                if (selectedMonth==Month.None)
+
+                if (selectedMonth == Month.None)
                 {
                     return;
                 }
 
 
-                foreach(var ls in list)
+                foreach (var ls in list)
                 {
-                    for(int i = 0; i < ls.Points.Count; i++)
+                    for (int i = 0; i < ls.Points.Count; i++)
                     {
                         if (selectedMonth == ls.Points[i].Month)
                         {
-                            using(Font font=new Font("Arial",9,FontStyle.Bold))
-                            using(Brush brush=new SolidBrush(ls.LineColor))
+                            using (Font font = new Font("Arial", 9, FontStyle.Bold))
+                            using (Brush brush = new SolidBrush(ls.LineColor))
                             {
                                 SizeF stringSize = g.MeasureString(ls.Points[i].Value.ToString(), font);
 
-                                if ((float)GetY(ls.Points[i].Value) > currentPoint.Y)
+                                if ((float)GetY(ls.Points[i].Value) > currentPoint.Y - 5)
                                 {
                                     g.DrawString(ls.Points[i].Value.ToString(), font, brush, new PointF(monthPoint[selectedMonth], (float)GetY(ls.Points[i].Value)));
                                 }
@@ -145,14 +149,14 @@ namespace ChartView
 
             foreach (var item in monthPoint)
             {
-                if (Math.Abs(item.Value - currentPoint.X+10) <= tolerance)
+                if (Math.Abs(item.Value - currentPoint.X + 10) <= tolerance)
                 {
                     selectedMonth = item.Key;
                     return;
                 }
             }
 
-            selectedMonth= Month.None;
+            selectedMonth = Month.None;
         }
 
         private void DrawGraphShower(Graphics g)
@@ -170,23 +174,22 @@ namespace ChartView
 
         private void DrawGraph(Graphics g)
         {
-
             foreach (var ls in list)
             {
                 for (int i = 1; i < ls.Points.Count; i++)
                 {
                     using (Pen pen = new Pen(ls.LineColor, 2))
                     {
-                        g.DrawLine(pen, monthPoint[ls.Points[i - 1].Month]+10, (float)GetY(ls.Points[i - 1].Value), monthPoint[ls.Points[i].Month]+10, (float)GetY(ls.Points[i].Value));
+                        g.DrawLine(pen, monthPoint[ls.Points[i - 1].Month] + 10, (float)GetY(ls.Points[i - 1].Value), monthPoint[ls.Points[i].Month] + 10, (float)GetY(ls.Points[i].Value));
                     }
                 }
             }
 
         }
 
+       
         private double GetY(double p)
         {
-            double max = list.SelectMany(series => series.Points).Max(point => point.Value);
             double y = (Height - 30) - ((p / max) * (Height - 30));
             return y;
 
@@ -231,7 +234,7 @@ namespace ChartView
             base.OnMouseMove(e);
             try
             {
-                if (e.X > monthPoint[Month.Jan] && e.X < monthPoint[Month.Dec]+10 && e.Y < Height - 30 && e.Y >= 0)
+                if (e.X > monthPoint[Month.Jan] && e.X < monthPoint[Month.Dec] + 10 && e.Y < Height - 30 && e.Y >= 0)
                 {
                     isMouseMoving = true;
                     currentPoint = e.Location;
@@ -244,7 +247,11 @@ namespace ChartView
                     Invalidate();
                 }
             }
-            catch (Exception ee) { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+            }
         }
         protected override void OnMouseLeave(EventArgs e)
         {
