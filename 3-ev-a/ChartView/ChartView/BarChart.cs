@@ -57,6 +57,7 @@ namespace ChartView
                 int barWidth = ((Width - (padding * 2)) - (gap * (dataList.Count - 1))) / dataList.Count;
                 int currentX = gap + (barWidth / 2);
 
+
                 int maxHeight = Height - 20;
                 double maxValue = dataList.Max(x => x.Value);
 

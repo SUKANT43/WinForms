@@ -36,33 +36,33 @@
             // 
             // pieChart1
             // 
-            this.pieChart1.Location = new System.Drawing.Point(1275, 104);
+            this.pieChart1.Location = new System.Drawing.Point(-3, 18);
             this.pieChart1.Name = "pieChart1";
-            this.pieChart1.Size = new System.Drawing.Size(224, 197);
+            this.pieChart1.Size = new System.Drawing.Size(378, 314);
             this.pieChart1.TabIndex = 3;
             this.pieChart1.Text = "pieChart1";
             // 
             // lineChart1
             // 
-            this.lineChart1.Location = new System.Drawing.Point(816, 72);
+            this.lineChart1.Location = new System.Drawing.Point(953, 70);
             this.lineChart1.Name = "lineChart1";
-            this.lineChart1.Size = new System.Drawing.Size(352, 181);
+            this.lineChart1.Size = new System.Drawing.Size(476, 178);
             this.lineChart1.TabIndex = 2;
             this.lineChart1.Text = "lineChart1";
             // 
             // chartDataViewer1
             // 
-            this.chartDataViewer1.Location = new System.Drawing.Point(466, 226);
+            this.chartDataViewer1.Location = new System.Drawing.Point(1094, 272);
             this.chartDataViewer1.Name = "chartDataViewer1";
-            this.chartDataViewer1.Size = new System.Drawing.Size(59, 69);
+            this.chartDataViewer1.Size = new System.Drawing.Size(210, 166);
             this.chartDataViewer1.TabIndex = 1;
             this.chartDataViewer1.Text = "chartDataViewer1";
             // 
             // barChart1
             // 
-            this.barChart1.Location = new System.Drawing.Point(359, 104);
+            this.barChart1.Location = new System.Drawing.Point(432, 56);
             this.barChart1.Name = "barChart1";
-            this.barChart1.Size = new System.Drawing.Size(186, 87);
+            this.barChart1.Size = new System.Drawing.Size(492, 293);
             this.barChart1.TabIndex = 0;
             this.barChart1.Text = "barChart1";
             // 

@@ -50,7 +50,7 @@ namespace ChartView
                     Points = new List<ChartPoint>
                     {
                         new ChartPoint(Month.Jan, 80),
-                        new ChartPoint(Month.Feb, 90),
+                        new ChartPoint(Month.Feb, 300),
                         new ChartPoint(Month.Mar, 100),
                         new ChartPoint(Month.Apr, 110),
                         new ChartPoint(Month.May, 105),
@@ -60,7 +60,9 @@ namespace ChartView
                         new ChartPoint(Month.Sep, 140),
                         new ChartPoint(Month.Oct, 155),
                         new ChartPoint(Month.Nov, 170),
-                        new ChartPoint(Month.Dec, 190)
+                        new ChartPoint(Month.Dec, 190),
+                        //new ChartPoint(Month.Jan, 300),
+
                     }
                 },
                 new LineSeries
