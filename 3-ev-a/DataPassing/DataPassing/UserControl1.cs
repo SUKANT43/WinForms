@@ -23,7 +23,6 @@ namespace DataPassing
         }
 
 
-
         public UserControl1()
         {
             txtController = new TextBox();

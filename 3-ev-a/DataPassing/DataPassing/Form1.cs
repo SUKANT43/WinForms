@@ -15,9 +15,10 @@ namespace DataPassing
         private TextBox txtForm;
         private UserControl1 us;
         private bool isUpdating = false;
-
-        public Form1()
+        Form2 f2;
+        public Form1(Form2 form2)
         {
+            f2 = form2;
             txtForm = new TextBox
             {
                 Dock = DockStyle.Top
@@ -47,6 +48,11 @@ namespace DataPassing
 
 
             InitializeComponent();
+        }
+
+        private void Button1Click(object sender, EventArgs e)
+        {
+            f2.ShowDialog();
         }
     }
 }
