@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.topPanel = new System.Windows.Forms.Panel();
-            this.welcomeLabel = new System.Windows.Forms.Label();
             this.quoteLabel = new System.Windows.Forms.Label();
+            this.welcomeLabel = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
@@ -44,16 +44,6 @@
             this.topPanel.Size = new System.Drawing.Size(241, 82);
             this.topPanel.TabIndex = 0;
             // 
-            // welcomeLabel
-            // 
-            this.welcomeLabel.AutoSize = true;
-            this.welcomeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
-            this.welcomeLabel.Location = new System.Drawing.Point(20, 12);
-            this.welcomeLabel.Name = "welcomeLabel";
-            this.welcomeLabel.Size = new System.Drawing.Size(206, 31);
-            this.welcomeLabel.TabIndex = 0;
-            this.welcomeLabel.Text = "Welcome Back";
-            // 
             // quoteLabel
             // 
             this.quoteLabel.AutoSize = true;
@@ -64,6 +54,16 @@
             this.quoteLabel.Size = new System.Drawing.Size(203, 17);
             this.quoteLabel.TabIndex = 1;
             this.quoteLabel.Text = "Continue your financial journey";
+            // 
+            // welcomeLabel
+            // 
+            this.welcomeLabel.AutoSize = true;
+            this.welcomeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
+            this.welcomeLabel.Location = new System.Drawing.Point(20, 12);
+            this.welcomeLabel.Name = "welcomeLabel";
+            this.welcomeLabel.Size = new System.Drawing.Size(206, 31);
+            this.welcomeLabel.TabIndex = 0;
+            this.welcomeLabel.Text = "Welcome Back";
             // 
             // mainPanel
             // 

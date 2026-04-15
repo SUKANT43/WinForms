@@ -18,6 +18,7 @@ namespace BackGroundWorkerConsole
             {
                 for (int i = 0; i <= 100; i++)
                 {
+                    Thread.Sleep(50);
                     worker.ReportProgress(i);
                 }
             };
