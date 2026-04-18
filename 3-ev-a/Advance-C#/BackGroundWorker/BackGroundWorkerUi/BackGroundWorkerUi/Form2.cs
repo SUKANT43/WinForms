@@ -46,7 +46,10 @@ namespace BackGroundWorkerUi
 
         private void UpdateProgress(object sender, ProgressChangedEventArgs e)
         {
-
+            if (worker.CancellationPending)
+            {
+                return;
+            }
             progressBar1.Value = e.ProgressPercentage + 1;
             label1.Text = $"{e.ProgressPercentage + 1}/{fakeData.Count()}";
             FakeData data = fakeData[e.ProgressPercentage];
@@ -68,7 +71,6 @@ namespace BackGroundWorkerUi
                     worker.ReportProgress(i);
                 }
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
