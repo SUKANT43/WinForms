@@ -13,4 +13,13 @@ namespace CrudWinforms
         Crud,
         Analytics
     }
+
+    public enum ControllerType
+    {
+        LoginController,
+        SignUpController,
+        CrudController,
+        AnalyticsController
+    }
+
 }

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 15 for Windows Desktop
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sender", "Sender\Sender.csproj", "{F5942F41-588C-44EF-8653-B53A69F8A204}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderConsole", "SenderConsole\SenderConsole.csproj", "{F061EF5F-429E-4ECE-A468-85029384FE59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5942F41-588C-44EF-8653-B53A69F8A204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5942F41-588C-44EF-8653-B53A69F8A204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5942F41-588C-44EF-8653-B53A69F8A204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5942F41-588C-44EF-8653-B53A69F8A204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F061EF5F-429E-4ECE-A468-85029384FE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F061EF5F-429E-4ECE-A468-85029384FE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F061EF5F-429E-4ECE-A468-85029384FE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F061EF5F-429E-4ECE-A468-85029384FE59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {065EAEB4-FC55-4490-B9D3-A6BD4DAD2D9C}
+	EndGlobalSection
+EndGlobal
