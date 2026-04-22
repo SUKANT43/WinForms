@@ -52,7 +52,7 @@ namespace DataPanel
             {
                 if (string.IsNullOrWhiteSpace(txtInput.Text)) return;
 
-                list.Add(new UserData
+                list.Insert(0,new UserData
                 {
                     Description = txtInput.Text,
                     Date = dtPicker.Value
