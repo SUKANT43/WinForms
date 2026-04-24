@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfCrud.ViewModel;
 
-namespace WpfCrud
+namespace WpfCrud.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CrudPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CrudPage : UserControl
     {
-        public MainWindow()
+        public CrudPage()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }

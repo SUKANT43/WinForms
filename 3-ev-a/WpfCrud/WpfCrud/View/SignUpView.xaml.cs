@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfCrud.ViewModel;
 
-namespace WpfCrud
+namespace WpfCrud.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SignUpView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SignUpView : UserControl
     {
-        public MainWindow()
+        public SignUpView()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }

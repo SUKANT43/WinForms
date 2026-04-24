@@ -12,19 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfCrud.ViewModel;
 
-namespace WpfCrud
+namespace WpfCrud.Component
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TopBarComponen.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TopBarComponent : UserControl
     {
-        public MainWindow()
+        public TopBarComponent()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
+
+        bool isDarkMode = false;
+
     }
 }

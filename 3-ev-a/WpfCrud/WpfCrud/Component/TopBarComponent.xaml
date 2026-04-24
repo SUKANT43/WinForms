@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="WpfCrud.Component.TopBarComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="60">
+
+    <Grid Background="#1e293b" Height="60">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- CRUD -->
+        <Button Content="CRUD"
+                Command="{Binding NavigateCrudCommand}"
+                Margin="10"
+                Padding="10,5"
+                Background="#334155"
+                Foreground="White"/>
+
+        <!-- Analytics -->
+        <Button Content="Analytics"
+                Grid.Column="1"
+                Command="{Binding NavigateAnalyticsCommand}"
+                Margin="10"
+                Padding="10,5"
+                Background="#334155"
+                Foreground="White"/>
+
+        <!-- Theme -->
+        <Button Grid.Column="2"
+                Command="{Binding ToggleThemeCommand}"
+                Background="Transparent"
+                Margin="10">
+
+            <TextBlock Text="{Binding ThemeIcon}" FontSize="18"/>
+        </Button>
+    </Grid>
+</UserControl>
