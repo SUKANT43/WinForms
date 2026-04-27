@@ -72,7 +72,9 @@ namespace UnNammed.ViewModel
 
         private void CreateUser()
         {
-            if (dc.IsTableExist("users")==false)
+            var tableCheck = dc.IsTableExist("users");
+
+            if (!tableCheck)
             {
                 dc.CreateTable("users", new ColumnDetails[] {
                 new ColumnDetails("Id")
