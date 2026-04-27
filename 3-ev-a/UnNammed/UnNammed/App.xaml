@@ -1,0 +1,19 @@
+﻿<Application x:Class="UnNammed.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:UnNammed"
+             xmlns:vm="clr-namespace:UnNammed.ViewModel"
+             xmlns:v="clr-namespace:UnNammed.View"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        
+        <ResourceDictionary>
+            
+            <DataTemplate DataType="{x:Type vm:SignUpViewModel}">
+                <v:SignUpView/>
+            </DataTemplate>
+            
+        </ResourceDictionary>
+        
+    </Application.Resources>
+</Application>
