@@ -84,6 +84,11 @@ namespace BackGroundWorkerUi
                 MessageBox.Show("Worke in progress");
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            worker.CancelAsync();
+        }
     }
 
     public class FakeData

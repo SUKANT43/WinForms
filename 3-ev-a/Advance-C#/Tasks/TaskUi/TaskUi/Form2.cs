@@ -35,6 +35,8 @@ namespace TaskUi
             cts?.Cancel();
         }
 
+        
+
         private async void button1_Click(object sender, EventArgs e)
         {
             if (cts != null)
@@ -86,6 +88,11 @@ namespace TaskUi
                     data.Designation
                 );
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            cts?.Cancel();
         }
     }
 

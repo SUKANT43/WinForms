@@ -18,7 +18,7 @@ namespace BackGroundWorkerConsole
             {
                 for (int i = 0; i <= 100; i++)
                 {
-                    Thread.Sleep(50);
+                    Thread.Sleep(1);
                     worker.ReportProgress(i);
                 }
             };
@@ -33,7 +33,7 @@ namespace BackGroundWorkerConsole
                 Console.WriteLine("Work completed");
             };
 
-
+            Console.WriteLine(workerThreads);
             // worker.WorkerSupportsCancellation = true;
             // worker.DoWork += (s, e) =>
             // {
@@ -55,7 +55,7 @@ namespace BackGroundWorkerConsole
 
             // worker.RunWorkerAsync();
             //worker.CancelAsync();
-             Console.ReadLine();
+            Console.ReadLine();
 
         }
     }
