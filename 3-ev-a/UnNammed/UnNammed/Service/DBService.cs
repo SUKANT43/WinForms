@@ -68,5 +68,30 @@ namespace UnNammed.Service
             return DatabaseCommunicator.CreateTable(name, columns);
         }
 
+        public BooleanMsg AddColumn(string tableName, params ColumnDetails[] column)
+        {
+            var init = InitializeDB();
+            if (!init)
+                return false;
+
+            return DatabaseCommunicator.AddColumn(tableName, column);
+        }
+
+        public BooleanMsg<long> InsertData(string tableName, List<object[]> rowValues)
+        {
+            var init = InitializeDB();
+            if (!init)
+                return false;
+            return DatabaseCommunicator.InsertData(tableName, rowValues);
+        }
+
+        public BooleanMsg<int> DeleteData(string tableName,string condition,int limit=0,string orderBy = "")
+        {
+            var init = InitializeDB();
+            if (!init)
+                return false;
+            return DatabaseCommunicator.DeleteData(tableName, condition, limit, orderBy);
+        }
+
     }
 }

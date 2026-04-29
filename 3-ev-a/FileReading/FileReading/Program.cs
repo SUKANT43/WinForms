@@ -74,7 +74,7 @@ namespace FileReading
             string[] files = new string[]
             {
                 "txt0.txt","txt1.txt","txt2.txt","txt3.txt","txt4.txt",
-                "txt5.txt","txt6.txt","txt7.txt","txt8.txt","txt9.txt"
+                "txt5.txt","txt6.txt","txt7.txt","txt8.txt",""
             };
 
             string folderPath = @"C:\Users\SEZ-A4\Desktop\fileReading\";
@@ -82,26 +82,33 @@ namespace FileReading
 
             int totalCount = 0;
             object lockObj = new object();
-
-            Parallel.For(0, files.Length, i =>
+            try
             {
-                string content = File.ReadAllText(folderPath + files[i]);
-
-                string[] words = content.Split(
-                    new char[] { ' ', '\t', '\n', '\r' },
-                    StringSplitOptions.RemoveEmptyEntries
-                );
-
-                int localCount = words.AsParallel().Count(w => w.Equals(targetWord));
-
-                // Thread-safe update
-                lock (lockObj)
+                Parallel.For(0, files.Length, i =>
                 {
-                    totalCount += localCount;
-                }
+                    string content = File.ReadAllText(folderPath + files[i]);
 
-                Console.WriteLine($"File {i} processed");
-            });
+                    string[] words = content.Split(
+                        new char[] { ' ', '\t', '\n', '\r' },
+                        StringSplitOptions.RemoveEmptyEntries
+                    );
+
+                    int localCount = words.AsParallel().Count(w => w.Equals(targetWord));
+
+                    // Thread-safe update
+                    lock (lockObj)
+                    {
+                        totalCount += localCount;
+                    }
+
+                    Console.WriteLine($"File {i} processed");
+                });
+            }
+            catch(Exception e) { }
+            finally
+            {
+                Console.WriteLine("process finished");
+            }
 
             st.Stop();
 
