@@ -123,19 +123,48 @@ namespace ThreadsConsole
 
 
             //
-            Thread t1 = new Thread(InCrementSafe);
-            Thread t2 = new Thread(InCrementSafe);
-            Thread t3 = new Thread(InCrementSafe);
+            //Thread t1 = new Thread(InCrementSafe);
+            //Thread t2 = new Thread(InCrementSafe);
+            //Thread t3 = new Thread(InCrementSafe);
 
-            t1.Start();
-            t2.Start();
-            t3.Start();
+            //t1.Start();
+            //t2.Start();
+            //t3.Start();
 
-            t1.Join();
-            t2.Join();
-            t3.Join();
+            //t1.Join();
+            //t2.Join();
+            //t3.Join();
 
-            Console.WriteLine($"Final Counter: {counter}");
+            //Console.WriteLine($"Final Counter: {counter}");
+
+            object obj1 = new object();
+            object obj2 = new object();
+
+            Parallel.For(0, 100, i =>
+            {
+                if (i % 2 == 0)
+                {
+                    lock (obj1)
+                    {
+                        Thread.Sleep(10); // increase chance
+                        lock (obj2)
+                        {
+                            Console.WriteLine($"Even {i}");
+                        }
+                    }
+                }
+                else
+                {
+                    lock (obj2)
+                    {
+                        Thread.Sleep(10); // increase chance
+                        lock (obj1)
+                        {
+                            Console.WriteLine($"Odd {i}");
+                        }
+                    }
+                }
+            });
 
             Console.ReadLine();
         }

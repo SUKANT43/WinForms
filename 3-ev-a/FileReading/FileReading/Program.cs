@@ -68,52 +68,57 @@ namespace FileReading
     {
         static void Main(string[] args)
         {
-            Stopwatch st = new Stopwatch();
-            st.Start();
+            //Stopwatch st = new Stopwatch();
+            //st.Start();
 
-            string[] files = new string[]
+            //string[] files = new string[]
+            //{
+            //    "txt0.txt","txt1.txt","txt2.txt","txt3.txt","txt4.txt",
+            //    "txt5.txt","txt6.txt","txt7.txt","txt8.txt",""
+            //};
+
+            //string folderPath = @"C:\Users\SEZ-A4\Desktop\fileReading\";
+            //string targetWord = "last";
+
+            //int totalCount = 0;
+            //object lockObj = new object();
+            //try
+            //{
+            //    Parallel.For(0, files.Length, i =>
+            //    {
+            //        string content = File.ReadAllText(folderPath + files[i]);
+
+            //        string[] words = content.Split(
+            //            new char[] { ' ', '\t', '\n', '\r' },
+            //            StringSplitOptions.RemoveEmptyEntries
+            //        );
+
+            //        int localCount = words.AsParallel().Count(w => w.Equals(targetWord));
+
+            //        // Thread-safe update
+            //        lock (lockObj)
+            //        {
+            //            totalCount += localCount;
+            //        }
+
+            //        Console.WriteLine($"File {i} processed");
+            //    });
+            //}
+            //catch(Exception e) { }
+            //finally
+            //{
+            //    Console.WriteLine("process finished");
+            //}
+
+            //st.Stop();
+
+            //Console.WriteLine($"Total Count: {totalCount}");
+            //Console.WriteLine($"Time: {st.Elapsed}");
+
+            for(int i = 1; i <= 10; i++)
             {
-                "txt0.txt","txt1.txt","txt2.txt","txt3.txt","txt4.txt",
-                "txt5.txt","txt6.txt","txt7.txt","txt8.txt",""
-            };
-
-            string folderPath = @"C:\Users\SEZ-A4\Desktop\fileReading\";
-            string targetWord = "last";
-
-            int totalCount = 0;
-            object lockObj = new object();
-            try
-            {
-                Parallel.For(0, files.Length, i =>
-                {
-                    string content = File.ReadAllText(folderPath + files[i]);
-
-                    string[] words = content.Split(
-                        new char[] { ' ', '\t', '\n', '\r' },
-                        StringSplitOptions.RemoveEmptyEntries
-                    );
-
-                    int localCount = words.AsParallel().Count(w => w.Equals(targetWord));
-
-                    // Thread-safe update
-                    lock (lockObj)
-                    {
-                        totalCount += localCount;
-                    }
-
-                    Console.WriteLine($"File {i} processed");
-                });
+                Console.WriteLine(Guid.NewGuid());
             }
-            catch(Exception e) { }
-            finally
-            {
-                Console.WriteLine("process finished");
-            }
-
-            st.Stop();
-
-            Console.WriteLine($"Total Count: {totalCount}");
-            Console.WriteLine($"Time: {st.Elapsed}");
 
             Console.ReadLine();
         }

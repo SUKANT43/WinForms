@@ -35,7 +35,7 @@ namespace TaskUi
             cts?.Cancel();
         }
 
-        
+
 
         private async void button1_Click(object sender, EventArgs e)
         {
@@ -141,9 +141,10 @@ namespace TaskUi
                     Designation = designations[random.Next(designations.Length)]
                 });
             }
-
             return list;
         }
+
+
     }
 
 }
